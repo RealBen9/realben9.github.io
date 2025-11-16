@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menuretro"
+  },
+  "data": [
+    {
+      "string": "retroLabel",
+      "langOverride": "menu_root",
+      "type": "header"
+    },
+    {
+      "string": "consoleLabel",
+      "stringDesc": "consoleDescription",
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/retro"
+    },
+    {
+      "fixedText": true,
+      "label": "Fall",
+      "description": "Build carefully with gradually increasing gravity and no move or rotation resets",
+      "action": "submenu",
+      "submenu": "mode/fall"
+    },
+    {
+      "string": "handheldLabel",
+      "stringDesc": "handheldDescription",
+      "action": "submenu",
+      "submenu": "mode/handheld"
+    },
+    {
+      "string": "deluxeLabel",
+      "stringDesc": "deluxeDescription",
+      "action": "submenu",
+      "submenu": "mode/deluxe"
+    }
+  ]
+}

@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <title>KTaNE - RealBen9 v1</title>
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="css/timwi-norm.css">
+	<link rel="stylesheet" type="text/css" href="css/off-norm.css">
+    <link rel="stylesheet" type="text/css" href="css/timwi-main.css">
+	<link rel="stylesheet" type="text/css" href="css/off-main.css">
+    <script src="js/ktane-utils.js"></script><script src="js/jquery.3.1.1.min.js"></script>
+    <style>
+		line-height:1.25;
+        table.the-button { width: 100%; }
+        table.the-button td { text-align: center; }
+        span.colored { border-bottom: 2px solid; }
+        span.blue { border-color: blue; }
+        span.red { border-color: red; }
+        span.yellow { border-color: #aa0; }
+        ul.strip { font-size: 20pt; }
+	@font-face { url:('fonts/SpecialElite-webfont.woff') format('woff') }
+	
+        table.whos-on-first {
+            clear: both;
+            font-size: 10pt;
+            border: none;
+        }
+		
+        table.whos-on-first > tbody > tr > td, table.whos-on-first > tbody > tr > th { border: none; }
+		
+        table.whos-on-first th, table.whos-on-first td {
+            text-align: left;
+            vertical-align: top;
+            padding: .2em .5em 0;
+        }
+		
+        table.whos-on-first-step-1 td, table.whos-on-first-step-1 th { white-space: nowrap; }
+		
+        table.whos-on-first-step-2 { font-size: 9pt; }
+		td, th { padding: .18em .6em 0; }
+		
+		table.double-oh td {
+			height: 29px;
+			width: 29px;
+			text-align: center;
+		}
+		table.double-oh tr:nth-child(3n) td {border-bottom: 1.5mm solid;}
+		table.double-oh td:nth-child(3n) {border-right: 1.5mm solid;}
+		
+		
+        svg#redArrows.maze {
+            width: 150mm;
+            height: 150mm;
+            display: block;
+            margin: auto;
+        }
+        svg#redArrows.maze path {
+            fill: none;
+            stroke: #000;
+            stroke-width: 13;
+        }
+        svg#redArrows.maze text {
+            font-weight: bold;
+            font-size: 50px;
+            fill: #222;
+        }
+        .dark svg#redArrows.maze path { stroke: #DDD; }
+        .dark svg#redArrows.maze text { fill: #DDD; }
+		
+		table.simon-screams, table.simon-screams table {
+			border: none;
+		}
+		table.simon-screams td.corner, table.simon-screams th.corner {
+			border: none;
+		}
+		table.simon-screams td {
+			text-align: center;
+		}
+		table.simon-screams th {
+			text-align: right;
+		}
+		table.simon-screams th.little {
+			text-align: left;
+		}
+		table.simon-screams tr.top > th {
+			text-align: center;
+			vertical-align: bottom;
+		}
+		table.simon-screams tr.top > th > p {
+			margin: .25em;
+		}
+		table.simon-screams tr.rotated > th {
+			position: relative;
+			text-align: left;
+			height: 4em;
+		}
+		table.simon-screams tr.rotated > th > span.text {
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			transform: translate(-50%, -50%) rotate(-50deg);
+			transform-origin: center center;
+			text-align: center;
+			line-height: 1.25;
+		}
+		table.simon-screams-small td, table.simon-screams-small th {
+			white-space: nowrap;
+		}
+        .first { font-weight: bold; }
+        .last { text-decoration: underline; }
+        .paragraph {
+            display: block;
+            position: relative;
+            padding-left: 2.25em;
+            margin: 0.5em 0 1em;
+        }
+        .border {
+            writing-mode: vertical-rl;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2em;
+            bottom: 0;
+            line-height: 1em;
+            font-size: smaller;
+            padding-top: 0.5em;
+            padding-right: 0.2em;
+        }
+        .border svg {
+            height: 4em;
+            border: 1px solid;
+        }
+
+        .word {
+            position: relative;
+            padding: 0.05cm .05cm;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .word .num {
+                position: absolute;
+                bottom: .5cm;
+                left: 50%;
+                transform: translate(-50%, 0);
+                font-family: 'Work Sans Light', sans-serif;
+                font-size: 7pt;
+            }
+
+        div.k .num {
+            color: grey;
+            }
+
+        div.r .num {
+            color: red;
+            }
+
+        div.b .num {
+            color: blue;
+            }
+        .dark div.b .num {
+            color: #0088FF;
+        }
+
+        div.y .num {
+            color: goldenrod;
+            }
+
+        div.g .num {
+            color: green;
+            }
+    </style></head>
+<body class="multipage">
+	<div class="section">
+    <div id="TitlePage" class="page section-title page-bg-01">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Cover</span>
+		</div>
+        <div class="page-content">
+			<img src="img/ktane-logo.png" class="logo" alt="Keep Talking and Nobody Explodes Optimised"><div class="title">
+				<h1>
+					<span>RealBen9's Bomb Defusal Manual</span>
+				</h1>
+			</div>
+			
+			<h2 class="website">www.keeptalkinggame.com</h2>
+			
+				<h2 class="versioning" style="margin:1em auto 0"><span>Version <bdo dir="ltr">1</bdo></span><br>
+				<span class="verification-code">Verification Code: 241</span><br>
+				<span class="verification-code">Module Count: 24+3</span>
+				</h2>
+				<div class="page-footer relative-footer"><span class="gamedisclaimer">Video game companion manual. Find out more at www.keeptalkinggame.com</span></div>
+						
+        </div>
+		<div class="page-footer relative-footer">Page 1 of 35</div>
+    </div>
+    <div class="page section-title page-bg-02">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Introduction</span>
+		</div>
+        <div class="page-content">
+            <div class="vertical-spacer"></div>
+            
+			<div class="intro">
+				<p>Welcome to the dangerous and challenging world of bomb defusing.</p>
+				<p>Study this manual carefully; <em>you are the expert</em>. In these pages you will find everything you need to know to defuse even the most insidious of bombs.<br>And remember — One small oversight and it could all be over!</p>
+			</div>
+        </div>
+				<div class="page-footer relative-footer">Page 2 of 35</div>
+    </div>
+
+    <div id="DefusingBombs" class="page page-bg-03">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Defusing Bombs</span>
+		</div>
+        <div class="page-content">
+            <h1>Defusing Bombs</h1>
+            
+			<p>A bomb will explode when its countdown timer reaches 0:00 or when too many strikes have been recorded. The only way to defuse a bomb is to disarm all of its modules before its countdown timer expires.</p>
+			
+			<div class="bomb-diagram">
+				<span class="diagram-label">Example Bomb</span><br><table><tbody><tr><td><img src="img/Bomb.svg" class="bomb-diagram-front"><br><span>Front</span></td><td><img src="img/BombSide.svg" class="bomb-diagram-side"><br><span>Side</span></td></tr></tbody></table></div>
+			
+			<h3>Modules</h3>
+			<p>Each bomb will include up to 11 modules that must be disarmed. Each module is discrete and can be disarmed in any order.</p>
+			<p>Instructions for disarming modules can be found in Section 1. "Needy" modules present a special case and are described in Section 2.</p>
+			
+            
+            <h3>Strikes</h3>
+			<div class="timer-diagram"><span>Strike Indicator</span><br><img src="img/Modules/Timer.svg"></div>
+            <p>When the Defuser makes a mistake, the bomb will record a strike which will be displayed on the indicator above the countdown timer. Bombs with a strike indicator will explode upon the third strike. The timer will begin to count down faster after a strike has been recorded.</p>
+			<p>If no strike indicator is present above the countdown timer, the bomb will explode upon the first strike, leaving no room for error.</p>
+
+			<h3>Gathering Information</h3>
+			<p>Some disarming instructions will require specific information about the bomb, such as the serial number. This type of information can typically be found on the top, bottom, or sides of the bomb casing. See Appendix A, B, and C for identification instructions that will be useful in disarming certain modules.</p>
+        </div>
+				<div class="page-footer relative-footer">Page 3 of 35</div>
+    </div>
+	<div class="page page-bg-04">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title" name-id="0">Section 1 : Modules & Backgrounds [1/2]</span>
+            </div>
+            <div class="page-content">
+			<img src="img/Modules/Component.svg" class="diagram"><div class="new-block-formatting-context" style="text-align:center;">
+				<h1>Section 1 : Modules</h1>
+				<p>Modules can be identified by an LED in the top right corner. When this LED is lit green, the module has been disarmed.</p>
+				<p>All modules must be disarmed to defuse the bomb.</p>
+			</div>
+            <div class="vertical-spacer" style="height:.6em"></div>
+                <img class="diagram" src="img/Modules/Backgrounds.svg">
+                <h2>On the Subject of Backgrounds</h2>
+                <p class="flavour-text">For once you aren’t only focusing on what’s right in front of you. Make sure you pay attention to what’s going on behind the scenes here. We all know how you feel about exploding.</p>
+                <p>This module will present you with a coloured button, a counter, and a submit button. However, the backing may be a certain colour. Based on the colour of the backing and the colour of the button, press the button until the counter matches a certain number and press submit.</p>
+                <h3>Step 1:</h3>
+                <p>Use the rules in Table B to determine your letter pair, finding the first two conditions that apply, using the first letter from the first rule and the second letter from the second rule.</p>
+                <h3>Step 2:</h3>
+                <p>With the letter pair found in Step 1 and Table A, use the first letter along the left and the second letter along the top to find the number of times to press the button before pressing submit. </p>
+
+                <p class="caption">Table A (Step 2) :</p>
+                <table>
+                    <tbody><tr>
+                        <td class="corner"></td>
+                        <td><strong>A</strong></td>
+                        <td><strong>B</strong></td>
+                        <td><strong>C</strong></td>
+                        <td><strong>D</strong></td>
+                        <td><strong>E</strong></td>
+                        <td><strong>F</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>A</strong></td>
+                        <td><div id="background-tbl-0">3</div></td>
+                        <td><div id="background-tbl-1">2</div></td>
+                        <td><div id="background-tbl-2">9</div></td>
+                        <td><div id="background-tbl-3">1</div></td>
+                        <td><div id="background-tbl-4">7</div></td>
+                        <td><div id="background-tbl-5">4</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>B</strong></td>
+                        <td><div id="background-tbl-6">7</div></td>
+                        <td><div id="background-tbl-7">9</div></td>
+                        <td><div id="background-tbl-8">8</div></td>
+                        <td><div id="background-tbl-9">8</div></td>
+                        <td><div id="background-tbl-10">2</div></td>
+                        <td><div id="background-tbl-11">3</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>C</strong></td>
+                        <td><div id="background-tbl-12">5</div></td>
+                        <td><div id="background-tbl-13">1</div></td>
+                        <td><div id="background-tbl-14">7</div></td>
+                        <td><div id="background-tbl-15">4</div></td>
+                        <td><div id="background-tbl-16">4</div></td>
+                        <td><div id="background-tbl-17">6</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>D</strong></td>
+                        <td><div id="background-tbl-18">6</div></td>
+                        <td><div id="background-tbl-19">4</div></td>
+                        <td><div id="background-tbl-20">2</div></td>
+                        <td><div id="background-tbl-21">6</div></td>
+                        <td><div id="background-tbl-22">8</div></td>
+                        <td><div id="background-tbl-23">5</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>E</strong></td>
+                        <td><div id="background-tbl-24">5</div></td>
+                        <td><div id="background-tbl-25">1</div></td>
+                        <td><div id="background-tbl-26">5</div></td>
+                        <td><div id="background-tbl-27">3</div></td>
+                        <td><div id="background-tbl-28">9</div></td>
+                        <td><div id="background-tbl-29">9</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>F</strong></td>
+                        <td><div id="background-tbl-30">1</div></td>
+                        <td><div id="background-tbl-31">2</div></td>
+                        <td><div id="background-tbl-32">3</div></td>
+                        <td><div id="background-tbl-33">6</div></td>
+                        <td><div id="background-tbl-34">7</div></td>
+                        <td><div id="background-tbl-35">8</div></td>
+                    </tr>
+                </tbody></table>
+                <p class="note">(Please note that if you press the button when the counter reads 9, the counter will reset to 0.)</p>
+            </div>
+            <div class="page-footer relative-footer">Page 4 of 35</div>
+        </div>
+		<div class="page page-bg-05">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title" name-id="1">Backgrounds [2/2]</span>
+            </div>
+            <div class="page-content">
+                <p class="caption">Table B (Step 1) : Priority rules</p>
+                <table>
+                    <tbody><tr>
+                        <td><strong>Rule</strong></td>
+                        <td><strong>1st Letter</strong></td>
+                        <td><strong>2nd Letter</strong></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-0">If the colour of the backing matches the colour of the button</td>
+                        <td><div id="background-l-0">A</div></td>
+                        <td><div id="background-r-0">C</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-1">Otherwise, if the button or the backing (but not both) are white or black</td>
+                        <td><div id="background-l-1">D</div></td>
+                        <td><div id="background-r-1">B</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-2">Otherwise, if there are no D batteries present on the bomb*</td>
+                        <td><div id="background-l-2">C</div></td>
+                        <td><div id="background-r-2">E</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-3">Otherwise, if there are no AA batteries present on the bomb</td>
+                        <td><div id="background-l-3">D</div></td>
+                        <td><div id="background-r-3">D</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-4">Otherwise, if the button and the backing are primary colours**</td>
+                        <td><div id="background-l-4">B</div></td>
+                        <td><div id="background-r-4">F</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-5">Otherwise, if the colour of the button is a secondary colour***</td>
+                        <td><div id="background-l-5">F</div></td>
+                        <td><div id="background-r-5">E</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-6">Otherwise, if there is an unlit SND indicator present on the bomb</td>
+                        <td><div id="background-l-6">E</div></td>
+                        <td><div id="background-r-6">B</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-7">Otherwise, if the bomb contains a Serial port</td>
+                        <td><div id="background-l-7">B</div></td>
+                        <td><div id="background-r-7">C</div></td>
+                    </tr>
+                    <tr>
+                        <td id="background-rule-8">Otherwise, if the backing's colour mixed with blue creates the button’s colour****</td>
+                        <td><div id="background-l-8">C</div></td>
+                        <td><div id="background-r-8">D</div></td>
+                    </tr>
+                    <tr>
+                        <td>Otherwise, use this rule (This rule can be used twice)</td>
+                        <td><div id="background-l-9">E</div></td>
+                        <td><div id="background-r-9">A</div></td>
+                    </tr>
+                </tbody></table>
+                <p>
+                    <span id="background-foot-3" class="footnotes">*: D batteries are detected as any battery holder with exactly one battery.</span><br>
+                    <span id="background-foot-0" class="footnotes">**: Primary colours are <font color="red">Red</font>, <font color="orange">Yellow</font>, and <font color="blue">Blue</font></span><br>
+                    <span id="background-foot-1" class="footnotes">***: Secondary colours are <font color="orange">Orange</font>, <font color="green">Green</font>, and <font color="purple">Purple</font></span><br>
+                    <span id="background-foot-2" class="footnotes">****: Mixing <font color="red">Red</font> and <font color="orange">Yellow</font> will make <font color="orange">Orange</font>, <font color="blue">Blue</font> and <font color="orange">Yellow</font> will make <font color="green">Green</font>, and <font color="red">Red</font> and <font color="blue">Blue</font> will make <font color="purple">Purple</font>. Mixing <font color="blue">Blue</font> and <strong>White</strong> will <strong>not</strong> make <font color="blue">Blue</font>.</span>
+                </p>
+            </div>
+            <div class="page-footer relative-footer">Page 5 of 35</div>
+        </div>
+		<div class="page page-bg-06">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Bitwise Operations</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/BitwiseOperations.svg" class="diagram">
+                <h2>On the Subject of Bitwise Operations</h2>
+                <p class="flavour-text">
+                    Nobody’s favorite kind of math. Who even likes math, anyway?
+                </p>
+
+                <ul>
+                    <li>There are 2 screens on the module:
+                        <ol>
+                            <li>Bitwise operator (AND, OR, XOR, NOT)</li>
+                            <li>Result input</li>
+                        </ol>
+                    </li>
+                    <li>Use the two bytes obtained from the tables below, and the operator from the first display, to determine the answer.
+                        In these tables, MSB is the most significant (leftmost) bit, LSB the least significant (rightmost) bit.</li>
+                </ul>
+
+                <table class="bitwise">
+                    <tbody><tr><th class="first">Byte 1                                        </th><th>Bit</th><th class="second">Byte 2                            </th></tr>
+                    <tr><td class="first">No AA batteries                                      </td><td>MSB</td><td class="second">1 or more D battery               </td></tr>
+                    <tr><td class="first">Parallel port                                        </td><td>   </td><td class="second">3 or more ports                   </td></tr>
+                    <tr><td class="first">Lit indicator NSA                                    </td><td>   </td><td class="second">2 battery holders or more         </td></tr>
+                    <tr><td class="first">More modules than you have (starting) time in minutes</td><td>   </td><td class="second">Lit indicator BOB                 </td></tr>
+                    <tr><td class="first">More than one lit indicator                          </td><td>   </td><td class="second">More than one unlit indicator     </td></tr>
+                    <tr><td class="first">Number of modules divisible by 3                     </td><td>   </td><td class="second">Last digit of serial number is odd</td></tr>
+                    <tr><td class="first">Less than 2 D batteries                              </td><td>   </td><td class="second">Even number of modules            </td></tr>
+                    <tr><td class="first">Less than 4 ports                                    </td><td>LSB</td><td class="second">2 or more batteries               </td></tr>
+                </tbody></table>
+
+                <p>Here is a table of explanations of each bitwise operator:</p>
+                <table>
+                    <tbody><tr>
+                        <th>Info</th>
+                        <th>AND</th>
+                        <th>OR</th>
+                        <th>XOR</th>
+                        <th>NOT</th>
+                    </tr>
+                    <tr>
+                        <td>HOW</td>
+                        <td>Going bit by bit, if both bits are 1, the return bit is 1. Otherwise, the return bit is 0.</td>
+                        <td>Going bit by bit, if either (or both) bit is 1, the return bit is 1. Otherwise, the return bit is 0.</td>
+                        <td>Going bit by bit, if either (but not both) bits are 1, the return bit is 1. Otherwise, the return bit is 0.</td>
+                        <td>Ignore the second operand. Going bit by bit, the return bit is the opposite.</td>
+                    </tr>
+                    <tr>
+                        <td>MATH</td>
+                        <td>bit1 &amp;&amp; bit2</td>
+                        <td>bit1 || bit2</td>
+                        <td>(bit1 &amp;&amp; !bit2) || (!bit1 &amp;&amp; bit2)</td>
+                        <td>!bit1</td>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 6 of 35</div>
+        </div>
+            <div class="page page-bg-07">
+                <div class="page-header">
+                    <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                    <span class="page-header-section-title">Broken Buttons</span>
+                </div>
+                <div class="page-content">
+                    <img src="img/Modules/BrokenButtons.svg" class="diagram">
+                    <h2>On the Subject of Broken Buttons</h2>
+                    <p class="flavour-text">How did they get invisible ink to even work like that?</p>
+                    <ul>
+                        <li>A broken buttons module will have 2 submit buttons at the top of it and 12 buttons below them. Depending on the 12 buttons, follow the first rule that applies.</li>
+                        <li>Repeat the rules until it tells you to press the correct submit button, which will defuse the module.</li>
+                        <li>Every time a button is successfully pressed, the button’s text will change.</li>
+                        <li>If the defuser presses an incorrect button, it will give a strike.</li>
+                        <li>By default, the correct submit button is the left one.</li>
+                        <li>After successfully pressing 5 buttons, press the correct submit button.</li>
+                    </ul>
+                    <h3><u><b>Rules:</b></u></h3>
+                    <div>If the defuser sees the word <i>sea</i>, press a button labeled <i>sea</i>.</div>
+                    <div>Otherwise, if any button on the 3rd or 1st row starts with the letter T, press it.</div>
+                    <div>Otherwise, if the word <i>one</i> and <i>submit</i> appear on buttons, the correct submit button will be the first one and press the button labeled <i>one</i>.</div>
+                    <div>Otherwise, if a button is literally blank, press that button.</div>
+                    <div>Otherwise, if the word <i>other</i> is on a button, the correct submit button changes to the other submit button and press the button labeled <i>other</i>.</div>
+                    <div>Otherwise, if there are any duplicate words, click one of the buttons labeled with the duplicate word.</div>
+                    <div>Otherwise, if a port name and the word <i>port</i> or <i>module</i> appear on the buttons, press a button labeled a port name.</div>
+                    <div>Otherwise, if a button has less than 3 characters on it, press that button.</div>
+                    <div>Otherwise, if the words <i>bomb</i> and <i>boom</i> are present, press the one labeled <i>boom</i>.</div>
+                    <div>Otherwise, if the words <i>submit</i> and <i>button</i> appear on buttons, press the correct submit button at the top.</div>
+                    <div>Otherwise, if the words <i>column</i> and either <i>seven</i> or <i>two</i> appear on buttons, press any button in the same row as a button labeled <i>column</i>.</div>
+                    <div>Otherwise, if a button hasn’t been correctly pressed yet, press the 3rd button in the 2nd row.</div>
+                    <div>Otherwise, if the first button you pressed had the letter E in the word, the right submit is actually correct.</div>
+                    <div>Lastly, press the correct submit button.</div>
+                </div>
+                <div class="page-footer relative-footer">Page 7 of 35</div>
+            </div>
+		<div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title" name-id="0">Double-Oh</span>
+            </div>
+            <div class="page-content double-oh-content">
+                <h2>On the Subject of Double-Oh</h2>
+                <img class="diagram" src="img/Modules/DoubleOh.svg">
+                <p class="flavour-text">
+                    <span class="strike" style="text-decoration:line-through">A module, please.  Shaken, not stirred.</span> <b>Stupid piece of junk; broken display, broken buttons...</b>
+                </p><ul>
+                    <li>A display is shown with a two digit number, as well as five buttons.  Using the buttons, toggle the display to 00 (located in the center of the below table), then hit the submit button.
+                    </li><li>Four of the five buttons toggle the number in the display.  Based on the table below, consisting of a 3×3 grid of smaller 3×3 grids, the buttons will behave in the following fashion:
+                    </li><li>The “↕” button moves to the next position up or down within the current smaller grid, looping if reaching the edge (example: 00 to 85 to 14 to 00)
+                    </li><li>The “↔” button moves to the next position left or right within the current smaller grid, looping if reaching the edge (example: 00 to 56 to 21 to 00)
+                    </li><li>The “⇕” button moves to the same position in the next large 3×3 grid up or down, looping if reaching the edge (example: 00 to 22 to 58 to 00)
+                    </li><li>The “⇔” button moves to the same position in the next large 3×3 grid left or right, looping if reaching the edge (example: 00 to 44 to 65 to 00)
+                    </li><li>The “▣” button is the submit button. Pressing it will disarm the module if 00 is displayed and cause a strike otherwise.
+                </li></ul>
+                <p class="note">NOTE: This module is old, and the last digit glitches out when the first digit is zero.
+                    In addition, the wiring for the buttons is acting up, so the functions of the buttons may be swapped.
+                    Fortunately, the strikes from the submit button are only registered by the bomb if the displayed number
+                    is less than 10.
+                </p><table class="double-oh" style="margin:0 auto 1em;border:2mm solid">
+                    <tbody><tr><td>60</td><td>0<font style="color:gray">2</font></td><td>15</td><td>57</td><td>36</td><td>83</td><td>48</td><td>71</td><td>24</td></tr>
+                    <tr><td>88</td><td>46</td><td>31</td><td>70</td><td>22</td><td>64</td><td>0<font style="color:gray">7</font></td><td>55</td><td>13</td></tr>
+                    <tr><td>74</td><td>27</td><td>53</td><td>0<font style="color:gray">5</font></td><td>41</td><td>18</td><td>86</td><td>30</td><td>62</td></tr>
+                    <tr><td>52</td><td>10</td><td>0<font style="color:gray">4</font></td><td>43</td><td>85</td><td>37</td><td>61</td><td>28</td><td>76</td></tr>
+                    <tr><td>33</td><td>65</td><td>78</td><td>21</td><td class="goal">0<font style="color:gray">0</font></td><td>56</td><td>12</td><td>44</td><td>87</td></tr>
+                    <tr><td>47</td><td>81</td><td>26</td><td>68</td><td>14</td><td>72</td><td>50</td><td>0<font style="color:gray">3</font></td><td>35</td></tr>
+                    <tr><td>0<font style="color:gray">6</font></td><td>38</td><td>42</td><td>84</td><td>63</td><td>20</td><td>75</td><td>17</td><td>51</td></tr>
+                    <tr><td>25</td><td>73</td><td>67</td><td>16</td><td>58</td><td>0<font style="color:gray">1</font></td><td>34</td><td>82</td><td>40</td></tr>
+                    <tr><td>11</td><td>54</td><td>80</td><td>32</td><td>77</td><td>45</td><td>23</td><td>66</td><td>0<font style="color:gray">8</font></td></tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 8 of 35</div>
+        </div>
+            <div class="page page-bg-02">
+                <div class="page-header">
+                    <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                    <span class="page-header-section-title">Green Arrows</span>
+                </div>
+                <div class="page-content">
+                    <img src="img/Modules/GreenArrows.svg" class="diagram">
+                    <h2>On the Subject of Green Arrows</h2>
+                    <p class="flavour-text">What’s the point?</p>
+                    <p>On the module are 4 directional buttons, and a display screen in the middle.</p>
+                    <p>If the buttons are not Green, you’re looking at a different module.</p>
+                    <p>On the screen is a random number between 00 & 99. Look at the table below to find the correct button to press. Use the 10s digit as the column, and the 1s digit as the row. After each correct press, the number will change. Keep repeating the process, and the module will be disarmed after 7 consecutive correct presses. Pressing the wrong button will register a strike and reset your streak.</p>
+                    <table>
+                        <tbody><tr><td class="corner"></td><th>0-</th><th>1-</th><th>2-</th><th>3-</th><th>4-</th><th>5-</th><th>6-</th><th>7-</th><th>8-</th><th>9-</th></tr>
+                        <tr><th>-0</th><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td></tr>
+                        <tr><th>-1</th><td style="background-color:#F70">Left</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#FF0">Down</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td></tr>
+                        <tr><th>-2</th><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#FF0">Down</td></tr>
+                        <tr><th>-3</th><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#F70">Left</td></tr>
+                        <tr><th>-4</th><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#F70">Left</td><td style="background-color:#F00">Up</td></tr>
+                        <tr><th>-5</th><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#F70">Left</td><td style="background-color:#FF0">Down</td><td style="background-color:#FF0">Down</td></tr>
+                        <tr><th>-6</th><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#FF0">Down</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#F70">Left</td></tr>
+                        <tr><th>-7</th><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td></tr>
+                        <tr><th>-8</th><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#FF0">Down</td><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#FF0">Down</td></tr>
+                        <tr><th>-9</th><td style="background-color:#0F0">Right</td><td style="background-color:#F70">Left</td><td style="background-color:#0F0">Right</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F70">Left</td><td style="background-color:#FF0">Down</td><td style="background-color:#F00">Up</td><td style="background-color:#FF0">Down</td><td style="background-color:#F70">Left</td></tr>
+                    </tbody></table>
+                </div>
+               <div class="page-footer relative-footer">Page 9 of 35</div>
+            </div>
+		<div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Listening</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/Listening.svg" class="diagram">
+                <h2>On the Subject of Listening</h2>
+                <p class="flavour-text">“Why did we send a deaf person to defuse a bomb?” — Person who is no longer alive.</p>
+
+                <p>Press the <em>play</em> button to play a sound clip through the speaker.
+                    Each sound clip has a corresponding code that contains any of the 4 symbols
+                    <em>$ * &amp; #</em>. Match the sound clip to the table below and enter the code
+                    via the 4-button keypad.</p>
+
+                <table class="listening borderless">
+                    <tbody><tr><td>Taxi Dispatch</td><td>&amp;&amp;&amp;**</td><td>Dial-up Internet</td><td>*#&amp;*&amp;</td></tr>
+                    <tr><td>Cow</td><td>&amp;$#$&amp;</td><td>Police Radio Scanner</td><td>**###</td></tr>
+                    <tr><td>Extractor Fan</td><td>$#$*&amp;</td><td>Censorship Bleep</td><td>&amp;&amp;$&amp;*</td></tr>
+                    <tr><td>Train Station</td><td>#$$**</td><td>Medieval Weapons</td><td>&amp;$**&amp;</td></tr>
+                    <tr><td>Arcade</td><td>$#$#*</td><td>Door Closing</td><td>#$#&amp;$</td></tr>
+                    <tr><td>Casino</td><td>**$*#</td><td>Chainsaw</td><td>&amp;#&amp;&amp;#</td></tr>
+                    <tr><td>Supermarket</td><td>#$$&amp;*</td><td>Compressed Air</td><td>$$*$*</td></tr>
+                    <tr><td>Soccer Match</td><td>##*$*</td><td>Servo Motor</td><td>$&amp;#$$</td></tr>
+                    <tr><td>Tawny Owl</td><td>$#*$&amp;</td><td>Waterfall</td><td>&amp;**$$</td></tr>
+                    <tr><td>Sewing Machine</td><td>#&amp;&amp;*#</td><td>Tearing Fabric</td><td>$&amp;&amp;*&amp;</td></tr>
+                    <tr><td>Thrush Nightingale</td><td>**#**</td><td>Zipper</td><td>&amp;$&amp;##</td></tr>
+                    <tr><td>Car Engine</td><td>&amp;#**&amp;</td><td>Vacuum Cleaner</td><td>#&amp;$*&amp;</td></tr>
+                    <tr><td>Reloading Glock 19</td><td>$&amp;**#</td><td>Ballpoint Pen Writing</td><td>$*$**</td></tr>
+                    <tr><td>Oboe</td><td>&amp;#$$#</td><td>Rattling Iron Chain</td><td>*#$&amp;&amp;</td></tr>
+                    <tr><td>Saxophone</td><td>$&amp;&amp;**</td><td>Book Page Turning</td><td>###&amp;$</td></tr>
+                    <tr><td>Tuba</td><td>#&amp;$##</td><td>Table Tennis</td><td>*$$&amp;$</td></tr>
+                    <tr><td>Marimba</td><td>&amp;*$*$</td><td>Squeaky Toy</td><td>$*&amp;##</td></tr>
+                    <tr><td>Phone Ringing</td><td>&amp;$$&amp;*</td><td>Helicopter</td><td>#&amp;$&amp;&amp;</td></tr>
+                    <tr><td>Tibetan Nuns</td><td>#&amp;&amp;&amp;&amp;</td><td>Firework Exploding</td><td>$&amp;$$*</td></tr>
+                    <tr><td>Throat Singing</td><td>**$$$</td><td>Glass Shattering</td><td>*$*$*</td></tr>
+                    <tr><td>Beach</td><td>*&amp;*&amp;&amp;</td></tr>
+                </tbody></table>
+
+                <p><em>Note: pressing play also clears whatever code you have entered.</em></p>
+            </div>
+            <div class="page-footer relative-footer">Page 10 of 35</div>
+        </div>
+		<div class="page page-bg-04">
+                <div class="page-header">
+            <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+            <span class="page-header-section-title">Mastermind (+ Cruel)</span>
+        </div>
+        <div class="page-content">
+            <img src="img/Modules/Mastermind.svg" class="diagram">
+            <h2>On the Subject of Mastermind (+ Cruel)</h2>
+            <p class="flavour-text">
+                The game from your childhood. Only advanced. And harder to memorize. And the feedback isn’t what it used to be...
+            </p>
+            <ul>
+                <li>To solve this module you must find the correct 5 colour code.</li>
+                <li>The colours used in this module are: White, Magenta, Yellow, Green, Red and Blue.</li>
+                <li>Note that each colour may be used multiple times.</li>
+                <li>The LED colours can be cycled through by clicking the LEDs.</li>
+                <li>By pressing the "Query" button, information about the currently entered code will be displayed.</li>
+                <li>When the correct code is entered, the module will be solved by pressing the "Submit" button. Submitting the wrong code will invoke a strike.</li>
+                <li>If this is a normal mastermind, the left number gives the number of correct colours in the correct positions & the right number gives the number of correct colours in the wrong positions. Otherwise, continue reading below.</li>
+            </ul>
+            <p>Each query will generate two numbers on the display. These numbers each represent the <u>total</u> sum of two of the values listed in the table below.</p>
+            <p>Note that the table has been simplified & so the colour white has been shown from the original table to show the simplifications.</p>
+            <p><font style="color:green">A</font> = Number of correct colours in the correct positions.
+            <br><font style="color:orange">B</font> = Number of correct colours in the wrong positions.
+            <br><font style="color:gray">C</font> = Number of colours not in the solution at all.</p>
+			<table class="repeaters-table">
+                    <tbody>
+                        <tr>
+                            <th>Colour on the display:</th>
+                            <th class="repeaters-spacer" colspan="1"></th>
+                            <th>Left number</th>
+                            <th>Right number</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">White</th>
+                            <th>Left colour:</th>
+                            <td>A</td>
+                            <td>B</td>
+                        </tr>
+                        <tr>
+                            <th>Right colour:</th>
+                            <td># of batteries</td>
+                            <td># of solved modules</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <table class="repeaters-table">
+                <tbody>
+                    <tr>
+                        <th>Colour:</th>
+                        <th class="repeaters-spacer" colspan="3"></th>
+                    </tr>
+					<tr><th>White</th><td><font style="color:green">A</font><font style="color:orange">B</font></td><td>Batteries</td><td>Solved modules</td></tr>
+					<tr><th>Magenta</th><td><font style="color:gray">C</font><font style="color:green">A</font></td><td>Lit indicators</td><td>Last serial number digit</td></tr>
+					<tr><th>Yellow</th><td><font style="color:orange">B</font><font style="color:gray">C</font></td><td>Sum of serial number digits</td><td>Ports</td></tr>
+					<tr><th>Green</th><td><font style="color:orange">B</font><font style="color:green">A</font></td><td>Modules on the bomb</td><td>Unlit indicators</td></tr>
+					<tr><th>Red</th><td><font style="color:gray">C</font><font style="color:orange">B</font></td><td>Distinct port types</td><td>Strikes</td></tr>
+					<tr><th>Blue</th><td><font style="color:green">A</font><font style="color:gray">C</font></td><td>First serial number digit</td><td>Battery holders</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-footer relative-footer">Page 11 of 35</div>
+    </div>
+        <div class="page page-bg-05">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title" name-id="0">Navinums</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/Navinums.svg" class="diagram">
+                <h2>On the Subject of Navinums</h2>
+                <p class="flavour-text">You should never write words using numbers unless...</p>
+                <p>The module consists of 5 displays, each containing a digit. Disarming this module involves two stages.</p>
+                <h3>Stage 1: Press 8 directional displays</h3>
+                <p>
+                    Look up the middle display’s digit in Table 1 below. The sequence of numbers obtained indicates which directional digits to press.
+                    “1” indicates the lowest digit, “4” the highest. After each press, the directional displays change, but the middle digit remains the same.
+                </p>
+                <p>
+                    Additionally, move around in the grid below Table 1 starting with the cell containing the middle digit. Then, for each directional
+                    display pressed, move one space in the corresponding direction in this grid. The grid wraps around.
+                </p>
+                <p>The module can be reset by clicking & holding the center display for 2 seconds.</p>
+                <h3>Stage 2: Press the middle display</h3>
+                <p style="margin-bottom: 0px">
+                    In this stage, the digit in the middle display changes every second. Press the middle display when the digit displayed is equal
+                    to the digit last landed on in the grid below Table 1.
+                </p>
+                <div class="navinums-table">
+                <p class="caption">Table 1</p>
+                <table>
+                    <tbody><tr>
+                        <th>1</th>
+                        <td class="rule-lookups">4, 2, 4, 3, 3, 4, 3, 4</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td class="rule-lookups">3, 4, 3, 3, 1, 4, 4, 3</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td class="rule-lookups">2, 4, 2, 4, 4, 2, 3, 1</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td class="rule-lookups">2, 1, 2, 2, 3, 1, 2, 4</td>
+                    </tr>
+                    <tr>
+                        <th>5</th>
+                        <td class="rule-lookups">4, 1, 1, 3, 2, 1, 1, 4</td>
+                    </tr>
+                    <tr>
+                        <th>6</th>
+                        <td class="rule-lookups">3, 1, 3, 4, 1, 1, 4, 1</td>
+                    </tr>
+                    <tr>
+                        <th>7</th>
+                        <td class="rule-lookups">4, 4, 4, 3, 3, 3, 1, 4</td>
+                    </tr>
+                    <tr>
+                        <th>8</th>
+                        <td class="rule-lookups">2, 4, 2, 1, 2, 3, 4, 3</td>
+                    </tr>
+                    <tr>
+                        <th>9</th>
+                        <td class="rule-lookups">2, 3, 1, 2, 3, 3, 3, 1</td>
+                    </tr>
+                </tbody></table></div>
+                <table class="navinums-grid">
+                    <tbody><tr>
+                        <td class="rule-grid">1</td>
+                        <td class="rule-grid">9</td>
+                        <td class="rule-grid">3</td>
+                    </tr>
+                    <tr>
+                        <td class="rule-grid">6</td>
+                        <td class="rule-grid">5</td>
+                        <td class="rule-grid">8</td>
+                    </tr>
+                    <tr>
+                        <td class="rule-grid">7</td>
+                        <td class="rule-grid">2</td>
+                        <td class="rule-grid">4</td>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 12 of 35</div>
+        </div>
+            <div class="page page-bg-06">
+                <div class="page-header">
+                    <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                    <span class="page-header-section-title">Not Wire Sequences</span>
+                </div>
+                <div class="page-content">
+                    <img src="img/Modules/NotWireSequences.svg" class="diagram" alt="The diagram shows a panel with three letters along the left, three numbers along the right and three criss-crossing wires linking them.
+                            There are up and down arrows surrounding the panel and four LEDs to the right.">
+                    <h2>On the Subject of Not Wire Sequences</h2>
+                    <p class="flavour-text">
+                        It’s hard to say how this manual works. The writing is somewhat clear, but there must have been an easier way to manage 12 wires. Yes, this manual does defeat the purpose of the module, but I know we have all broken a little hearing "45".
+                    </p>
+                    <div class="paragraph k" style="border-color: black;">
+                        <div class="border" style="background-color: black; color: white;">
+                            Black<br>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 8"></svg>
+                        </div>
+                        <span class="word first">The<span class="num">0. 30.</span></span> <span class="word">colour<span class="num">1. 31.</span></span> <span class="word">of<span class="num">2. 32.</span></span> <span class="word">each<span class="num">3. 33.</span></span> <span class="word">wire<span class="num">4. 34.</span></span> <span class="word">represents<span class="num">5. 35.</span></span> <span class="word">a<span class="num">6. 36.</span></span> <span class="word">paragraph<span class="num">7. 37.</span></span>
+                        <span class="word">within<span class="num">8. 38.</span></span> <span class="word">this<span class="num">9. 39.</span></span> <span class="word">manual<span class="num">10. 40.</span></span>, <span class="word">and<span class="num">11. 41.</span></span> <span class="word">each<span class="num">12. 42.</span></span> <span class="word">number<span class="num">13. 43.</span></span> <span class="word">on<span class="num">14. 44.</span></span> <span class="word">the<span class="num">15. 45.</span></span> <span class="word">right<span class="num">16. 46.</span></span>
+                        <span class="word">corresponds<span class="num">17. 47.</span></span> <span class="word">to<span class="num">18. 48.</span></span> <span class="word">the<span class="num">19. 49.</span></span> <span class="word">word<span class="num">20. 50.</span></span> <span class="word">at<span class="num">21. </span></span> <span class="word">that<span class="num">22.</span></span> <span class="word">position<span class="num">23. </span></span> <span class="word">into<span class="num">24. </span></span> <span class="word">the<span class="num">25. </span></span>
+                        <span class="word">paragraph<span class="num">26. </span></span>, <span class="word">indexing<span class="num">27. </span></span> <span class="word">from<span class="num">28. </span></span> <span class="word last">zero<span class="num">29. </span></span>.
+                    </div>
+                    <div class="paragraph r" style="border-color: red;">
+                        <div class="border" style="background-color: red; color: black">
+                            Red<br>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 8"><path d="M0 0l1 1v1L0 1zM0 2l1 1v1L0 3zM0 4l1 1v1L0 5zM0 6l1 1v1L0 7z"></path></svg>
+                        </div>
+                        <span class="word first">There<span class="num">0. </span></span> <span class="word">will<span class="num">1. </span></span> <span class="word">always<span class="num">2. </span></span> <span class="word">be<span class="num">3. </span></span> <span class="word">three<span class="num">4. </span></span> <span class="word">wires<span class="num">5. </span></span> <span class="word">on<span class="num">6. </span></span> <span class="word">each<span class="num">7. </span></span> <span class="word">panel<span class="num">8. </span></span>. <span class="word">For<span class="num">9. </span></span> <span class="word">each<span class="num">10. </span></span> <span class="word">pair<span class="num">11. </span></span> <span class="word">of<span class="num">12. </span></span> <span class="word">letter<span class="num">13. </span></span>
+                        <span class="word">and<span class="num">14. </span></span> <span class="word">number<span class="num">15. </span></span> <span class="word">connected<span class="num">16. </span></span> <span class="word">by<span class="num">17. </span></span> <span class="word">a<span class="num">18. </span></span> <span class="word">wire<span class="num">19. </span></span>, <span class="word">index<span class="num">20. </span></span> <span class="word">that<span class="num">21. </span></span> <span class="word">many<span class="num">22. </span></span> <span class="word">words<span class="num">23. </span></span> <span class="word">into<span class="num">24. </span></span> <span class="word">the<span class="num">25. </span></span>
+                        <span class="word">paragraph<span class="num">26. </span></span> <span class="word">indicated<span class="num">27. </span></span> <span class="word">by<span class="num">28. </span></span> <span class="word">the<span class="num">29. </span></span> <span class="word">colour<span class="num">30. </span></span> <span class="word">of<span class="num">31. </span></span> <span class="word">the<span class="num">32. </span></span> <span class="word">wire<span class="num">33. </span></span>, <span class="word">and<span class="num">34. </span></span> <span class="word">if<span class="num">35. </span></span> <span class="word">the<span class="num">36. </span></span> <span class="word">word<span class="num">37. </span></span> <span class="word">located<span class="num">38. </span></span>
+                        <span class="word">contains<span class="num">39. </span></span> <span class="word">the<span class="num">40. </span></span> <span class="word">letter<span class="num">41. </span></span> <span class="word">connected<span class="num">42. </span></span> <span class="word">to<span class="num">43. </span></span> <span class="word">the<span class="num">44. </span></span> <span class="word">wire<span class="num">45. </span></span>, <span class="word">cut<span class="num">46. </span></span> <span class="word">it<span class="num">47. </span></span>. <span class="word">Otherwise<span class="num">48. </span></span>, <span class="word">leave<span class="num">49. </span></span> <span class="word">it<span class="num">50. </span></span>
+                        alone. Repeat the procedure mentioned for all twelve <span class="last">wires</span>.
+                    </div>
+                    <div class="paragraph b" style="border-color: blue;">
+                        <div class="border" style="background-color: blue; color: white;">
+                            Blue<br>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 8" stroke="#fff" stroke-width=".1"><path d="M0 0l1 2M1 0L0 2M0 2l1 2M1 2L0 4M0 4l1 2M1 4L0 6M0 6l1 2M1 6L0 8"></path></svg>
+                        </div>
+                        <span class="word first">After<span class="num">0. 41. </span></span> <span class="word">all<span class="num">1. 42. </span></span> <span class="word">wires<span class="num">2. 43. </span></span> <span class="word">necessary<span class="num">3. 44. </span></span> <span class="word">have<span class="num">4. 45. </span></span> <span class="word">been<span class="num">5. 46. </span></span> <span class="word">cut<span class="num">6. 47. </span></span>, <span class="word">press<span class="num">7. 48. </span></span> <span class="word">the<span class="num">8. 49. </span></span> <span class="word">down<span class="num">9. 50. </span></span> <span class="word">button<span class="num">10. </span></span> <span class="word">to<span class="num">11. </span></span> <span class="word">move<span class="num">12. </span></span>
+                        <span class="word">on<span class="num">13. </span></span> <span class="word">to<span class="num">14. </span></span> <span class="word">the<span class="num">15. </span></span> <span class="word">next<span class="num">16. </span></span> <span class="word">panel<span class="num">17. </span></span>. <span class="word">The<span class="num">18. </span></span> <span class="word">module<span class="num">19. </span></span> <span class="word">will<span class="num">20. </span></span> <span class="word">be<span class="num">21. </span></span> <span class="word">disarmed<span class="num">22. </span></span> <span class="word">after<span class="num">23. </span></span> <span class="word">all<span class="num">24. </span></span> <span class="word">four<span class="num">25. </span></span> <span class="word">panels<span class="num">26. </span></span>
+                        <span class="word">have<span class="num">27. </span></span> <span class="word">had<span class="num">28. </span></span> <span class="word">their <span class="num">29. </span></span><span class="word">required<span class="num">30. </span></span> <span class="word">wires<span class="num">31. </span></span> <span class="word">cut<span class="num">32. </span></span>. <span class="word">Cutting<span class="num">33. </span></span> <span class="word">an<span class="num">34. </span></span> <span class="word">incorrect<span class="num">35. </span></span> <span class="word">wire<span class="num">36. </span></span> <span class="word">will<span class="num">37. </span></span>
+                        <span class="word">register<span class="num">38. </span></span> <span class="word">a<span class="num">39. </span></span> <span class="word last">strike<span class="num">40. </span></span>.
+                    </div>
+                    <div class="paragraph y" style="border-color: yellow;">
+                        <div class="border" style="background-color: yellow; color: black">
+                            Yellow<br>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 24"><path d="M0 8h3v8H0z"></path></svg>
+                        </div>
+                        <span class="word first">The<span class="num">0. 35. </span></span> <span class="word">first<span class="num">1. 36. </span></span> <span class="word">word<span class="num">2. 37. </span></span> <span class="word">of<span class="num">3. 38. </span></span> <span class="word">each<span class="num">4. 39. </span></span> <span class="word">paragraph<span class="num">5. 40. </span></span> <span class="word">will<span class="num">6. 41. </span></span> <span class="word">be<span class="num">7. 42. </span></span> <span class="word">bolded<span class="num">8. 43. </span></span>, <span class="word">and<span class="num">9. 44. </span></span> <span class="word">the<span class="num">10. 45. </span></span> <span class="word">last<span class="num">11. 46. </span></span> <span class="word">word<span class="num">12. 47. </span></span> <span class="word">of<span class="num">13. 48. </span></span>
+                        <span class="word">each<span class="num">14. 49. </span></span> <span class="word">paragraph<span class="num">15. 50. </span></span> <span class="word">will<span class="num">16. </span></span> <span class="word">be<span class="num">17. </span></span> <span class="word">underlined<span class="num">18. </span></span>. <span class="word">This<span class="num">19. </span></span> <span class="word">is<span class="num">20. </span></span> <span class="word">to<span class="num">21. </span></span> <span class="word">ensure<span class="num">22. </span></span> <span class="word">that<span class="num">23. </span></span> <span class="word">the<span class="num">24. </span></span>
+                        <span class="word">boundaries<span class="num">25. </span></span> <span class="word">between<span class="num">26. </span></span> <span class="word">each<span class="num">27. </span></span> <span class="word">body<span class="num">28. </span></span> <span class="word">of<span class="num">29. </span></span> <span class="word">text<span class="num">30. </span></span> <span class="word">are<span class="num">31. </span></span> <span class="word">very<span class="num">32. </span></span> <span class="word">clearly<span class="num">33. </span></span> <span class="word last">established<span class="num">34. </span></span>.
+                    </div>
+                    <div class="paragraph g" style="border-color: lime;">
+                        <div class="border" style="background-color: lime; color: black">
+                            Green<br>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 8"><path d="M0 1h1v1H0zM0 3h1v1H0zM0 5h1v1H0zM0 7h1v1H0z"></path></svg>
+                        </div>
+                        <span class="word first">When<span class="num">0. </span></span> <span class="word">locating<span class="num">1. </span></span> <span class="word">a<span class="num">2. </span></span> <span class="word">word<span class="num">3. </span></span> <span class="word">from<span class="num">4. </span></span> <span class="word">a<span class="num">5. </span></span> <span class="word">paragraph<span class="num">6. </span></span>, <span class="word">start<span class="num">7. </span></span> <span class="word">from<span class="num">8. </span></span> <span class="word">the<span class="num">9. </span></span> <span class="word">first<span class="num">10. </span></span> <span class="word">word<span class="num">11. </span></span> <span class="word">at<span class="num">12. </span></span>
+                        <span class="word">zero<span class="num">13. </span></span>, <span class="word">and<span class="num">14. </span></span> <span class="word">count<span class="num">15. </span></span> <span class="word">along<span class="num">16. </span></span> <span class="word">until<span class="num">17. </span></span> <span class="word">you<span class="num">18. </span></span> <span class="word">have<span class="num">19. </span></span> <span class="word">reached<span class="num">20. </span></span> <span class="word">the<span class="num">21. </span></span> <span class="word">desired<span class="num">22. </span></span> <span class="word">number<span class="num">23. </span></span>. <span class="word">If<span class="num">24. </span></span> <span class="word">the<span class="num">25. </span></span>
+                        <span class="word">number<span class="num">26. </span></span> <span class="word">given<span class="num">27. </span></span> <span class="word">is<span class="num">28. </span></span> <span class="word">larger<span class="num">29. </span></span> <span class="word">than<span class="num">30. </span></span> <span class="word">the<span class="num">31. </span></span> <span class="word">amount<span class="num">32. </span></span> <span class="word">of<span class="num">33. </span></span> <span class="word">words<span class="num">34. </span></span> <span class="word">in<span class="num">35. </span></span> <span class="word">the<span class="num">36. </span></span> <span class="word">paragraph<span class="num">37. </span></span>, <span class="word">move<span class="num">38. </span></span>
+                        <span class="word">back<span class="num">39. </span></span> <span class="word">to<span class="num">40. </span></span> <span class="word">the<span class="num">41. </span></span> <span class="word">first<span class="num">42. </span></span> <span class="word">word<span class="num">43. </span></span> <span class="word">of<span class="num">44. </span></span> <span class="word">the<span class="num">45. </span></span> <span class="word">paragraph<span class="num">46. </span></span> <span class="word">after<span class="num">47. </span></span> <span class="word">you<span class="num">48. </span></span> <span class="word">have<span class="num">49. </span></span> <span class="word">reached<span class="num">50. </span></span> the <span class="last">end</span>.
+                    </div>
+                </div>
+                <div class="page-footer relative-footer">Page 13 of 35</div>
+            </div>
+        <div class="page page-bg-07">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title" name-id="0">Orange Arrows</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/OrangeArrows.svg" class="diagram">
+                <h2>On the Subject of Orange Arrows</h2>
+                <p class="flavour-text">Multiple points... Many, many points.</p>
+
+                <p>On the module are 4 directional buttons, 3 LEDS, and a display screen in the middle.</p>
+
+                <p>If the buttons are not Orange, you’re looking at a different module.</p>
+
+                <p>On the display a sequence of arrows will flash ranging from 5 to 12 arrows in the sequence.
+                Input this sequence of arrows into the module via its arrow buttons exactly as it is presented (a long pause signals the start of the sequence).<br>
+                HOWEVER, <span class="rule" id="arrow-count">every fourth arrow</span> in the sequence should be inputted as <span class="rule" id="arrow-dir">the opposite of</span> what is shown (i.e. an up arrow flash would mean a <span class="rule" id="arrow-ex">down</span> arrow input).
+                After the first input the flashes will stop until the sequence is fully entered or a strike is made.
+                Input 3 different sequences into the module (the current sequence is distinguished by the LEDs) and it will be disarmed.</p>
+
+                <p>Pressing an incorrect button will register a Strike, and the module
+                    will reset itself with a new sequence but not set you back to sequence one if you have passed it already.</p>
+            </div>
+            <div class="page-footer relative-footer">Page 14 of 35</div>
+        </div>
+	<div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Red Arrows</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/RedArrows.svg" class="diagram">
+                <h2>On the Subject of Red Arrows</h2>
+                <p class="flavour-text">I think you get the point now.</p>
+                <p>On the module are 4 directional buttons, and a display screen in the middle.</p>
+                <p>If the buttons are not Red, you’re looking at a different module.</p>
+                <p>On the screen is a random number somewhere between 0 to 9. That is your starting position in the maze below. Once your first valid move have been made, the display will turn blank.</p>
+                <p>To solve the module, use the buttons to navigate the maze toward the last digit of the Serial Number.</p>
+                <svg id="redArrows" class="maze" viewBox="-10 -10 1020 1020" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h1000v1000h-1000v-1005"></path>
+                    <path d="M0 300h100v-200h100"></path>
+                    <path d="M400 0v100"></path>
+                    <path d="M500 0v200"></path>
+                    <path d="M800 100h200"></path>
+                    <path d="M0 500h200v100v-400h100v-100v100h100v100h-100"></path>
+                    <path d="M100 400h400v100"></path>
+                    <path d="M600 100h100v200h-100v-100v100h-100"></path>
+                    <path d="M700 200h200v100h100"></path>
+                    <path d="M800 300v100h100v100h-200"></path>
+                    <path d="M800 400h-200v200h100v100h200v100"></path>
+                    <path d="M100 600v300"></path>
+                    <path d="M300 700v-200h100v100h505"></path>
+                    <path d="M100 700h500v100"></path>
+                    <path d="M500 800h300v100h100"></path>
+                    <path d="M400 700v200h300"></path>
+                    <path d="M300 900h300v100"></path>
+                    <path d="M200 1000v-200h100"></path>
+                    <text x="935" y="65">0</text>
+                    <text x="35" y="265">1</text>
+                    <text x="535" y="965">2</text>
+                    <text x="835" y="465">3</text>
+                    <text x="335" y="265">4</text>
+                    <text x="335" y="565">5</text>
+                    <text x="935" y="265">6</text>
+                    <text x="735" y="665">7</text>
+                    <text x="535" y="765">8</text>
+                    <text x="135" y="465">9</text>
+                <rect class="highlightable" x="0" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="0" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="100" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="200" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="300" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="400" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="500" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="600" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="700" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="800" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="0" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="100" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="200" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="300" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="400" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="500" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="600" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="700" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="800" y="900" width="100" height="100" fill="transparent"></rect><rect class="highlightable" x="900" y="900" width="100" height="100" fill="transparent"></rect></svg>
+            </div>
+           <div class="page-footer relative-footer">Page 15 of 35</div>
+        </div>
+		<div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title" name-id="0">Simon Screams</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/SimonScreams.svg" class="diagram">
+                <h2>On the Subject of Simon Screams</h2>
+                <p class="flavour-text">
+                    He’s angry!  He’s furious!  He’s enraged!  He’s had it!
+                </p>
+                <ul>
+                    <li>
+                        This module has six lights coloured red, orange, yellow, green, blue and purple.
+                        These will flash in a sequence that grows longer with each stage. There are 3 stages.
+                    </li>
+                    <li>
+                        At each stage, consider the whole sequence of flashes. In the large table,
+                        find the first applicable row and the correct column. From that entry,
+                        take the letter in the position corresponding to the current stage and look
+                        at its corresponding column in the smaller table.
+                    </li>
+                    <li>
+                        Go through that column from top to bottom and press every colour whose condition applies.
+                        The colours are (R)ed, (O)range, (Y)ellow, (G)reen, (B)lue, (P)urple, and “#” means
+                        “serial number”.
+                    </li>
+                    <li>
+                        Every time the sequence flashes again, your current stage’s input is reset.
+                    </li>
+                </ul>
+
+                <table class="simon-screams">
+                    <tbody><tr class="top">
+                        <td class="corner" rowspan="2">
+                            <table class="simon-screams-small">
+                                <tbody><tr><td class="corner"></td><th>A</th><th>C</th><th>D</th><th>E</th><th>F</th><th>H</th></tr>
+                                <tr>
+                                    <th class="little">≥ 3 indicators</th>
+                                    <td class="small-rule">Y</td>
+                                    <td class="small-rule">O</td>
+                                    <td class="small-rule">G</td>
+                                    <td class="small-rule">R</td>
+                                    <td class="small-rule">B</td>
+                                    <td class="small-rule">P</td>
+                                </tr>
+                                <tr>
+                                    <th class="little">≥ 3 ports</th>
+                                    <td class="small-rule">P</td>
+                                    <td class="small-rule">Y</td>
+                                    <td class="small-rule">R</td>
+                                    <td class="small-rule">B</td>
+                                    <td class="small-rule">O</td>
+                                    <td class="small-rule">G</td>
+                                </tr>
+                                <tr>
+                                    <th class="little">≥ 3 digits in #</th>
+                                    <td class="small-rule">O</td>
+                                    <td class="small-rule">G</td>
+                                    <td class="small-rule">B</td>
+                                    <td class="small-rule">P</td>
+                                    <td class="small-rule">R</td>
+                                    <td class="small-rule">Y</td>
+                                </tr>
+                                <tr>
+                                    <th class="little">≥ 3 letters in #</th>
+                                    <td class="small-rule">G</td>
+                                    <td class="small-rule">B</td>
+                                    <td class="small-rule">O</td>
+                                    <td class="small-rule">Y</td>
+                                    <td class="small-rule">P</td>
+                                    <td class="small-rule">R</td>
+                                </tr>
+                                <tr>
+                                    <th class="little">≥ 3 batteries</th>
+                                    <td class="small-rule">R</td>
+                                    <td class="small-rule">P</td>
+                                    <td class="small-rule">Y</td>
+                                    <td class="small-rule">O</td>
+                                    <td class="small-rule">G</td>
+                                    <td class="small-rule">B</td>
+                                </tr>
+                                <tr>
+                                    <th class="little">≥ 3 bat. holders</th>
+                                    <td class="small-rule">B</td>
+                                    <td class="small-rule">R</td>
+                                    <td class="small-rule">P</td>
+                                    <td class="small-rule">G</td>
+                                    <td class="small-rule">Y</td>
+                                    <td class="small-rule">O</td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                        <th colspan="6" class="corner">
+                            <p>Stage 1: <span class="column-rule">first</span> flashing colour</p>
+                            <p>Stage 2: <span class="column-rule">second</span> flashing colour</p>
+                            <p>Stage 3: <span class="column-rule">third</span> flashing colour</p>
+                        </th>
+                    </tr>
+                    <tr class="rotated">
+                        <th><span class="text">red</span></th>
+                        <th><span class="text">orange</span></th>
+                        <th><span class="text">yellow</span></th>
+                        <th><span class="text">green</span></th>
+                        <th><span class="text">blue</span></th>
+                        <th><span class="text">purple</span></th>
+                    </tr>
+                    <tr>
+                        <th>If <span class="row-rule">three adjacent colours flashed in clockwise order</span></th>
+                        <td class="cell-rule">FFC</td>
+                        <td class="cell-rule">CEH</td>
+                        <td class="cell-rule">HAF</td>
+                        <td class="cell-rule">ECD</td>
+                        <td class="cell-rule">DDE</td>
+                        <td class="cell-rule">AHA</td>
+                    </tr>
+                    <tr>
+                        <th>Otherwise, if <span class="row-rule">a colour flashed, then an adjacent colour, then the first again</span></th>
+                        <td class="cell-rule">AHF</td>
+                        <td class="cell-rule">DFC</td>
+                        <td class="cell-rule">ECH</td>
+                        <td class="cell-rule">CDE</td>
+                        <td class="cell-rule">FEA</td>
+                        <td class="cell-rule">HAD</td>
+                    </tr>
+                    <tr>
+                        <th>Otherwise, if <span class="row-rule">at most one colour flashed out of red, yellow, and blue</span></th>
+                        <td class="cell-rule">DED</td>
+                        <td class="cell-rule">ECF</td>
+                        <td class="cell-rule">FHE</td>
+                        <td class="cell-rule">HAA</td>
+                        <td class="cell-rule">AFH</td>
+                        <td class="cell-rule">CDC</td>
+                    </tr>
+                    <tr>
+                        <th>Otherwise, if <span class="row-rule">there are two colours opposite each other that didn’t flash</span></th>
+                        <td class="cell-rule">HCE</td>
+                        <td class="cell-rule">ADA</td>
+                        <td class="cell-rule">CFD</td>
+                        <td class="cell-rule">DHH</td>
+                        <td class="cell-rule">EAC</td>
+                        <td class="cell-rule">FEF</td>
+                    </tr>
+                    <tr>
+                        <th>Otherwise, if <span class="row-rule">two adjacent colours flashed in clockwise order</span></th>
+                        <td class="cell-rule">CAH</td>
+                        <td class="cell-rule">FHD</td>
+                        <td class="cell-rule">DDA</td>
+                        <td class="cell-rule">AEC</td>
+                        <td class="cell-rule">HCF</td>
+                        <td class="cell-rule">EFE</td>
+                    </tr>
+                    <tr>
+                        <th>Otherwise</th>
+                        <td class="cell-rule">EDA</td>
+                        <td class="cell-rule">HAE</td>
+                        <td class="cell-rule">AEC</td>
+                        <td class="cell-rule">FFF</td>
+                        <td class="cell-rule">CHD</td>
+                        <td class="cell-rule">DCH</td>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 16 of 35</div>
+        </div>
+    <div id="Section1" class="page page-bg-03">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Wires</span>
+		</div>
+        <div class="page-content">
+                <img src="img/Modules/Wires.svg" class="diagram">
+                <h2>On the Subject of Wires</h2>
+                <p class="flavour-text">
+                    Wires are the lifeblood of electronics! Wait, no, electricity is the lifeblood. Wires are more like the arteries. The veins? No matter…
+                </p>
+                <ul>
+                    <li>A wire module can have 3-6 wires on it.</li>
+                    <li>Only <em>1</em> correct wire needs to be cut to disarm the module.</li>
+                    <li>Wire ordering begins with the first on the top.</li>
+                </ul>
+                <table class="wires">
+                    <tbody><tr>
+                        <th>3
+                        </th><td><table>
+                            <tbody><tr><td>no <span class="colored red">red</span></td><td>cut 2nd wire</td></tr>
+                            <tr><td>exactly: <span class="colored blue">blue</span> <span class="colored blue">blue</span> <span class="colored red">red</span></td><td>cut 2nd wire</td></tr>
+                            <tr><td>otherwise</td><td>cut 3rd wire</td></tr>
+                        </tbody></table>
+                    </td></tr>
+                    <tr>
+                        <th>4
+                        </th><td><table>
+                            <tbody><tr><td>≥ 2 <span class="colored red">red</span> &amp; SN odd</td><td>cut last <span class="colored red">red</span> wire</td></tr>
+                            <tr><td>last <span class="colored yellow">yellow</span> &amp; no <span class="colored red">red</span></td><td>cut 1st wire</td></tr>
+                            <tr><td>1 <span class="colored blue">blue</span></td><td>cut 1st wire</td></tr>
+                            <tr><td>≥ 2 <span class="colored yellow">yellow</span></td><td>cut 4th wire</td></tr>
+                            <tr><td>otherwise</td><td>cut 2nd wire</td></tr>
+                        </tbody></table>
+                    </td></tr>
+                    <tr>
+                        <th>5
+                        </th><td><table>
+                            <tbody><tr><td>last <span class="colored black">black</span> &amp; SN odd</td><td>cut 4th wire</td></tr>
+                            <tr><td>1 <span class="colored red">red</span> &amp; ≥ 2 <span class="colored yellow">yellow</span></td><td>cut 1st wire</td></tr>
+                            <tr><td>no <span class="colored black">black</span></td><td>cut 2nd wire</td></tr>
+                            <tr><td>otherwise</td><td>cut 1st wire</td></tr>
+                        </tbody></table>
+                    </td></tr>
+                    <tr>
+                        <th>6
+                        </th><td><table>
+                            <tbody><tr><td>no <span class="colored yellow">yellow</span> &amp; SN odd</td><td>cut 3rd wire</td></tr>
+                            <tr><td>1 <span class="colored yellow">yellow</span> &amp; ≥ 2 <span class="colored white">white</span></td><td>cut 4th wire</td></tr>
+                            <tr><td>no <span class="colored red">red</span></td><td>cut 6th wire</td></tr>
+                            <tr><td>otherwise</td><td>cut 4th wire</td></tr>
+                        </tbody></table>
+                    </td></tr>
+                </tbody></table>
+        </div>
+				<div class="page-footer relative-footer">Page 17 of 35</div>
+    </div>
+        <div class="page page-bg-04">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">The Button</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/Button.svg" class="diagram">
+                <h2>On the Subject of The Button</h2>
+                <p class="flavour-text">You might think that a button telling you to press it is pretty straightforward. That’s the kind of thinking that gets people exploded.</p>
+                <p>Follow these rules in the order they are listed. Perform the first action that applies:</p>
+                <table class="the-button">
+                  <tbody><tr>
+                    <th>Bomb</th>
+                    <td></td>
+                    <td>2+B</td>
+                    <td></td>
+                    <td>*CAR</td>
+                    <td>3+B *FRK</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Colour</th>
+                    <td><font color="red">Red</font></td>
+                    <td></td>
+                    <td><font color="blue">Blue</font></td>
+                    <td><strong>White</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Action</th>
+                    <td>Tap</td>
+                    <td>Tap</td>
+                    <td>Hold</td>
+                    <td>Hold</td>
+                    <td>Tap</td>
+                    <td>Hold</td>
+                  </tr>
+                  <tr>
+                    <th>EN</th>
+                    <td><font color="red">Hold</font></td>
+                    <td>Detonate</td>
+                    <td><font color="blue">Abort</font></td>
+                    <td rowspan="21" colspan="3" class="releasing">
+                        <h3>Releasing a Held Button</h3>
+                        <div><span class="colored blue">Blue</span> = 4</div>
+                        <div><span class="colored yellow">Yellow</span> = 5</div>
+                        <div><span>Otherwise</span> = 1</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>CS</th>
+                    <td><font color="red">Držet</font></td>
+                    <td>Odpálit</td>
+                    <td><font color="blue">Zrušit</font></td>
+                  </tr>
+                  <tr>
+                    <th>DA</th>
+                    <td><font color="red">Hold</font></td>
+                    <td>Spræng</td>
+                    <td><font color="blue">Afbryd</font></td>
+                  </tr>
+                  <tr>
+                    <th>DE</th>
+                    <td><font color="red">Gedrückt halten</font></td>
+                    <td>Zünden</td>
+                    <td><font color="blue">Abbrechen</font></td>
+                  </tr>
+                  <tr>
+                    <th>ET</th>
+                    <td><font color="red">Hoia</font></td>
+                    <td>Õhka</td>
+                    <td><font color="blue">Katkesta</font></td>
+                  </tr>
+                  <tr>
+                    <th>ES</th>
+                    <td><font color="red">MANTENER</font></td>
+                    <td>DETONAR</td>
+                    <td><font color="blue">ABORTAR</font></td>
+                  </tr>
+                  <tr>
+                    <th>EO</th>
+                    <td><font color="red">Tenu</font></td>
+                    <td>Eksplodigu</td>
+                    <td><font color="blue">Haltu</font></td>
+                  </tr>
+                  <tr>
+                    <th>FR</th>
+                    <td><font color="red">Maintenir</font></td>
+                    <td>Déclencher</td>
+                    <td><font color="blue">Arrêter</font></td>
+                  </tr>
+                  <tr>
+                    <th>IT</th>
+                    <td><font color="red">Tieni Premuto</font></td>
+                    <td>Detona</td>
+                    <td><font color="blue">Annulla</font></td>
+                  </tr>
+                  <tr>
+                    <th>NL</th>
+                    <td><font color="red">Vasthouden</font></td>
+                    <td>Ontsteken</td>
+                    <td><font color="blue">Afbreken</font></td>
+                  </tr>
+                  <tr>
+                    <th>NO</th>
+                    <td><font color="red">Hold inne</font></td>
+                    <td>Detoner</td>
+                    <td><font color="blue">Avbryt</font></td>
+                  </tr>
+                  <tr>
+                    <th>PL</th>
+                    <td><font color="red">Przytrzymaj</font></td>
+                    <td>Zdetonuj</td>
+                    <td><font color="blue">Anuluj</font></td>
+                  </tr>
+                  <tr>
+                    <th>PT</th>
+                    <td><font color="red">Segurar</font></td>
+                    <td>Detonar</td>
+                    <td><font color="blue">Abortar</font></td>
+                  </tr>
+                  <tr>
+                    <th>FI</th>
+                    <td><font color="red">Pidä</font></td>
+                    <td>Räjäytä</td>
+                    <td><font color="blue">Keskeytä</font></td>
+                  </tr>
+                  <tr>
+                    <th>SV</th>
+                    <td><font color="red">Håll ned</font></td>
+                    <td>Detonera</td>
+                    <td><font color="blue">Avbryt</font></td>
+                  </tr>
+                  <tr>
+                    <th>RU</th>
+                    <td><font color="red">Держать</font></td>
+                    <td>Взорвать</td>
+                    <td><font color="blue">Стоп</font></td>
+                  </tr>
+                  <tr>
+                    <th>HE</th>
+                    <td><font color="red">החזק</font></td>
+                    <td>פוצץ</td>
+                    <td><font color="blue">בטל</font></td>
+                  </tr>
+                  <tr>
+                    <th>TH</th>
+                    <td><font color="red">กดค้าง</font></td>
+                    <td>จุดชนวน</td>
+                    <td><font color="blue">ยกเลิก</font></td>
+                  </tr>
+                  <tr>
+                    <th>KO</th>
+                    <td><font color="red">누른채 유지</font></td>
+                    <td>폭파</td>
+                    <td><font color="blue">접근금지</font></td>
+                  </tr>
+                  <tr>
+                    <th>JP</th>
+                    <td><font color="red">長押し</font></td>
+                    <td>爆破</td>
+                    <td><font color="blue">中止</font></td>
+                  </tr>
+                  <tr>
+                    <th>ZHS</th>
+                    <td><font color="red">按住</font></td>
+                    <td>引爆</td>
+                    <td><font color="blue">解除</font></td>
+                  </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 18 of 35</div>
+        </div>
+	<div id="Keypads" class="page page-bg-05">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Keypads</span>
+		</div>
+	    <div class="page-content">
+		    <img src="img/Modules/Keypads.svg" class="diagram"><h2>On the Subject of Keypads</h2>
+		    <p class="flavour-text">I'm not sure what these symbols are, but I suspect they have something to do with occult.</p>
+			<ul><li>Only one column below has all four of the symbols from the keypad.</li><li>Press the four buttons in the order their symbols appear from top to bottom within that column.</li><li>Unique symbols are marked.</li></ul><br><br><table class="keypad-table"><tbody><tr><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/28-balloon.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/16-euro.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/1-copyright.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/11-six.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/24-pitchfork.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/11-six.png"></td></tr><tr><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/13-at.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/28-balloon.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/8-pumpkin.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/21-paragraph.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/4-smileyface.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/16-euro.png"></td></tr><tr><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/30-upsidedowny.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/23-leftc.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/26-cursive.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/31-bt.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/31-bt.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/27-tracks.png"></td></tr><tr><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/12-squigglyn.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/26-cursive.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/5-doublek.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/7-squidknife.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/22-rightc.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/14-ae.png"></td></tr><tr><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/7-squidknife.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/3-hollowstar.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/15-meltedthree.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/5-doublek.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/21-paragraph.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/24-pitchfork.png"></td></tr><tr><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/9-hookn.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/9-hookn.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/30-upsidedowny.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/20-questionmark.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/19-dragon.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/18-nwithhat.png"></td></tr><tr><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/23-leftc.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/20-questionmark.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/3-hollowstar.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column"><img class="keypad-symbol-image" src="img/Keypads/4-smileyface.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/2-filledstar.png"></td><td class="keypad-table-spacer"></td><td class="keypad-table-column" style="background-color:#F80"><img class="keypad-symbol-image" src="img/Keypads/6-omega.png"></td></tr></tbody></table></div>
+				<div class="page-footer relative-footer">Page 19 of 35</div>
+    </div>
+    <div id="SimonSays" class="page page-bg-06">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Simon Says</span>
+		</div>
+        <div class="page-content">
+    	    <img src="img/Modules/SimonSays.svg" class="diagram"><h2>On the Subject of Simon Says</h2>
+            <p class="flavour-text">This is like one of those toys you played with as a kid where you have to match the pattern that appears, except this one is a knockoff that was probably purchased at a dollar store.</p>
+            
+			<ol><li>One of the four coloured buttons will flash.</li><li>Using the correct table below, press the button with the corresponding colour.</li><li>The original button will flash, followed by another. Repeat this sequence in order using the colour mapping.</li><li>The sequence will lengthen by one each time you correctly enter a sequence until the module is disarmed. (Length 3-5)</li></ol><!--?xml version="1.0" standalone="yes"?--><svg id="simon-legend" version="1.1" viewBox="0.0 0.0 1004.0 348.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><clipPath id="p.0"><path d="m0 0l604.0 0l0 348.0l-604.0 0l0 -348.0z" clip-rule="nonzero"></path></clipPath><g transform="translate(200, 0)" clip-path="url(#p.0)"><path fill="#ffffff" d="m114.35958 0l357.29132 0l0 347.9685l-357.29132 0z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m125.438324 5.7758217l336.9134 0l0 337.66928l-336.9134 0z" fill-rule="nonzero"></path><path fill="#ffffff" d="m403.09402 40.553925l0 0c0 -8.375591 6.9660034 -15.165352 15.5590515 -15.165352l0 0c4.126526 0 8.084015 1.5977726 11.001923 4.441828c2.9178772 2.844057 4.557129 6.7014256 4.557129 10.723524l0 0c0 8.375595 -6.966034 15.165356 -15.5590515 15.165356l0 0c-8.593048 0 -15.5590515 -6.7897606 -15.5590515 -15.165356z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m403.09402 40.553925l0 0c0 -8.375591 6.9660034 -15.165352 15.5590515 -15.165352l0 0c4.126526 0 8.084015 1.5977726 11.001923 4.441828c2.9178772 2.844057 4.557129 6.7014256 4.557129 10.723524l0 0c0 8.375595 -6.966034 15.165356 -15.5590515 15.165356l0 0c-8.593048 0 -15.5590515 -6.7897606 -15.5590515 -15.165356z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m241.62204 122.04462l52.566925 -52.566925l52.566956 52.566925l-52.566956 52.566925z" fill-rule="nonzero"></path><path fill="#00F" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m241.62204 122.04462l52.566925 -52.566925l52.566956 52.566925l-52.566956 52.566925z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m188.76115 175.06561l52.566925 -52.566925l52.56694 52.566925l-52.56694 52.56694z" fill-rule="nonzero"></path><path fill="#F00" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m188.76115 175.06561l52.566925 -52.566925l52.56694 52.566925l-52.56694 52.56694z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m241.62204 227.17848l52.566925 -52.56694l52.566956 52.56694l-52.566956 52.56691z" fill-rule="nonzero"></path><path fill="#0F0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m241.62204 227.17848l52.566925 -52.56694l52.566956 52.56694l-52.566956 52.56691z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m293.89502 175.06561l52.566925 -52.566925l52.566925 52.566925l-52.566925 52.56694z" fill-rule="nonzero"></path><path fill="#FF0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt" d="m293.89502 175.06561l52.566925 -52.566925l52.566925 52.566925l-52.566925 52.56694z" fill-rule="nonzero"></path><path stroke="#000" stroke-width="5.0" stroke-linejoin="round" stroke-linecap="butt" d="m108.35433 256.32547l131.64566 0" fill-rule="evenodd"></path><path fill="#000" stroke="#000" stroke-width="10.0" stroke-linecap="butt" d="m231.0 259.62894l9.076202 -3.3034668l-9.076202 -3.303482z" fill-rule="evenodd"></path><path stroke="#000" stroke-width="5.0" stroke-linejoin="round" stroke-linecap="butt" d="m478.6509 91.69554l-114.4252 0" fill-rule="evenodd"></path><path fill="#000" stroke="#000" stroke-width="10.0" stroke-linecap="butt" d="m364.2257 88.392075l-9.076172 3.3034668l9.076172 3.3034592z" fill-rule="evenodd"></path><path stroke="#000" stroke-width="5.0" stroke-linejoin="round" stroke-linecap="butt" d="m478.6509 174.61154l-56.472443 0" fill-rule="evenodd"></path><path fill="#000" stroke="#000" stroke-width="10.0" stroke-linecap="butt" d="m432.17847 171.30809l-9.076172 3.3034515l9.076172 3.3034668z" fill-rule="evenodd"></path><path stroke="#000" stroke-width="5.0" stroke-linejoin="round" stroke-linecap="butt" d="m107.35958 175.06561l60.188972 0" fill-rule="evenodd"></path><path fill="#000" stroke="#000" stroke-width="10.0" stroke-linecap="butt" d="m157.54855 178.36908l9.076202 -3.3034668l-9.076202 -3.3034668z" fill-rule="evenodd"></path></g><text fill="#00F" font-family="Special Elite, sans-serif" text-anchor="start" x="688" y="103" font-size="64px"><tspan>Blue</tspan></text><text fill="#CC0" font-family="Special Elite, sans-serif" text-anchor="start" x="688" y="186" font-size="64px"><tspan>Yellow</tspan></text><text fill="#F00" font-family="Special Elite, sans-serif" text-anchor="end" x="299" y="185" font-size="64px"><tspan>Red</tspan></text><text fill="#0F0" font-family="Special Elite, sans-serif" text-anchor="end" x="299" y="266" font-size="64px"><tspan>Green</tspan></text></svg><p>If the serial number contains a vowel:</p>
+                        <table class="repeaters-table"><tbody><tr><th colspan="2" class="repeaters-spacer"></th>
+                    <th>Red Flash</th>
+                    <th>Blue Flash</th>
+                    <th>Green Flash</th>
+                    <th>Yellow Flash</th>
+                </tr><tr><th rowspan="3">Button&nbsp;to&nbsp;press:</th><th>No&nbsp;Strikes</th><td>Blue</td><td>Red</td><td>Yellow</td><td>Green</td></tr><tr><th>1&nbsp;Strike</th><td>Yellow</td><td>Green</td><td>Blue</td><td>Red</td></tr><tr><th>2&nbsp;Strikes</th><td>Green</td><td>Red</td><td>Yellow</td><td>Blue</td></tr></tbody></table><p>If the serial number does <em>not</em> contain a vowel:</p>
+            <table class="repeaters-table"><tbody><tr><th colspan="2" class="repeaters-spacer"></th>
+                    <th>Red Flash</th>
+                    <th>Blue Flash</th>
+                    <th>Green Flash</th>
+                    <th>Yellow Flash</th>
+                </tr><tr><th rowspan="3">Button&nbsp;to&nbsp;press:</th><th>No&nbsp;Strikes</th><td>Blue</td><td>Yellow</td><td>Green</td><td>Red</td></tr><tr><th>1&nbsp;Strike</th><td>Red</td><td>Blue</td><td>Yellow</td><td>Green</td></tr><tr><th>2&nbsp;Strikes</th><td>Yellow</td><td>Green</td><td>Blue</td><td>Red</td></tr></tbody></table></div>
+				<div class="page-footer relative-footer">Page 20 of 35</div>
+    </div>
+        <div class="page page-bg-07">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Who’s on First</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/WhosOnFirst.svg" class="diagram">
+                <h2>On the Subject of Who’s on First</h2>
+                <p class="flavour-text">This contraption is like something out of a sketch comedy routine, which might be funny if it wasn't connected to a bomb. I’ll keep this brief, as words only complicate matters.</p>
+                <ol>
+                    <li>Read the display & use step 1 to see which label to <em>read</em>.
+					</li><li>Using this label, use step 2 to see which button to <em>push</em>.
+                    </li><li>Repeat until the module has been disarmed.
+                </li><li>Marked words require little confirmation on how to spell them if understood correctly.
+                </li></ol>
+                <table class="whos-on-first">
+                    <tbody><tr>
+                        <th>Step 1 - <em>Read</em>
+                        </th><th>Step 2 - <em>Push</em> the first one present
+                    </th></tr>
+                    <tr>
+                        <td>
+                            <table class="whos-on-first-step-1">
+                                <tbody><tr><th></th><td style="background-color:#F0F">B L</td></tr>
+                                <tr><th>BLANK</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>C</th><td style="background-color:#0F0">T R</td></tr>
+                                <tr><th>CEE</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th style="background-color:#F80">DISPLAY</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th style="background-color:#F80">FIRST</th><td style="background-color:#0F0">T R</td></tr>
+                                <tr><th style="background-color:#F80">HOLD ON</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>LEAD</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>LED</th><td style="background-color:#00F"><font color="white">M L</font></td></tr>
+                                <tr><th>LEED</th><td style="background-color:#F0F">B L</td></tr>
+                                <tr><th style="background-color:#F80">NO</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>NOTHING</th><td style="background-color:#00F"><font color="white">M L</font></td></tr>
+                                <tr><th style="background-color:#F80">OKAY</th><td style="background-color:#0F0">T R</td></tr>
+                                <tr><th>READ</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>RED</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>REED</th><td style="background-color:#F0F">B L</td></tr>
+                                <tr><th style="background-color:#F80">SAYS</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>SEE</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>THEIR</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>THERE</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>THEY ARE</th><td style="background-color:#00F"><font color="white">M L</font></td></tr>
+                                <tr><th>THEY’RE</th><td style="background-color:#F0F">B L</td></tr>
+                                <tr><th>UR</th><td style="background-color:#F00">T L</td></tr>
+                                <tr><th style="background-color:#F80">YES</th><td style="background-color:#00F"><font color="white">M L</font></td></tr>
+                                <tr><th>YOU</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>YOU ARE</th><td style="background-color:#FF0">B R</td></tr>
+                                <tr><th>YOU’RE</th><td style="background-color:#0FF">M R</td></tr>
+                                <tr><th>YOUR</th><td style="background-color:#0FF">M R</td></tr>
+                            </tbody></table>
+                        </td>
+                        <td>
+                            <table class="whos-on-first-step-2">
+                                <tbody><tr style="background-color:#FF0"><th>BLANK</th><td>WAIT, RIGHT, OKAY, MIDDLE, BLANK</td></tr>
+                                <tr style="background-color:#000"><th><font color="white">DONE</font></th><td><font color="white">SURE, UH HUH, NEXT, WHAT?, YOUR, UR, YOU’RE, HOLD, LIKE, YOU, U, YOU ARE, UH UH, DONE</font></td></tr>
+                                <tr style="background-color:#400"><th><font color="white">FIRST</font></th><td><font color="white">LEFT, OKAY, YES, MIDDLE, NO, RIGHT, NOTHING, UHHH, WAIT, READY, BLANK, WHAT, PRESS, FIRST</font></td></tr>
+                                <tr style="background-color:#800"><th>HOLD</th><td>YOU ARE, U, DONE, UH UH, YOU, UR, SURE, WHAT?, YOU’RE, NEXT, HOLD</td></tr>
+                                <tr style="background-color:#4F0"><th>LEFT</th><td>RIGHT, LEFT</td></tr>
+                                <tr style="background-color:#800"><th>LIKE</th><td>YOU’RE, NEXT, U, UR, HOLD, DONE, UH UH, WHAT?, UH HUH, YOU, LIKE</td></tr>
+                                <tr style="background-color:#C00"><th>MIDDLE</th><td>BLANK, READY, OKAY, WHAT, NOTHING, PRESS, NO, WAIT, LEFT, MIDDLE</td></tr>
+                                <tr style="background-color:#F80"><th>NEXT</th><td>WHAT?, UH HUH, UH UH, YOUR, HOLD, SURE, NEXT</td></tr>
+                                <tr style="background-color:#400"><th><font color="white">NO</font></th><td><font color="white">BLANK, UHHH, WAIT, FIRST, WHAT, READY, RIGHT, YES, NOTHING, LEFT, PRESS, OKAY, NO</font></td></tr>
+                                <tr style="background-color:#400"><th><font color="white">NOTHING</font></th><td><font color="white">UHHH, RIGHT, OKAY, MIDDLE, YES, BLANK, NO, PRESS, LEFT, WHAT, WAIT, FIRST, NOTHING</font></td></tr>
+                                <tr style="background-color:#F40"><th>OKAY</th><td>MIDDLE, NO, FIRST, YES, UHHH, NOTHING, WAIT, OKAY</td></tr>
+                                <tr style="background-color:#FF0"><th>PRESS</th><td>RIGHT, MIDDLE, YES, READY, PRESS</td></tr>
+                                <tr style="background-color:#F00"><th>READY</th><td>YES, OKAY, WHAT, MIDDLE, LEFT, PRESS, RIGHT, BLANK, READY</td></tr>
+                                <tr style="background-color:#F40"><th>RIGHT</th><td>YES, NOTHING, READY, PRESS, NO, WAIT, WHAT, RIGHT</td></tr>
+                                <tr style="background-color:#F00"><th>SURE</th><td>YOU ARE, DONE, LIKE, YOU’RE, YOU, HOLD, UH HUH, UR, SURE</td></tr>
+                                <tr style="background-color:#F00"><th>U</th><td>UH HUH, SURE, NEXT, WHAT?, YOU’RE, UR, UH UH, DONE, U</td></tr>
+                                <tr style="background-color:#0F0"><th>UH HUH</th><td>UH HUH</td></tr>
+                                <tr style="background-color:#FC0"><th>UH UH</th><td>UR, U, YOU ARE, YOU’RE, NEXT, UH UH</td></tr>
+                                <tr style="background-color:#800"><th>UHHH</th><td>READY, NOTHING, LEFT, WHAT, OKAY, YES, RIGHT, NO, PRESS, BLANK, UHHH</td></tr>
+                                <tr style="background-color:#8F0"><th>UR</th><td>DONE, U, UR</td></tr>
+                                <tr style="background-color:#C00"><th>WAIT</th><td>UHHH, NO, BLANK, OKAY, YES, LEFT, FIRST, PRESS, WHAT, WAIT</td></tr>
+                                <tr style="background-color:#4F0"><th>WHAT</th><td>UHHH, WHAT</td></tr>
+                                <tr style="background-color:#400"><th><font color="white">WHAT?</font></th><td><font color="white">YOU, HOLD, YOU’RE, YOUR, U, DONE, UH UH, LIKE, YOU ARE, UH HUH, UR, NEXT, WHAT?</font></td></tr>
+                                <tr style="background-color:#C00"><th>YES</th><td>OKAY, RIGHT, UHHH, MIDDLE, FIRST, WHAT, PRESS, READY, NOTHING, YES</td></tr>
+                                <tr style="background-color:#000"><th><font color="white">YOU ARE</font></th><td><font color="white">YOUR, NEXT, LIKE, UH HUH, WHAT?, DONE, UH UH, HOLD, YOU, U, YOU’RE, SURE, UR, YOU ARE</font></td></tr>
+                                <tr style="background-color:#C00"><th>YOU</th><td>SURE, YOU ARE, YOUR, YOU’RE, NEXT, UH HUH, UR, HOLD, WHAT?, YOU</td></tr>
+                                <tr style="background-color:#CF0"><th>YOUR</th><td>UH UH, YOU ARE, UH HUH, YOUR</td></tr>
+                                <tr style="background-color:#4F0"><th>YOU’RE</th><td>YOU, YOU’RE</td></tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 21 of 35</div>
+        </div>
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Memory</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/Memory.svg" class="diagram">
+                <h2>On the Subject of Memory</h2>
+                <p class="flavour-text">Memory is a fragile thing but so is everything else when a bomb goes off, so pay attention!</p>
+                <ul><li>Press the correct button to progress the module to the next stage. Complete all stages to disarm the module.</li><li>Make sure you take note of the positions & labels of all pressed buttons.</li><li>Pressing an incorrect button will cause a strike & reset the module back to stage 1.</li><li>Button positions are ordered from left to right.</li></ul>
+                <table class="memory">
+                    <tbody><tr>
+                        <td>
+                            <h4>Stage 1</h4>
+                            <ul><li><span class="display">1</span> ⇒ position 2
+                                </li><li><span class="display">2</span> ⇒ position 2
+                                </li><li><span class="display">3</span> ⇒ position 3
+                                </li><li><span class="display">4</span> ⇒ position 4
+                            </li></ul>
+                            <h4>Stage 2</h4>
+                            <ul><li><span class="display">1</span> ⇒ label 4
+                                </li><li><span class="display">2</span> ⇒ stage 1 position
+                                </li><li><span class="display">3</span> ⇒ position 1
+                                </li><li><span class="display">4</span> ⇒ stage 1 position
+                            </li></ul>
+                            <h4>Stage 3</h4>
+                            <ul><li><span class="display">1</span> ⇒ stage 2 label
+                                </li><li><span class="display">2</span> ⇒ stage 1 label
+                                </li><li><span class="display">3</span> ⇒ position 3
+                                </li><li><span class="display">4</span> ⇒ label 4
+                            </li></ul>
+                        </td><td>
+                            <h4>Stage 4</h4>
+                            <ul><li><span class="display">1</span> ⇒ stage 1 position
+                                </li><li><span class="display">2</span> ⇒ position 1
+                                </li><li><span class="display">3</span> ⇒ stage 2 position
+                                </li><li><span class="display">4</span> ⇒ stage 2 position
+                            </li></ul>
+                            <h4>Stage 5</h4>
+                            <ul><li><span class="display">1</span> ⇒ stage 1 label
+                                </li><li><span class="display">2</span> ⇒ stage 2 label
+                                </li><li><span class="display">3</span> ⇒ stage 4 label
+                                </li><li><span class="display">4</span> ⇒ stage 3 label
+                            </li></ul>
+                            <h4>Grid</h4>
+                            <table width="100%">
+                                <tbody><tr><th>Stage</th><th colspan="4">Position</th><th colspan="4">Label</th></tr>
+                                <tr><th>Stage 1</th><td colspan="2" style="text-align:center">2</td><td>3</td><td>4</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                <tr><th>Stage 2</th><td>1</td><td>2</td><td>3</td><td>4</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                <tr><th>Stage 3</th><td>1</td><td>2</td><td>3</td><td>4</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                                <tr><th>Stage 4</th><td>1</td><td>2</td><td>3</td><td>4</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                            </tbody></table>
+                    </td></tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 22 of 35</div>
+        </div>
+    <div id="MorseCode" class="page morse-code page-bg-02">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Morse Code</span>
+		</div>
+        <div class="page-content">
+    	    <img src="img/Modules/MorseCode.svg" class="diagram"><h2>On the Subject of Morse Code</h2>
+		        <p class="flavour-text">An antiquated form of naval communication? What next? At least it's genuine Morse Code, so pay attention and you might just learn something.</p>
+				<ul><li>Interpret the signal from the flashing light using the Morse Code chart to spell one of the words in the table.</li><li>The signal will loop, with a long gap between repeats.</li><li>Once the word is identified, set the corresponding frequency and press the transmit (TX) button.</li><li>A short flash represents a dot. A long flash represents a dash. There is a long gap between letters. There is a very long gap before the word repeats.</li><li><font color="gray">Gray</font> morse letters don't need to be memorised.</li><li><font color="orange">Orange</font> morse letters don't need to be memorised if interpreted optimally.</li><li>Marked letters in the frequency table indicate the only required letters from the start to identify the word.</li></ul><table style="float:left;margin-right:1em;font-size:11pt;width:15%"><thead><tr><th>Letter</th><th>Morse</th>
+					</tr></thead><tbody><tr style="background-color:#F80"><td>a</td><td>.-</td></tr><tr><td>b</td><td>-...</td></tr><tr style="background-color:#F80"><td>c</td><td>-.-.</td></tr><tr style="background-color:#888"><td>d</td><td>-..</td></tr><tr><td>e</td><td>.</td></tr><tr><td>f</td><td>..-.</td></tr><tr style="background-color:#F80"><td>g</td><td>--.</td></tr><tr><td>h</td><td>....</td></tr><tr><td>i</td><td>..</td></tr><tr style="background-color:#888"><td>j</td><td>.---</td></tr><tr style="background-color:#F80"><td>k</td><td>-.-</td></tr><tr><td>l</td><td>.-..</td></tr><tr><td>m</td><td>--</td></tr><tr style="background-color:#F80"><td>n</td><td>-.</td></tr><tr><td>o</td><td>---</td></tr><tr style="background-color:#888"><td>p</td><td>.--.</td></tr><tr style="background-color:#888"><td>q</td><td>--.-</td></tr><tr><td>r</td><td>.-.</td></tr></tbody></table><table  style="float:left;margin-right:1em;font-size:11pt;width:15%"><thead><tr><th>Letter</th><th>Morse</th>
+					</tr></thead><tbody><tr><td>s</td><td>...</td></tr><tr><td>t</td><td>-</td></tr><tr style="background-color:#888"><td>u</td><td>..-</td></tr><tr><td>v</td><td>...-</td></tr><tr style="background-color:#888"><td>w</td><td>.--</td></tr><tr><td>x</td><td>.--.</td></tr><tr style="background-color:#888"><td>y</td><td>-.--</td></tr><tr style="background-color:#888"><td>z</td><td>--..</td></tr><tr style="background-color:#888"><td>0</td><td>-----</td></tr><tr style="background-color:#888"><td>1</td><td>.----</td></tr><tr style="background-color:#888"	><td>2</td><td>..---</td></tr><tr style="background-color:#888"><td>3</td><td>...--</td></tr><tr style="background-color:#888"><td>4</td><td>....-</td></tr style="background-color:#888"><tr style="background-color:#888"><td>5</td><td>.....</td></tr><tr style="background-color:#888"><td>6</td><td>-....</td></tr><tr style="background-color:#888"><td>7</td><td>--...</td></tr><tr style="background-color:#888"><td>8</td><td>---..</td></tr><tr style="background-color:#888"><td>9</td><td>----.</td></tr></tbody></table><table class="morse-frequency-table" style="font-size:11pt"><tbody><tr><th>If the word is:</th>
+					<th>Respond at frequency:</th>
+					<th>Right arrow presses:</th>
+				</tr><tr><td><font color="red">sh</font>ell</td><td class="morse-frequency-response">3.505 MHz</td><td>0</td></tr><tr><td><font color="red">h</font>alls</td><td class="morse-frequency-response">3.515 MHz</td><td>1</td></tr><tr><td><font color="red">sl</font>ick</td><td class="morse-frequency-response">3.522 MHz</td><td>2</td></tr><tr><td><font color="red">t</font>rick</td><td class="morse-frequency-response">3.532 MHz</td><td>3</td></tr><tr><td><font color="red">box</font>es</td><td class="morse-frequency-response">3.535 MHz</td><td>4</td></tr><tr><td><font color="red">l</font>eaks</td><td class="morse-frequency-response">3.542 MHz</td><td>5</td></tr><tr><td><font color="red">str</font>obe</td><td class="morse-frequency-response">3.545 MHz</td><td>6</td></tr><tr><td><font color="red">bi</font>stro</td><td class="morse-frequency-response">3.552 MHz</td><td>7</td></tr><tr><td><font color="red">f</font>lick</td><td class="morse-frequency-response">3.555 MHz</td><td>8</td></tr><tr><td><font color="red">bom</font>bs</td><td class="morse-frequency-response">3.565 MHz</td><td>9</td></tr><tr><td><font color="red">bre</font>ak</td><td class="morse-frequency-response">3.572 MHz</td><td>10</td></tr><tr><td><font color="red">bri</font>ck</td><td class="morse-frequency-response">3.575 MHz</td><td>11</td></tr><tr><td><font color="red">ste</font>ak</td><td class="morse-frequency-response">3.582 MHz</td><td>12</td></tr><tr><td><font color="red">sti</font>ng</td><td class="morse-frequency-response">3.592 MHz</td><td>13</td></tr><tr><td><font color="red">v</font>ector</td><td class="morse-frequency-response">3.595 MHz</td><td>14</td></tr><tr><td><font color="red">be</font>ats</td><td class="morse-frequency-response">3.600 MHz</td><td>15</td></tr></tbody></table></div>
+				<div class="page-footer relative-footer">Page 23 of 35</div>
+    </div>
+    <div class="page page-bg-03">
+        <div class="page-header">
+            <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+            <span class="page-header-section-title">Complicated Wires</span>
+        </div>
+        <div class="page-content">
+            <img src="img/Modules/ComplicatedWires.svg" class="diagram">
+            <h2>On the Subject of Complicated Wires</h2>
+            <p class="flavour-text">
+                    These wires aren't like the others. Some have stripes! That makes them completely different. The good news is that we've found a concise set of instructions on what to do about it! Maybe too concise...
+            </p>
+                <p>Note that if a multicoloured wire is part-white, consider it to only have its other colour. (Example : <strong>White</strong>-<font color="red">Red</font> = <font color="red">Red</font>)</p>
+                <p>Follow these rules in the order they are listed. If a rule applies, cut the wire.</p>
+				<p>Alternatively, use the table below to decide whether or not to cut the wire.</p>
+                <ol>
+                  <li> The wire is <strong>white</strong> and its LED is <strong>off</strong>.
+                  </li><li> The wire is <font color="red">red</font>, has <strong>a star</strong> and its LED is <strong>off</strong>.
+                  </li><li> The last digit of the serial number is <strong>even</strong>, the wire has <strong>no star</strong> and it's LED is <strong>off</strong>.
+                  </li><li> The last digit of the serial number is <strong>even</strong>, the wire is <font color="red">red</font>-<font color="blue">blue</font>, has <strong>no star</strong> and it's LED is <strong>on</strong>.
+                  </li><li> The bomb has <strong>2+ Batteries</strong>, the wire is <font color="red">red</font> and it's LED is <strong>on</strong>.
+                  </li><li> The bomb has <strong>2+ Batteries</strong>, the wire is <strong>white</strong>, has <strong>a star</strong> and it's LED is <strong>on</strong>.
+                  </li><li> The bomb has a <strong>parallel port</strong>, the wire is <font color="blue">blue</font> and it's LED is <strong>on</strong>.
+                  </li><li> The bomb has a <strong>parallel port</strong>, the wire is <font color="red">red</font>-<font color="blue">blue</font>, has <strong>a star</strong> and it's LED is <strong>off</strong>.
+                  </li><li> Otherwise, don't cut the wire.
+                </li></ol>
+            <table class="repeaters-table">
+                <tbody>
+                    <tr>
+                        <th class="repeaters-spacer" colspan="2"></th>
+                        <th>None</th>
+                        <th>LED</th>
+                        <th>Star</th>
+                        <th>Both</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="4">Wire Colour is:</th>
+                        <th>White</th>
+                        <td><font color="#0F0">Cut</font></td>
+                        <td><font color="#800">Don't</font></td>
+                        <td><font color="#0F0">Cut</font></td>
+                        <td><font color="#F80">≥ 2 Batt</font></td>
+                    </tr>
+                    <tr>
+                        <th><font color="#F00">Red</font></th>
+                        <td><font color="#08F">SN Even</font></td>
+                        <td><font color="#F80">≥ 2 Batt</font></td>
+                        <td><font color="#0F0">Cut</font></td>
+                        <td><font color="#F80">≥ 2 Batt</font></td>
+                    </tr>
+                    <tr>
+                        <th><font color="#00F">Blue</font></th>
+                        <td><font color="#08F">SN Even</font></td>
+                        <td><font color="#F0F">Parallel</font></td>
+                        <td><font color="#800">Don't</font></td>
+                        <td><font color="#F0F">Parallel</font></td>
+                    </tr>
+                    <tr>
+                        <th><font color="#F0F">Both</font></th>
+                        <td><font color="#08F">SN Even</font></td>
+                        <td><font color="#08F">SN Even</font></td>
+                        <td><font color="#F0F">Parallel</font></td>
+                        <td><font color="#800">Don't</font></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="page-footer relative-footer">Page 24 of 35</div>
+    </div>
+    <div id="WireSequences" class="page wire-sequence page-bg-04">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Wire Sequences</span>
+		</div>
+        <div class="page-content">
+            <img src="img/Modules/WireSequences.svg" class="diagram"><h2>On the Subject of Wire Sequences</h2>
+            <p class="flavour-text">It's hard to say how this mechanism works. The engineering is pretty impressive, but there must have been an easier way to manage nine wires.</p>
+			<ul><li>Within this module there are several panels with wires on them, but only one panel is visible at a time. Switch to the next panel by using the down button and the previous panel by using the up button.</li><li>Do not switch to the next panel until you are sure that you have cut all necessary wires on the current panel.</li><li>Cut the wires as directed by the following table. Wire occurrences are cumulative over all panels within the module.</li></ul><div class="table-container">
+				<table class="red-table"><tbody><tr><th colspan="2" class="header" style="background: #f00;">Red Wire Occurrences</th></tr><tr><th class="first-col">Wire Occurrence</th><th class="second-col">Cut if connected to:</th></tr><tr><td class="first-col">1st&nbsp;red occurrence</td><td class="second-col">C</td></tr><tr><td class="first-col">2nd&nbsp;red occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">3rd&nbsp;red occurrence</td><td class="second-col">A</td></tr><tr><td class="first-col">4th&nbsp;red occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">5th&nbsp;red occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">6th&nbsp;red occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">7th&nbsp;red occurrence</td><td class="second-col">Any</td></tr><tr><td class="first-col">8th&nbsp;red occurrence</td><td class="second-col">A or B</td></tr><tr><td class="first-col">9th&nbsp;red occurrence</td><td class="second-col">B</td></tr></tbody></table><table class="blue-table"><tbody><tr><th colspan="2" class="header" style="background: #00f;">Blue Wire Occurrences</th></tr><tr><th class="first-col">Wire Occurrence</th><th class="second-col">Cut if connected to:</th></tr><tr><td class="first-col">1st&nbsp;blue occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">2nd&nbsp;blue occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">3rd&nbsp;blue occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">4th&nbsp;blue occurrence</td><td class="second-col">A</td></tr><tr><td class="first-col">5th&nbsp;blue occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">6th&nbsp;blue occurrence</td><td class="second-col">B or C</td></tr><tr><td class="first-col">7th&nbsp;blue occurrence</td><td class="second-col">C</td></tr><tr><td class="first-col">8th&nbsp;blue occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">9th&nbsp;blue occurrence</td><td class="second-col">A</td></tr></tbody></table><table class="black-table"><tbody><tr><th colspan="2" class="header" style="background: #000;">Black Wire Occurrences</th></tr><tr><th class="first-col">Wire Occurrence</th><th class="second-col">Cut if connected to:</th></tr><tr><td class="first-col">1st&nbsp;black occurrence</td><td class="second-col">Any</td></tr><tr><td class="first-col">2nd&nbsp;black occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">3rd&nbsp;black occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">4th&nbsp;black occurrence</td><td class="second-col">A or C</td></tr><tr><td class="first-col">5th&nbsp;black occurrence</td><td class="second-col">B</td></tr><tr><td class="first-col">6th&nbsp;black occurrence</td><td class="second-col">B or C</td></tr><tr><td class="first-col">7th&nbsp;black occurrence</td><td class="second-col">A or B</td></tr><tr><td class="first-col">8th&nbsp;black occurrence</td><td class="second-col">C</td></tr><tr><td class="first-col">9th&nbsp;black occurrence</td><td class="second-col">C</td></tr></tbody></table></div>
+        </div>
+				<div class="page-footer relative-footer">Page 25 of 35</div>
+    </div>
+    <div id="Mazes" class="page page-bg-05">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Mazes</span>
+		</div>
+        <div class="page-content">
+    	    <img src="img/Modules/Mazes.svg" class="diagram"><h2>On the Subject of Mazes</h2>
+            <p class="flavour-text">This seems to be some kind of maze, probably stolen off of a restaurant placemat.</p>
+            <ul><li>Find the maze with matching circular markings.</li><li>The defuser must navigate the white light to the red triangle using the arrow buttons.</li><li><strong>Warning:</strong> Do not cross the lines shown in the maze. These lines are invisible on the bomb.</li><li>Naming each maze may help you memorise it. Here are some examples :</li><li>Conversation, ???, ???, Alley, Elephant, Gully, Polar Express, The Big L, ???</li></ul><div class="maze-grid">
+				<img class="maze" src="img/Maze/0.svg"><img class="maze" src="img/Maze/1.svg"><img class="maze" src="img/Maze/2.svg"><img class="maze" src="img/Maze/3.svg"><img class="maze" src="img/Maze/4.svg"><img class="maze" src="img/Maze/5.svg"><img class="maze" src="img/Maze/6.svg"><img class="maze" src="img/Maze/7.svg"><img class="maze" src="img/Maze/8.svg"></div>
+        </div>
+				<div class="page-footer relative-footer">Page 26 of 35</div>
+    </div>
+        <div class="page page-bg-06">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span>
+                <span class="page-header-section-title">Passwords</span>
+            </div>
+            <div class="page-content">
+                <img src="img/Modules/Passwords.svg" class="diagram">
+                <h2>On the Subject of Passwords</h2>
+                <p class="flavour-text">Fortunately this password doesn't seem to meet standard government security requirements: 22 characters, mixed case, numbers in random order without any palindromes above length 3.</p>
+                <ul>
+                    <li>The buttons above and below each letter will cycle through the 6 possibilities for that position.</li>
+                    <li>Only one combination of the available letters will match a password below.</li>
+                    <li>Press the submit button once the correct word has been set.</li>
+                    <li>The following letters are never used in the respective slots :</li>
+                    <li>Any : J,Q,X,Z</li>
+                    <li>1 : D,I,J,K,M,Q,U,V,X,Y,Z</li>
+                    <li>2 : C,D,J,K,N,Q,S,U,W,X,Y,Z</li>
+                    <li>3 : B,C,D,F,M,N,J,K,P,Q,S,W,X,Y,Z</li>
+                    <li>4 : B,F,J,K,M,P,Q,V,W,X,Y,Z</li>
+                    <li>5 : B,C,F,I,J,M,O,P,Q,S,U,V,X,Z</li>
+                </ul>
+                <table class="passwords" style="border:none">
+                    <tbody><tr><th>A</th><td>about</td><td>after</td><td>again</td></tr>
+                    <tr><th>B</th><td>below</td></tr>
+                    <tr><th>C</th><td>could</td></tr>
+                    <tr><th>E</th><td>every</td></tr>
+                    <tr><th>F</th><td>first</td><td>found</td></tr>
+                    <tr><th>G</th><td>great</td></tr>
+                    <tr><th>H</th><td>house</td></tr>
+                    <tr><th>L</th><td>large</td><td>learn</td></tr>
+                    <tr><th>N</th><td>never</td></tr>
+                    <tr><th>O</th><td>other</td></tr>
+                    <tr><th>P</th><td>place</td><td>plant</td><td>point</td></tr>
+                    <tr><th>R</th><td>right</td></tr>
+                    <tr><th>S</th><td>small</td><td>sound</td><td>spell</td><td>still</td><td>study</td></tr>
+                    <tr><th>TH</th><td>their</td><td>there</td><td>these</td><td>thing</td><td>think</td><td>three</td></tr>
+                    <tr><th>W</th><td>water</td><td>where</td><td>which</td><td>world</td><td>would</td><td>write</td></tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 27 of 35</div>
+        </div>
+    <div id="Section2" class="page section-title page-bg-07">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Section 2 : Needy Modules, V.Gas & Cap.D</span>
+		</div>
+        <div class="page-content" style="text-align:start">
+	        <img src="img/Modules/Needy.svg" class="diagram"><div class="new-block-formatting-context" style="text-align:center">
+				<h1>Section 2 : Needy Modules</h1>
+				<p>Needy modules cannot be disarmed, but pose a recurrent hazard.</p>
+				<p>Needy modules can be identified as a module with a small 2‑digit timer in the top center. Interacting with the bomb may cause them to become activated. Once activated, these needy modules must be tended to regularly before their timer expires in order to prevent a strike.</p>
+				<p>Stay observant: needy modules may reactivate at any time.</p>
+			</div>
+            <img src="img/Modules/VentingGas.svg" class="diagram"><h2>On the Subject of Venting Gas</h2>
+            <p class="flavour-text">Computer hacking is hard work! Well, it usually is. This job could probably be performed by a simple drinking bird pressing the same key over and over again.</p>
+			<ul><li>Respond to the computer prompts by pressing "Y" for "Yes" or "N" for "No".</li><li>Failure to respond correctly or within 40 seconds will cause a strike.</li><li>Respond to "VENT GAS?" with "Y" for "Yes".</li><li>Respond to "DETONATE?" with "N" for "No".</li></ul>
+    	    <img src="img/Modules/CapacitorDischarge.svg" class="diagram"><h2>On the Subject of Capacitor Discharge</h2>
+            <p class="flavour-text">I'm going to guess that this is just meant to occupy your attention, because otherwise this is some shoddy electronics work.</p>
+            <ul><li>If left unchecked, this capacitor will cause a strike after 45 seconds.</li><li>Discharge the capacitor before it overloads by holding down the lever to increase the timer.</li></ul>
+        </div>
+				<div class="page-footer relative-footer">Page 28 of 35</div>
+    </div>
+    <div id="Knobs" class="page needy-knob page-bg-01">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Knobs</span>
+		</div>
+        <div class="page-content">
+    	    <img src="img/Modules/Knobs.svg" class="diagram"><h2>On the Subject of Knobs</h2>
+            <p class="flavour-text">Needlessly complicated and endlessly needy. Imagine if such expertise were used to make something other than diabolical puzzles.</p>
+			<ul><li>The knob can be turned to one of four different positions.</li><li>The knob must be in the correct position when this module's timer (40 seconds) hits zero.</li><li>The correct position can be determined by the on/off configuration of the twelve LEDs.</li><li>Knob positions are relative to the "UP" label, which may have rotated.</li><li>The rotation offsets are shown here in this order : UP, DOWN, LEFT, RIGHT</li></ul><h3>LED Configurations</h3>
+            
+            <h4><span>Up Position</span> (UP, DOWN, LEFT, RIGHT) :</h4><table dir="ltr"><tbody><tr><td> </td><td> </td><td>X</td><td> </td><td>X</td><td>X</td></tr><tr><td>X</td><td>X</td><td>X</td><td>X</td><td> </td><td>X</td></tr></tbody></table><table dir="ltr"><tbody><tr><td>X</td><td> </td><td>X</td><td> </td><td>X</td><td> </td></tr><tr><td> </td><td>X</td><td>X</td><td> </td><td>X</td><td>X</td></tr></tbody></table><h4><span>Down Position</span> (DOWN, UP, RIGHT, LEFT) :</h4><table dir="ltr"><tbody><tr><td> </td><td>X</td><td>X</td><td> </td><td> </td><td>X</td></tr><tr><td>X</td><td>X</td><td>X</td><td>X</td><td> </td><td>X</td></tr></tbody></table><table dir="ltr"><tbody><tr><td>X</td><td> </td><td>X</td><td> </td><td>X</td><td> </td></tr><tr><td> </td><td>X</td><td> </td><td> </td><td> </td><td>X</td></tr></tbody></table><h4><span>Left Position</span> (LEFT, RIGHT, DOWN, UP) :</h4><table dir="ltr"><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>X</td><td> </td></tr><tr><td>X</td><td> </td><td> </td><td>X</td><td>X</td><td>X</td></tr></tbody></table><table dir="ltr"><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>X</td><td> </td></tr><tr><td> </td><td> </td><td> </td><td>X</td><td>X</td><td> </td></tr></tbody></table><h4><span>Right Position</span> (RIGHT, LEFT, UP, DOWN) :</h4><table dir="ltr"><tbody><tr><td>X</td><td> </td><td>X</td><td>X</td><td>X</td><td>X</td></tr><tr><td>X</td><td>X</td><td>X</td><td> </td><td>X</td><td> </td></tr></tbody></table><table dir="ltr"><tbody><tr><td>X</td><td> </td><td>X</td><td>X</td><td> </td><td> </td></tr><tr><td>X</td><td>X</td><td>X</td><td> </td><td>X</td><td> </td></tr></tbody></table><br><br><p class="needy-diagram-label">X = Lit LED</p>
+        </div>
+				<div class="page-footer relative-footer">Page 29 of 35</div>
+    </div>
+    <div id="AppendixA" class="page appendix-indicators page-bg-02">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Appendices A & B</span>
+		</div>
+        <div class="page-content">
+            <h2>Appendix A : Indicator Identification Reference</h2>
+            <p>Labelled indicator lights can be found on the sides of the bomb casing.</p>
+            <img src="img/Widgets/Indicator.svg" id="appendix-indicator-img">
+			<table><tbody><tr><th>Indicators</th><th>NATO</th>
+				</tr><tr><td>BOB</td><td>Bob</td></tr>
+				<tr><td>CAR</td><td>Car</td></tr>
+				<tr><td>CLR</td><td>C L R</td></tr>
+				<tr><td>FRK</td><td>F R Kilo</td></tr>
+				<tr><td>FRQ</td><td>F R Quebec</td></tr>
+				<tr><td>IND</td><td>I N D</td></tr>
+				<tr><td>MSA</td><td>Mike S A</td></tr>
+				<tr><td>NSA</td><td>November S A</td></tr>
+				<tr><td>SIG</td><td>Sig</td></tr>
+				<tr><td>SND</td><td>S N D</td></tr>
+				<tr><td>TRN</td><td>T R N</td></tr>
+				</tbody></table>
+            <h2>Appendix B : Battery Identification Reference</h2>
+            <p>Common battery types can be found within enclosures on the sides of the bomb casing.</p>
+			<table><tbody><tr><th>Battery</th>
+					<th>Type</th>
+				</tr><tr><td><img src="img/Widgets/Battery-AA.svg" id="appendix-battery-AA-img"></td>
+				<td>AA</td>
+				</tr><tr><td><img src="img/Widgets/Battery-D.svg" id="appendix-battery-D-img"></td>
+				<td>D</td>
+				</tr></tbody></table></div>
+				<div class="page-footer relative-footer">Page 30 of 35</div>
+    </div>
+    <div id="AppendixC" class="page appendix-ports page-bg-03">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Appendix C</span>
+		</div>
+        <div class="page-content">
+            <h2>Appendix C : Port Identification Reference</h2>
+            <p>Digital and analog ports can be found on sides of the bomb casing.</p>
+			<table><tbody><tr><th>Port</th>
+					<th>Name</th>
+				</tr><tr><td><img src="img/Widgets/Port-DVI.svg" id="appendix-ports-dvi-img"></td>
+					<td>DVI-D</td>
+				</tr><tr><td><img src="img/Widgets/Port-Parallel.svg" id="appendix-ports-parallel-img"></td>
+					<td>Parallel</td>
+				</tr><tr><td><img src="img/Widgets/Port-PS2.svg" id="appendix-ports-ps2-img"></td>
+					<td>PS/2</td></tr><tr><td><img src="img/Widgets/Port-RJ45.svg" id="appendix-ports-rj45-img"></td>
+					<td>RJ-45</td></tr><tr><td><img src="img/Widgets/Port-Serial.svg" id="appendix-ports-serial-img"></td>
+					<td>Serial</td>
+				</tr><tr><td><img src="img/Widgets/Port-StereoRCA.svg" id="appendix-ports-rca-img"></td>
+					<td>Stereo RCA</td>
+				</tr></tbody></table></div>
+				<div class="page-footer relative-footer">Page 31 of 35</div>
+    </div>
+        <div class="page">
+            <div class="page-header"> <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span> <span class="page-header-section-title">Appendix K</span> </div>
+            <div class="page-content">
+                <h2>Appendix K : Keypad Symbol Reference</h2>
+                <p class="flavour-text">"I'm not sure what these symbols are." Well now you do.</p>
+                <table>
+                    <colgroup>
+                        <col width="80">
+                        <col width="190">
+                        <col width="480">
+                    </colgroup>
+                    <tbody><tr>
+                        <th>Symbol:</th>
+                        <th>Name:</th>
+                        <th>Origin:</th>
+                    </tr><tr>
+                        <td><img src="img/Keypads/1-copyright.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/a9/index.htm">Copyright sign</a></td>
+                        <td>Symbol used to indicate that a work is protected by exclusive rights to its use and distribution.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/2-filledstar.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/2605/index.htm">Black star</a></td>
+                        <td>Simply a filled-in star. Not used as a letter in any writing system.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/3-hollowstar.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/2606/index.htm">White star</a></td>
+                        <td>Simply a hollow star. Not used as a letter in any writing system.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/4-smileyface.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/067c/index.htm">Arabic letter Teh with ring</a></td>
+                        <td>Letter used in the Arabic alphabet, with an old/discontinued diacritic.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/5-doublek.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/0496/index.htm">Cyrillic capital letter Zhe with descender</a></td>
+                        <td>Letter derived from Zhe (Ж) used in the Dungan, Kalmyk, Tatar and Turkmen variants of the Cyrillic alphabet.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/6-omega.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/03a9/index.htm">Greek capital letter Omega</a></td>
+                        <td>Letter used in the Greek alphabet, both modern and ancient.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/7-squidknife.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/046c/index.htm">Cyrillic capital letter iotified Big Yus</a></td>
+                        <td>Letter used in early forms of the Cyrillic alphabet.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/8-pumpkin.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/047c/index.htm">Cyrillic capital letter Omega with Titlo</a></td>
+                        <td>Letter used in early forms of the Cyrillic alphabet, with an old diacritic.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/9-hookn.png">
+                        </td><td><a href="http://www.fileformat.info/info/unicode/char/2ce4/index.htm">Coptic symbol Kai</a></td>
+                        <td>Symbol used to represent “and” in the discontinued Coptic writing system. Similar in use to modern &amp; (ampersand).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/10-teepee.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/03eb/index.htm">Coptic small letter gangia</a></td>
+                        <td>A letter from the Coptic alphabet, a discontinued writing system now only used in liturgy.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/11-six.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/0431/index.htm">Cyrillic small letter Be</a></td>
+                        <td>Letter widely used in almost all variants of the Cyrillic alphabet.</td>
+                </tr></tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 32 of 35</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header"> <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span> <span class="page-header-section-title">Appendix K</span> </div>
+            <div class="page-content">
+                <table>
+                    <colgroup>
+                        <col width="80">
+                        <col width="220">
+                        <col width="480">
+                    </colgroup>
+                    <tbody><tr>
+                        <th>Symbol:</th>
+                        <th>Name:</th>
+                        <th>Origin:</th>
+                    </tr><tr>
+                        <td><img src="img/Keypads/12-squigglyn.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/03d8/index.htm">Greek letter archaic Koppa</a></td>
+                        <td>Letter that was used in early forms of the Greek alphabet. Now replaced by kappa (Κ).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/13-at.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/0466/index.htm">Cyrillic capital letter Little Yus</a></td>
+                        <td>Letter that was used in early forms of the Cyrillic alphabet. Now replaced by Ya (Я).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/14-ae.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/00E6/index.htm">Latin small letter AE</a></td>
+                        <td>Ligature of A and E, originating from Latin script. Used in modern languages, including French and Icelandic.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/15-meltedthree.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/0506/index.htm">Cyrillic capital letter Komi Dzje</a></td>
+                        <td>Letter used exclusively in the Komi variant of the Cyrillic alphabet.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/16-euro.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/04ec/index.htm">Cyrillic capital letter E with diaeresis</a></td>
+                        <td>Letter used in early forms of the Cyrillic alphabet. Now replaced by E (Э).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/17-circle.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/0488/index.htm">Combining Cyrillic hundred thousands sign</a></td>
+                        <td>Used in the (discontinued) Cyrillic counting system, written around another character to multiply its value by 100,000.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/18-nwithhat.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/048a/index.htm">Cyrillic capital letter short I with tail</a></td>
+                        <td>Letter used exclusively in the Kildin Sami language. Variant of short I (Й).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/19-dragon.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/046e/index.htm">Cyrillic capital letter Ksi</a></td>
+                        <td>Letter used in early versions of the Cyrillic alphabet. There is no modern equivalent.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/20-questionmark.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/00bf/index.htm">Inverted question mark</a></td>
+                        <td>Used exclusively in the Spanish language to begin a question.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/21-paragraph.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/b6/index.htm">Pilcrow sign</a></td>
+                        <td>Symbol formerly used to separate paragraphs in articles or essays. Today used by word processing software to mark paragraphs in a way that won’t be printed.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/22-rightc.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/03fe/index.htm">Greek capital dotted lunate Sigma symbol</a></td>
+                        <td>Symbol used in ancient Greek writing to make editorial corrections.</td>
+                </tr></tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 33 of 35</div>
+        </div>
+
+        <div class="page">
+            <div class="page-header"> <span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v1</span> <span class="page-header-section-title">Appendix K</span> </div>
+            <div class="page-content">
+                <table>
+                    <colgroup>
+                        <col width="80">
+                        <col width="220">
+                        <col width="480">
+                    </colgroup>
+                    <tbody><tr>
+                        <th>Symbol:</th>
+                        <th>Name:</th>
+                        <th>Origin:</th>
+                    </tr><tr>
+                        <td><img src="img/Keypads/23-leftc.png">
+                        </td><td><a href="https://www.fileformat.info/info/unicode/char/03ff/index.htm">Greek capital reversed dotted lunate Sigma symbol</a></td>
+                        <td>Symbol used in ancient Greek writing to make editorial corrections.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/24-pitchfork.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/03A8/index.htm">Greek capital letter Psi</a></td>
+                        <td>Letter used in the Greek alphabet, both modern and ancient.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/25-tripod.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/046A/index.htm">Cyrillic capital letter Big Yus</a></td>
+                        <td>Letter that was used in early forms of the Cyrillic alphabet.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/26-cursive.png">
+                        </td><td><a href="http://www.fileformat.info/info/unicode/char/04a8/index.htm">Cyrillic capital letter Abkhasian Ha</a></td>
+                        <td>Letter used exclusively in the Abkhazian variant of the Cyrillic alphabet.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/27-tracks.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/0482/index.htm">Cyrillic thousands sign</a></td>
+                        <td>Used in the (discontinued) Cyrillic counting system to represent one thousand.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/28-balloon.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/03df/index.htm">Greek small letter Koppa</a></td>
+                        <td>Letter that was used in early forms of the Greek alphabet. Now replaced by kappa (Κ).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/29-weirdnose.png"></td>
+                        <td><a href="https://www.fileformat.info/info/unicode/char/03b6/index.htm">Greek small letter Zeta</a></td>
+                        <td>The lower-case letter Zeta (ζ) in the Greek alphabet, both modern and ancient.</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/30-upsidedowny.png">
+                        </td><td><a href="http://www.fileformat.info/info/unicode/char/019b/index.htm">Latin small letter Lambda with stroke</a></td>
+                        <td>Letter used in Americanist phonetic notation, derived from Greek lambda (λ) and used to represent the voiceless alveolar lateral affricate (t͡ɬ).</td>
+                    </tr><tr>
+                        <td><img src="img/Keypads/31-bt.png"></td>
+                        <td><a href="http://www.fileformat.info/info/unicode/char/0462/index.htm">Cyrillic capital letter Yat</a></td>
+                        <td>Letter used in early versions of the Cyrillic alphabet. In Russian now supplanted by Myagkiy Znak (Ь).</td>
+                </tr></tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 34 of 35</div>
+        </div>
+    <div id="AppendixC" class="page appendix-ports page-bg-04">
+        		<div class="page-header">
+			<span class="page-header-doc-title">Keep Talking and Nobody Explodes RealBen9 v<bdo dir="ltr">1</bdo></span>
+			<span class="page-header-section-title">Appendix N</span>
+		</div>
+        <div class="page-content">
+            <h2>Appendix N : NATO Phonetic Alphabet Reference</h2>
+			<table><tbody><tr><th>Character</th><th>Telephony</th>
+				</tr><tr><td>A</td><td>Alpha</td></tr>
+				<tr><td>B</td><td>Bravo</td></tr>
+				<tr><td>C</td><td>Charlie</td></tr>
+				<tr><td>D</td><td>Delta</td></tr>
+				<tr><td>E</td><td>Echo</td></tr>
+				<tr><td>F</td><td>Foxtrot</td></tr>
+				<tr><td>G</td><td>Golf</td></tr>
+				<tr><td>H</td><td>Hotel</td></tr>
+				<tr><td>I</td><td>India</td></tr>
+				<tr><td>J</td><td>Juliet</td></tr>
+				<tr><td>K</td><td>Kilo</td></tr>
+				<tr><td>L</td><td>Lima</td></tr>
+				<tr><td>M</td><td>Mike</td></tr>
+				<tr><td>N</td><td>November</td></tr>
+				<tr><td>O</td><td>Oscar</td></tr>
+				<tr><td>P</td><td>Papa</td></tr>
+				<tr><td>Q</td><td>Quebec</td></tr>
+				<tr><td>R</td><td>Romeo</td></tr>
+				<tr><td>S</td><td>Sierra</td></tr>
+				<tr><td>T</td><td>Tango</td></tr>
+				<tr><td>U</td><td>Uniform</td></tr>
+				<tr><td>V</td><td>Victor</td></tr>
+				<tr><td>W</td><td>Whiskey</td></tr>
+				<tr><td>X</td><td>X-Ray</td></tr>
+				<tr><td>Y</td><td>Yankee</td></tr>
+				<tr><td>Z</td><td>Zulu</td></tr>
+				</tbody></table></div>
+				<div class="page-footer relative-footer">Page 35 of 35 (You did it!)</div>
+    </div>
+<div id="notification" style="display:none"></div></body></html>

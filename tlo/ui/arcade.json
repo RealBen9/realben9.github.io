@@ -1,0 +1,57 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menuarcade"
+  },
+  "data": [
+    {
+      "string": "arcadeLabel",
+      "langOverride": "menu_root",
+      "type": "header"
+    },
+    {
+      "label": "Normal",
+      "description": "An easier master mode variant for beginners.",
+      "fixedText": true,
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/normal"
+    },
+    {
+      "label": "Novice",
+      "description": "A slow game for beginners.",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/novice"
+    },
+    {
+      "label": "Special",
+      "description": "A harder master mode variant for intermediates.",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/special"
+    },
+    {
+      "label": "Sudden",
+      "description": "The pieces spawn on the ground and only get faster!",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/sudden"
+    },
+    {
+      "label": "Special Ti",
+      "description": "A harsh master mode variant for experts. May have promotional exams in the future.",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/specialti"
+    },
+    {
+      "label": "Sudden Ti",
+      "description": "An aggresive speed variant that is meant to be unplayable.",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/suddenti"
+    }
+  ]
+}
+  

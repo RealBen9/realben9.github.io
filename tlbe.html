@@ -1,0 +1,109 @@
+<title>Board Editor</title>
+<head><link rel="icon" type="image/x-icon" href="img/favicon.ico"><link rel="stylesheet" type="text/css" href="style.css"></head>
+<script src="index.js"></script>
+<script>
+function viewinput() {
+	pixelColors = document.getElementById("boardString").value
+	boardW = document.getElementById("boardWidth").value
+	//boardH = document.getElementById("boardHeight").value
+	document.cookie = "TlBeSaVe=" + pixelColors
+	canvas = document.getElementById("canvas")
+	canvas.width = boardW
+	canvas.style.width = boardW * 20 + "px"
+	//canvas.style.height = boardH * 20 + "px"
+	//canvas.height = boardH
+	ctx = canvas.getContext("2d")
+	width = canvas.width
+	height = canvas.height
+	colors = new Uint8ClampedArray(width * height * 4)
+	for (let x = 0; x < (width * height); x++) {
+		for (let y = 0; y < height; y++) {
+			pixelColor = pixelColors[x + (y * height)]
+			pixelCoordinate = (x + y) * 4
+			if (pixelColor == 1) {
+				colors[pixelCoordinate] = 255
+				colors[pixelCoordinate + 1] = 0
+				colors[pixelCoordinate + 2] = 0
+			}
+			else if (pixelColor == 2) {
+				colors[pixelCoordinate] = 255
+				colors[pixelCoordinate + 1] = 127
+				colors[pixelCoordinate + 2] = 0
+			}
+			else if (pixelColor == 3) {
+				colors[pixelCoordinate] = 255
+				colors[pixelCoordinate + 1] = 255
+				colors[pixelCoordinate + 2] = 0
+			}
+			else if (pixelColor == 4) {
+				colors[pixelCoordinate] = 0
+				colors[pixelCoordinate + 1] = 255
+				colors[pixelCoordinate + 2] = 0
+			}
+			else if (pixelColor == 5) {
+				colors[pixelCoordinate] = 0
+				colors[pixelCoordinate + 1] = 255
+				colors[pixelCoordinate + 2] = 255
+			}
+			else if (pixelColor == 6) {
+				colors[pixelCoordinate] = 0
+				colors[pixelCoordinate + 1] = 0
+				colors[pixelCoordinate + 2] = 255
+			}
+			else if (pixelColor == 7) {
+				colors[pixelCoordinate] = 255
+				colors[pixelCoordinate + 1] = 0
+				colors[pixelCoordinate + 2] = 255
+			}
+			else if (pixelColor == 8) {
+				colors[pixelCoordinate] = 191
+				colors[pixelCoordinate + 1] = 191
+				colors[pixelCoordinate + 2] = 191
+			}
+			else if (pixelColor == 9) {
+				colors[pixelCoordinate] = 63
+				colors[pixelCoordinate + 1] = 63
+				colors[pixelCoordinate + 2] = 63
+			}
+			else {
+				colors[pixelCoordinate] = 0
+				colors[pixelCoordinate + 1] = 0
+				colors[pixelCoordinate + 2] = 0
+			}
+			colors[pixelCoordinate + 3] = 255
+		}
+	}
+	imageData = new ImageData(colors, width, height)
+	ctx.putImageData(imageData, 0, 0)
+}
+</script>
+<div id="snow">
+<h1>Board Editor</h1>
+<p id="boardDesc">Any boards that you make here can be used in TLU's zen mode. Just remember to copy the board string first. (May connect to TLU via cookies)</p>
+<p style="margin:0">Width : <input id="boardWidth" value="10" type="number" min="4" max="20" style="width:40px"></input><!-- Height : <input id="boardHeight" value="20" type="number" min="10" max="40" style="width:40px"></input></p>-->
+<p style="margin:0"><button onclick="viewinput()">View</button></p>
+<canvas id="canvas" width="10" height="20" style="width:200px;height:400px;transform:rotateX(180deg);image-rendering:pixelated"></canvas>
+<h2>How to use</h2>
+<p>Enter numbers into the board string input, then press "View" to view the output. This output is functionally identical to the output of TLU.</p>
+<p>A "board string" is intended to have up to 200 characters, where each character represents 1 mino. (The 1st character is the bottom-left mino & the 2nd is the mino to the right.)</p>
+<p>Each character can be a number from 0-9, which represent the following : 0 : Empty | <font color=#f00>1 : Red</font> | <font color=#f70>2 : Orange</font> | <font color=#ff0>3 : Yellow</font> | <font color=#0f0>4 : Green</font> | <font color=#0ff>5 : Light Blue</font> | <font color=#00f>6 : Blue</font> | <font color=#f0f>7 : Purple</font> | <font color=#bbb>8 : White</font> | <font color=#333>9 : Black</font></p>
+<p>Note that any character that isn't 1,2,3,4,5,6,7,8 or 9 will act as a 0. Also note that any trailing "0"s can be truncated.</p>
+<h2>Examples (Width : 10)</h2>
+<p>Checkerboard : [01010101011010101010020202020220202020200303030303303030303004040404044040404040050505050550505050500606060606606060606007070707077070707070080808080880808080800909090909909090909]</p>
+<p>Cheese : [330333333333333033333333333303303333333333330333333333333033033333333333303333333333330333333333333]</p>
+<p>idk : [00010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001]</p>
+<p>Ball? : [0000000000000000000000000000000000000000000000000000000000000000440000000433400000432234000432112340043211234000432234000004334000000044]</p>
+<p>Diagonal Lines : [1000010000020000200000300003000004000040000050000500060000600070000700080000800090000900000100001000002000020000030000300000400004000500005000600006000700007000800008]</p>
+<p>4+ Wide : [111000011122200002223330000333444000004455500000556660000066770000007788000000889900000099110000000122000000023300000003400000000450000000056000000006]</p>
+<p>Secret Grade : [01111111112022222222330333333344404444445555055555666660666677777707778888888088999999990911111111102222222202333333303344444404445555505555666606666677707777778808888888909999999901111111112022222222]</p>
+<p>Inverse Secret Grade : [100000000002000000000030000000000400000000005000000000060000000000700000000008000000000090000000000100000000200000000300000000400000000500000000600000000700000000800000000900000000100000000002]</p>
+<p>Dead Drop : [0006660000000611000000011000000004400000000044000000077700000000700000000555500000022200000000020000000033000000003300000005555000000011000000011000000000330000000033]</p>
+<p>DT Cannon 4-Wide Setup Practice : [78900006867870000986789000098638300009853830000985989000098598900009858880000888999000099911100001112220000222333000033344400004445550000555666000066677700007778880000888999000099911100001112220000222]</p>
+<p>idk2 : [000000000000000000000000000000000000000000000000004000000004030000003000201102000001001000001000010000100001000001001000002011020003000000304000000004]</p>
+<p>π : [31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819]</p>
+</div><script>
+	function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+	var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape("TlBeSaVe") + '=([^;]*)'));
+	cookieData = match ? match[1] : "";
+	document.getElementById("boardDesc").outerHTML = document.getElementById("boardDesc").outerHTML + 'Board String : <input id="boardString" value="' + cookieData + '" style="width:1500px"></input>'
+</script>

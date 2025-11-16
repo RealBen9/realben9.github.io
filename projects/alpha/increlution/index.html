@@ -1,0 +1,47 @@
+<title>Increlution</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>Increlution</h1>
+<h2>Input Display</h2>
+<p id="inputs">[]</p>
+<p id="time">Time : 00:00.000 (0f)</p>
+<p id="hp">HP : 100 / 100</p>
+<p id="hpDecay">HD/s : 0.50</p>
+<h2>Skills</h2>
+<p id="sk0">Farming x 1.00</p>
+<p id="sk1">Woodcutting x 1.00</p>
+<p id="sk2">Construction x 1.00</p>
+<p id="sk3">Agility x 1.00</p>
+<p id="sk4">Fishing x 1.00</p>
+<p id="sk5">Cooking x 1.00</p>
+<h2>Actions</h2>
+<h3>Jobs
+<table border="1"><tbody id="jobs">
+    <tr><th>Skill</th><th>Job</th><th>Action</th><th>Time</th></tr>
+    <tr id="Gather berries"><td>0</td><td>Gather berries</td><td><button onclick="addToQueue('Gather berries')">Add to queue</button></td><td>120f / 120f</td></tr>
+    <tr id="Cut wood"><td>1</td><td>Cut wood</td><td><button onclick="addToQueue('Cut wood')">Add to queue</button></td><td>300f / 300f</td></tr>
+</tbody></table></h3>
+<h3>Construction
+<table border="1"><tbody id="construction">
+    <tr><th>Skill</th><th>Building / tool</th><th>Action</th><th>Time</th></tr>
+    <tr id="Wooden cart"><td>2</td><td>Wooden cart</td><td><button onclick="addToQueue('Wooden cart')">Add to queue</button></td><td>1200f / 1200f</td></tr>
+    <tr id="Wooden hut"><td>2</td><td>Wooden hut</td><td><button onclick="addToQueue('Wooden hut')">Add to queue</button></td><td>2400f / 2400f</td></tr>
+</tbody></table></h3>
+<h3>Exploration
+<table border="1"><tbody id="exploration">
+    <tr><th>Skill</th><th>Goal</th><th>Action</th><th>Time</th></tr>
+    <tr id="Explore the area"><td>3</td><td>Explore the area</td><td><button onclick="addToQueue('Explore the area')">Add to queue</button></td><td>1200f / 1200f</td></tr>
+</tbody></table></h3>
+<h2>Inventory
+<table border="1"><tbody id="inventory">
+    <tr><th>Item</th><th>Amount</th><th>Cooldown</th></tr>
+</tbody></table></h2>
+<h2>Action queue
+<table border="1"><tbody id="queue">
+    <tr><th>Order</th><th>Skill</th><th>Action</th></tr>
+    <tr><td>Now</td><td>None</td><td>Game paused</td></tr>
+</tbody></table>
+<button id="btnQueue" onclick="paused = !paused" style="background-color:#f00">Paused (empty queue)</button></h2>
+</div>
+<script src="increlution.js"></script>

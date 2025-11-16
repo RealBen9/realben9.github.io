@@ -1,0 +1,51 @@
+<title>DynBG</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>DynBG</h1>
+<canvas id="canvas" width="1200" height="800"></canvas><br>
+Circles : <input id="canvasCheck" type="number" value="1" min="1" max="511"></input>
+<button onclick="addCircles()">Draw!</button>
+</div>
+<script>
+circles = {}
+const ang360 = Math.PI * 2
+function addCircles() {
+    circles = {}
+    let drawCount = document.getElementById("canvasCheck").value
+    for (let x = 0; x < drawCount; x++) {
+        circles[x] = []
+        size = 25 //Math.floor(Math.random() * 100) + 25
+        circles[x][0] = size
+        circles[x][1] = Math.floor(Math.random() * (canvas.width - size * 2)) + size
+        circles[x][2] = Math.floor(Math.random() * (canvas.height - size * 2)) + size
+        circles[x][3] = "#" + ("000000" + Math.floor(Math.random() * 16777215).toString(16)).slice(-6) + "80"
+    }
+}
+function draw() {
+    let drawCount = Object.keys(circles).length
+    const canvas = document.getElementById('canvas')
+    canvas.width+=0
+    const ctx = canvas.getContext('2d')
+    for (let x = 0; x < drawCount; x++) {
+        if (Math.random() >= 0.97) {
+            if (Math.random() >= 0.5 || circles[x][0] <= 1) {circles[x][0]++}
+            else {circles[x][0]--}
+        }
+        if (Math.random() >= 0.97) {
+            if (Math.random() >= 0.5 || circles[x][1] <= 1) {circles[x][1]++}
+            else {circles[x][1]--}
+        }
+        if (Math.random() >= 0.97) {
+            if (Math.random() >= 0.5 || circles[x][2] <= 1) {circles[x][2]++}
+            else {circles[x][2]--}
+        }
+        let circle = new Path2D()
+        circle.arc(circles[x][1], circles[x][2], circles[x][0], 0, ang360)
+        ctx.fillStyle = circles[x][3]
+        ctx.fill(circle)
+    }
+    var t = setTimeout(function(){draw()},17)
+}
+draw()
+</script>

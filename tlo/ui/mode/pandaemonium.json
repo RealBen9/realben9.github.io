@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "langOverride": "mode-options",
+    "game": "pandaemonium",
+    "pgmusic": "pg-deluxe"
+  },
+  "data": [
+    {
+      "label": "Pandaemonium",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 99,
+      "min": 0,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "pandaemonium",
+      "settingType": "game"
+    }
+  ]
+}

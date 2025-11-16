@@ -1,0 +1,24 @@
+<title>12 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>I apologize about that, maybe I bumped it too high.</p>
+<p>Equally, you would expect something that's meant to be infinite to become difficult.</p>
+<p>Look, I'll give you something a bit easier : The Caesar Cipher.</p>
+<p>To verify you know what that is, retype that line into the input, but using the caesar cipher to shift it this puzzle number times.</p>
+<input id="levelCheck"></input>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">12</h1>
+</div>
+<script>
+function nextlevel() {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "Xaaw, U'xx suhq kag eayqftuzs m nuf qmeuqd : Ftq Omqemd Oubtqd.") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('caesar_cipher.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

@@ -1,0 +1,81 @@
+<title>Alt Puzzles - 31</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="sov.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Symbols of Value</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1"><tbody>
+    <tr><td class="star box2d"></td><td class="circle box2d"></td><td class="square box2d"></td><td class="star box2d"></td><td>26</td></tr>
+    <tr><td class="square box2d"></td><td class="triangle box2d"></td><td class="star box2d"></td><td class="star box2d"></td><td>25</td></tr>
+    <tr><td class="square box2d"></td><td class="circle box2d"></td><td class="circle box2d"></td><td class="star box2d"></td><td>28</td></tr>
+    <tr><td class="triangle box2d"></td><td class="triangle box2d"></td><td class="square box2d"></td><td class="triangle box2d"></td><td>27</td></tr>
+    <tr><td>21</td><td>34</td><td>22</td><td>29</td></tr>
+</tbody></table>
+<p style="margin:0">Circle : <input id="circleCheck" type="number" min="0" max="34"></input> Square : <input id="squareCheck" type="number" min="0" max="34"></input></p>
+<p style="margin:0">Triangle : <input id="triangleCheck" type="number" min="0" max="34"></input> Star : <input id="starCheck" type="number" min="0" max="34"></input></p>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h2>Rules</h2>
+<p>Each shape represents a positive whole number. The sum total of the shapes in each row/column is displayed at the end of each row/column. Use this knowledge to deduce the numerical value of each shape.</p>
+<h1 id="puzzle">Daily #31 (SoV#5)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    circleTest = document.getElementById("circleCheck").value
+    squareTest = document.getElementById("squareCheck").value
+    triangleTest = document.getElementById("triangleCheck").value
+    starTest = document.getElementById("starCheck").value
+    circleCells = document.getElementsByClassName("circle")
+    for (let x = 0; x < circleCells.length; x++) {
+        circleCells[x].innerHTML = circleTest
+    }
+    squareCells = document.getElementsByClassName("square")
+    for (let x = 0; x < squareCells.length; x++) {
+        squareCells[x].innerHTML = squareTest
+    }
+    triangleCells = document.getElementsByClassName("triangle")
+    for (let x = 0; x < triangleCells.length; x++) {
+        triangleCells[x].innerHTML = triangleTest
+    }
+    starCells = document.getElementsByClassName("star")
+    for (let x = 0; x < starCells.length; x++) {
+        starCells[x].innerHTML = starTest
+    }
+    if (circleTest == "9" && squareTest == "3" && triangleTest == "8" && starTest == "7") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

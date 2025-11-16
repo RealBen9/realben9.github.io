@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title id="title">[V] KiloSweep</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link href="minesweeper.css" rel="stylesheet" type="text/css" />
+    <script src="Mousetrap.js"></script>
+    <script src="minesweeper.js" defer></script>
+  </head>
+  <body>
+    <div id="game">
+      <div id="header">
+        <img id="face" src="img/faceHappy.png" onclick="createGame()">
+        <div id="counterLeft">
+          <img class="number" src="img/Number0.png">
+          <img class="number" src="img/Number3.png">
+          <img class="number" src="img/Number0.png">
+        </div>
+        <div id="counterRight">
+          <img class="number2" src="img/Number0.png" style="display:none">
+          <img class="number" src="img/Number0.png">
+          <img class="number" src="img/Number0.png">
+          <img class="number" src="img/Number0.png">
+        </div>
+      </div>
+      <div id="minefield"></div>
+    </div>
+    <div style="width:320px;background-color:#0004;padding:4px;padding-bottom:10px">
+      <center><img src="img/icon.png" style="margin-top: 8px; width: 64px; filter: drop-shadow(0 0 6px #4444ff);">
+      <h1 style="color:#bbb;margin:8px">KiloSweep</h1>
+      <p style="color:#bbb;margin:8px">A difficult Minesweeper variation with multiple mines in one spot.</p>
+      <p id="modifierID" style="color:#bbb;margin:8px">ID : [V]13x16-20+(10*2)</p></center><br>
+      <label for="scale" style="color: white">Scale:</label>
+      <input type="number" min="1" max="4" value="2" id="scale" name="scale" style="width: 50px"><br>
+      <hr>
+      <label for="noOfMines" style="color: white">Number of mines:</label>
+      <input type="number" min="0" max="207" value="20" id="noOfMines" name="noOfMines" style="width: 50px"><br>
+      <label for="noOfDoubleMines" style="color: white">Number of double mines:</label>
+      <input type="number" min="0" max="207" value="10" id="noOfDoubleMines" name="noOfDoubleMines" style="width: 50px"><br>
+      <label for="noOfTripleMines" style="color: white">Number of triple mines:</label>
+      <input type="number" min="0" max="207" value="0" id="noOfTripleMines" name="noOfTripleMines" style="width: 50px"><br>
+      <hr>
+      <center><p style="color:#bbb;margin:8px">Size: <a id="size">16x13/20+(10*2)</a></p>
+      <p style="color:#bbb;margin:8px">Mine density: <a id="mineDensity">14.42%</a></p><hr>
+      <p style="color:#bbb;margin:8px">Best time: <a id="bestTime">N/A</a></p>
+      <button onclick="resetBestTime()">Reset best time</button>
+      <hr>
+      <p style="color:#bbb;margin:8px">Modifiers</p>
+      <button id="btnM" style="background-color:#f00" onclick="modeToggle('M')">M</button>
+      <button id="btnL" style="background-color:#f00" onclick="modeToggle('L')">L</button>
+      <button id="btnN" style="background-color:#f00" onclick="modeToggle('N')">N</button>
+      <button id="btn2M" style="background-color:#f00" onclick="modeToggle('2M')">2M</button>
+      <button id="btnU" style="background-color:#f00" onclick="modeToggle('U')">U</button>
+      <button id="btnXp" style="background-color:#f00" onclick="modeToggle('Xp')">X'</button></center>
+    </div>
+    <div id="description" style="width:320px;background-color:#0004;padding:4px;padding-bottom:10px;position:absolute;right:8px;top:8px">
+      <center><h1 style="color:#bbb;margin:8px">Active Modifiers</h1>
+      <p style="color:#bbb;margin:8px">[V] Vanilla : Nothing special here (besides the double & triple mines)</p></center>
+    </div>
+  </body>
+</html>

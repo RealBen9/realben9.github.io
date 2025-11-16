@@ -1,0 +1,29 @@
+<title>10 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>OK, enough visual colours. Maybe I'll do more later.</p>
+<p>This time, press the buttons in the order of the product of the <u>light</u> colour (given in hex), plus red.</p>
+<p>#0f0, #0ff, #00f, #070</p>
+<button onclick="yellow()">Y</button><button onclick="orange()">O</button><button onclick="magenta()">M</button><button onclick="white()">W</button>
+<h1 id="puzzle">10</h1>
+</div>
+<script>
+var stage = 0
+function yellow() {
+    if (stage == 0) {stage++}
+    else {stage = 0}
+}
+function white() {
+    if (stage == 1) {stage++}
+    else {stage = 0}
+}
+function magenta() {
+    if (stage == 2) {stage++}
+    else {stage = 0}
+}
+function orange() {
+    if (stage == 3) {window.location.replace('colour_hex.html')}
+    else {stage = 0}
+}
+</script>

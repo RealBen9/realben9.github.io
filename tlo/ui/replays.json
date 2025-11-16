@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "parent": "root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Replays",
+      "type": "header"
+    },
+    {
+      "label": "Import",
+      "description": "Import a replay from a TLOREP file",
+      "action": "replayimport",
+      "isShort": true,
+      "fixedText": true
+    }
+  ]
+}

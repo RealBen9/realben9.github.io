@@ -1,0 +1,288 @@
+<title>Blank Canvas</title>
+<head><link rel="icon" type="image/x-icon" href="../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../style.css"></head>
+<script src="../../index.js"></script>
+<div id="snow">
+<canvas id="canvas" width="1200" height="800"></canvas><br>
+Add <input id="canvasCheck" type="number" value="1" min="1" max="511"></input>
+<button onclick="drawTriangle()">Triangle(s)!</button>
+<button onclick="drawRectangle()">Rectangle(s)!</button>
+<button onclick="drawUnrectangle()">Unrectangle(s)!</button>
+<button onclick="drawCircle()">Circle(s)!</button>
+<button onclick="drawChar()">Character(s)!</button>
+<button onclick="trile()">Trile!</button>
+Mode : <button id="btnStroke" style="background-color:#0f0" onclick="modeFill()">Fill</button><button id="btnFill" style="background-color:#fff" onclick="modeStroke()">Stroke</button><font style="font-family:vcr-osd-mono-1-001"></font>
+</div>
+<script>
+drawMode = 1
+const ang360 = Math.PI * 2
+function modeFill() {
+    drawMode = 1
+    const buttonY = document.getElementById("btnStroke")
+    const buttonN = document.getElementById("btnFill")
+    buttonY.style.backgroundColor = "#0f0"
+    buttonN.style.backgroundColor = "#fff"
+}
+function modeStroke() {
+    drawMode = 0
+    const buttonY = document.getElementById("btnStroke")
+    const buttonN = document.getElementById("btnFill")
+    buttonY.style.backgroundColor = "#fff"
+    buttonN.style.backgroundColor = "#0f0"
+}
+function drawTriangle() {
+    let drawCount = document.getElementById("canvasCheck").value
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    const sWidth = canvas.width
+    const sHeight = canvas.height
+
+    const randRangeX = sWidth - 100
+    const randOffsetX = randRangeX / 2
+    const randRangeY = sHeight - 100
+    const randOffsetY = randRangeY / 2
+    for (let x = 0; x < drawCount; x++) {
+        pointX1 = ((sWidth / 2) + 50) + Math.floor(Math.random() * randRangeX) - randOffsetX
+        pointY1 = (sHeight / 2) + Math.floor(Math.random() * randRangeY) - randOffsetY
+        pointX2 = (sWidth / 2) + Math.floor(Math.random() * randRangeX) - randOffsetX
+        pointY2 = ((sHeight / 2) - 50) + Math.floor(Math.random() * randRangeY) - randOffsetY
+        pointX3 = ((sWidth / 2) - 50) + Math.floor(Math.random() * randRangeX) - randOffsetX
+        pointY3 = (sHeight / 2) + Math.floor(Math.random() * randRangeY) - randOffsetY
+
+        path = new Path2D()
+        path.moveTo(pointX1, pointY1)
+        path.lineTo(pointX2, pointY2)
+        path.lineTo(pointX3, pointY3)
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fill(path)
+        }
+        else {
+            path.lineTo(pointX1, pointY1)
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.stroke(path)
+        }
+    }
+}
+function drawRectangle() {
+    let drawCount = document.getElementById("canvasCheck").value
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    for (let x = 0; x < drawCount; x++) {
+        posX = Math.floor(Math.random() * canvas.width)
+        posY = Math.floor(Math.random() * canvas.height)
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fillRect(posX, posY, Math.floor(Math.random() * (canvas.width - posX)), Math.floor(Math.random() * (canvas.height - posY)))
+        }
+        else {
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.strokeRect(posX, posY, Math.floor(Math.random() * (canvas.width - posX)), Math.floor(Math.random() * (canvas.height - posY)))
+        }
+    }
+}
+function drawUnrectangle() {
+    let drawCount = document.getElementById("canvasCheck").value
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    for (let x = 0; x < drawCount; x++) {
+        posX = Math.floor(Math.random() * canvas.width)
+        posY = Math.floor(Math.random() * canvas.height)
+        ctx.clearRect(posX, posY, Math.floor(Math.random() * (canvas.width - posX)), Math.floor(Math.random() * (canvas.height - posY)))
+    }
+}
+function drawCircle() {
+    let drawCount = document.getElementById("canvasCheck").value
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    for (let x = 0; x < drawCount; x++) {
+        size = Math.floor(Math.random() * 100) + 25
+        posX = Math.floor(Math.random() * (canvas.width - size * 2)) + size
+        posY = Math.floor(Math.random() * (canvas.height - size * 2)) + size
+
+        circle = new Path2D()
+        circle.arc(posX, posY, size, 0, ang360)
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fill(circle)
+        }
+        else {
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.stroke(circle)
+        }
+    }
+}
+function drawChar() {
+    let drawCount = document.getElementById("canvasCheck").value
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    for (let x = 0; x < drawCount; x++) {
+        posX = Math.floor(Math.random() * (canvas.width - 32))
+        posY = Math.floor(Math.random() * (canvas.height - 64)) + 32
+        if (Math.random() >= 0.5) {ctx.font = "48px perfect-dos-vga-437-win"}
+        else {ctx.font = "48px vcr-osd-mono-1-001"}
+        selectedChar = Math.floor(Math.random() * 36).toString(36)
+        if (Math.random() >= 0.5) {selectedChar = selectedChar.toUpperCase()}
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fillText(selectedChar, posX, posY)
+        }
+        else {
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.strokeText(selectedChar, posX, posY)
+        }
+    }
+}
+function trile() {
+    let drawCount = document.getElementById("canvasCheck").value*3
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    const pointsX = []
+    const pointsY = []
+    const sWidth = canvas.width
+    const sHeight = canvas.height
+
+    const randRangeX = sWidth - 100
+    const randOffsetX = randRangeX / 2
+    const randRangeY = sHeight - 100
+    const randOffsetY = randRangeY / 2
+
+    pointX1 = ((sWidth / 2) + 50)
+    pointY1 = (sHeight / 2)
+    pointX2 = (sWidth / 2)
+    pointY2 = ((sHeight / 2) - 50)
+    pointX3 = ((sWidth / 2) - 50)
+    pointY3 = (sHeight / 2)
+
+    path = new Path2D()
+    path.moveTo(pointX1, pointY1)
+    path.lineTo(pointX2, pointY2)
+    path.lineTo(pointX3, pointY3)
+
+    bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+    if (drawMode == 1) {
+        ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+        ctx.fill(path)
+    }
+    else {
+        path.lineTo(pointX1, pointY1)
+        ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+        ctx.stroke(path)
+    }
+
+    pointsX.push(pointX1, pointX2, pointX3)
+    pointsY.push(pointY1, pointY2, pointY3)
+
+    for (let x = 0; x < drawCount; x+=3) {
+        pointX1 = pointsX[x] + Math.floor(Math.random() * 201) - 100
+        pointY1 = pointsY[x] + Math.floor(Math.random() * 201) - 100
+
+        circle = new Path2D()
+        circle.arc(pointX1, pointY1, 15, 0, ang360)
+        ctx.fillStyle = "#ff000080"
+        ctx.fill(circle)
+
+        pointX2 = pointsX[x+1]
+        pointY2 = pointsY[x+1]
+        pointX3 = pointsX[x+2]
+        pointY3 = pointsY[x+2]
+        
+        path = new Path2D()
+        path.moveTo(pointX1, pointY1)
+        path.lineTo(pointX2, pointY2)
+        path.lineTo(pointX3, pointY3)
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fill(path)
+        }
+        else {
+            path.lineTo(pointX1, pointY1)
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.stroke(path)
+        }
+
+        grad1a = (pointY2 - pointY1)/(pointX2 - pointX1)
+        yInt1a = pointY1 - (grad1a * pointX1)
+        grad1b = (pointsY[x+2] - pointsY[x])/(pointsX[x+2] - pointsX[x])
+        yInt1b = pointsY[x] - (grad1b * pointsX[x])
+        grad1c = grad1a - grad1b
+        yInt1c = yInt1a - yInt1b
+        colX1 = -yInt1c / grad1c
+        colY1 = (grad1a * colX1) + yInt1a
+        console.log(colX1, colY1)
+
+        circle = new Path2D()
+        circle.arc(colX1, colY1, 15, 0, ang360)
+        ctx.fillStyle = "#00ffff80"
+        ctx.fill(circle)
+
+        path = new Path2D()
+        path.moveTo(pointX1, pointY1)
+        path.lineTo(pointX2, pointY2)
+        ctx.strokeStyle = "#00ffff80"
+        ctx.stroke(path)
+
+        path = new Path2D()
+        path.moveTo(pointsX[x], pointsY[x])
+        path.lineTo(pointsX[x+2], pointsY[x+2])
+        ctx.strokeStyle = "#0000ff80"
+        ctx.stroke(path)
+
+
+        grad2a = (pointY3 - pointY1)/(pointX3 - pointX1)
+        yInt2a = pointY1 - (grad2a * pointX1)
+        grad2b = (pointsY[x+1] - pointsY[x])/(pointsX[x+1] - pointsX[x])
+        yInt2b = pointsY[x] - (grad2b * pointsX[x])
+        grad2c = grad2a - grad2b
+        yInt2c = yInt2a - yInt2b
+        colX2 = -yInt2c / grad2c
+        colY2 = (grad2a * colX2) + yInt2a
+        console.log(colX2, colY2)
+
+        circle = new Path2D()
+        circle.arc(colX2, colY2, 15, 0, ang360)
+        ctx.fillStyle = "#ffff0080"
+        ctx.fill(circle)
+
+        path = new Path2D()
+        path.moveTo(pointX1, pointY1)
+        path.lineTo(pointX3, pointY3)
+        ctx.strokeStyle = "#ffff0080"
+        ctx.stroke(path)
+
+        path = new Path2D()
+        path.moveTo(pointsX[x], pointsY[x])
+        path.lineTo(pointsX[x+1], pointsY[x+1])
+        ctx.strokeStyle = "#ff00ff80"
+        ctx.stroke(path)
+        //http://zonalandeducation.com/mmts/intersections/intersectionOfTwoLines1/intersectionOfTwoLines1.html
+    }
+
+    /*for (let x = 0; x < drawCount; x++) {
+        path = new Path2D()
+        path.moveTo(pointX1, pointY1)
+        path.lineTo(pointX2, pointY2)
+        path.lineTo(pointX3, pointY3)
+
+        bg_colour = Math.floor(Math.random() * 16777215).toString(16)
+        if (drawMode == 1) {
+            ctx.fillStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.fill(path)
+        }
+        else {
+            path.lineTo(pointX1, pointY1)
+            ctx.strokeStyle = "#" + ("000000" + bg_colour).slice(-6) + "80"
+            ctx.stroke(path)
+        }
+    }*/
+}
+</script>

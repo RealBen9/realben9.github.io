@@ -1,0 +1,90 @@
+<title>Alt Puzzles - 39</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><style>td { width:18px;height:22px;text-align:center; } td#box1, td#box3, td#box5, td#box7, td#box9 { background-color:#ccf8; border:1px solid #ccf8; } td#box2, td#box4, td#box6, td#box8 { background-color:#cfc8; border:1px solid #cfc8; } td.cageStart { font-size:10px; text-align:left; vertical-align:top; } td.cage1, td.cage3, td.cage5, td.cage7, td.cage9, td.cage11, td.cage13, td.cage15 { border-right: 1px dashed #000 !important; } td.cage2, td.cage3, td.cage6, td.cage7, td.cage10, td.cage11, td.cage14, td.cage15 { border-left: 1px dashed #000 !important; } td.cage4, td.cage5, td.cage6, td.cage7, td.cage12, td.cage13, td.cage14, td.cage15 { border-bottom: 1px dashed #000 !important; } td.cage8, td.cage9, td.cage10, td.cage11, td.cage12, td.cage13, td.cage14, td.cage15 { border-top: 1px dashed #000 !important; } </style></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Killer Sudoku</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1"><tbody>
+    <tr><td id="box1" class="cageStart cage11">11</td><td id="box1" class="cageStart cage11">7</td><td id="box1" class="cageStart cage11">10</td><td id="box2" class="cageStart cage11">5</td><td id="box2" class="cageStart cage11">12</td><td id="box2" class="cageStart cage11">20</td><td id="box3" class="cageStart cage14">17</td><td id="box3" class="cage12"></td><td id="box3" class="cage13"></td></tr>
+    <tr><td id="box1" class="cage7"></td><td id="box1" class="cage3"></td><td id="box1" class="cage7"></td><td id="box2" class="cage7"></td><td id="box2" class="cage7"></td><td id="box2" class="cage6"></td><td id="box3" class="cage13"></td><td id="box3" class="cageStart cage14">10</td><td id="box3" class="cage13"></td></tr>
+    <tr><td id="box1" class="cageStart cage11">11</td><td id="box1" class="cage7"></td><td id="box1" class="cageStart cage14">14</td><td id="box2" class="cage13"></td><td id="box2" class="cageStart cage14">8</td><td id="box2" class="cage13"></td><td id="box3" class="cageStart cage11">11</td><td id="box3" class="cageStart cage14">9</td><td id="box3" class="cage13"></td></tr>
+    <tr><td id="box4" class="cage7"></td><td id="box4" class="cageStart cage14">9</td><td id="box4" class="cage13"></td><td id="box5" class="cageStart cage11">14</td><td id="box5" class="cageStart cage14">11</td><td id="box5" class="cage9"></td><td id="box6" class="cage7"></td><td id="box6" class="cageStart cage14">16</td><td id="box6" class="cage9"></td></tr>
+    <tr><td id="box4" class="cageStart cage14">16</td><td id="box4" class="cage13"></td><td id="box4" class="cage14"></td><td id="box5" class="cage5"></td><td id="box5" class="cageStart cage11">9</td><td id="box5" class="cage7"></td><td id="box6" class="cageStart cage14">8</td><td id="box6" class="cage13"></td><td id="box6" class="cage7"></td></tr>
+    <tr><td id="box4" class="cageStart cage11">3</td><td id="box4" class="cageStart cage14">14</td><td id="box4" class="cage13"></td><td id="box5" class="cageStart cage11">18</td><td id="box5" class="cage7"></td><td id="box5" class="cageStart cage14">6</td><td id="box6" class="cage13"></td><td id="box6" class="cageStart cage14">13</td><td id="box6" class="cage13"></td></tr>
+    <tr><td id="box7" class="cage7"></td><td id="box7" class="cageStart cage11">26</td><td id="box7" class="cage14"></td><td id="box8" class="cage5"></td><td id="box8" class="cageStart cage14">10</td><td id="box8" class="cage13"></td><td id="box9" class="cageStart cage14">18</td><td id="box9" class="cage9"></td><td id="box9" class="cageStart cage11">10</td></tr>
+    <tr><td id="box7" class="cageStart cage11">11</td><td id="box7" class="cage2"></td><td id="box7" class="cage13"></td><td id="box8" class="cageStart cage11">11</td><td id="box8" class="cageStart cage14">19</td><td id="box8" class="cage12"></td><td id="box9" class="cage13"></td><td id="box9" class="cage7"></td><td id="box9" class="cage3"></td></tr>
+    <tr><td id="box7" class="cage7"></td><td id="box7" class="cage7"></td><td id="box7" class="cage14"></td><td id="box8" class="cage5"></td><td id="box8" class="cageStart cage14">9</td><td id="box8" class="cage13"></td><td id="box9" class="cageStart cage14">9</td><td id="box9" class="cage13"></td><td id="box9" class="cage7"></td></tr>
+</tbody></table>
+<!--<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>-->
+<p><a href="https://www.sudokuwiki.org/killersudoku.aspx?bd=121212111121212233323344122311233133442213223133414411124422332322144432321122112,110710051220170000000000000000001000110014000800110900000900141100001600160000000900080000031400180006001300002600001000180010110000111900000000000000000900090000">Solve!</a></p>
+<h2>Rules</h2>
+<p>Place the numbers 1-9 once per row, column and 3x3 <s>bold-lined</s> box. Additionally the sum total of the squares in each dashed-line shape must match the total given in that shape, and you may not repeat a number within a dashed-line shape.</p>
+<h1 id="puzzle">Daily #39 (KS#1)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    /*levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "1") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'*/
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+/*cages = document.getElementsByClassName("InnerK")
+cageClass = []
+cageID = []
+cageSum = []
+cageTable = ''
+for (i = 0; i < 81; i++) {
+    cageCount = 15
+    if (cages[i].style.borderRight == '') {cageCount--}
+    if (cages[i].style.borderLeft == '') {cageCount -= 2}
+    if (cages[i].style.borderBottom == '') {cageCount -= 4}
+    if (cages[i].style.borderTop == '') {cageCount -= 8}
+    if (cages[i].innerHTML == '') {cageClass[i] = "cage" + cageCount}
+    else {cageClass[i] = "cageStart cage" + cageCount}
+    cageSum[i] = cages[i].innerHTML
+    if (i == 0 || i == 1 || i == 2 || i == 9 || i == 10 || i == 11 || i == 18 || i == 19 || i == 20) {cageID[i] = "box1"}
+    else if (i == 3 || i == 4 || i == 5 || i == 12 || i == 13 || i == 14 || i == 21 || i == 22 || i == 23) {cageID[i] = "box2"}
+    else if (i == 6 || i == 7 || i == 8 || i == 15 || i == 16 || i == 17 || i == 24 || i == 25 || i == 26) {cageID[i] = "box3"}
+    else if (i == 27 || i == 28 || i == 29 || i == 36 || i == 37 || i == 38 || i == 45 || i == 46 || i == 47) {cageID[i] = "box4"}
+    else if (i == 30 || i == 31 || i == 32 || i == 39 || i == 40 || i == 41 || i == 48 || i == 49 || i == 50) {cageID[i] = "box5"}
+    else if (i == 33 || i == 34 || i == 35 || i == 42 || i == 43 || i == 44 || i == 51 || i == 52 || i == 53) {cageID[i] = "box6"}
+    else if (i == 54 || i == 55 || i == 56 || i == 63 || i == 64 || i == 65 || i == 72 || i == 73 || i == 74) {cageID[i] = "box7"}
+    else if (i == 57 || i == 58 || i == 59 || i == 66 || i == 67 || i == 68 || i == 75 || i == 76 || i == 77) {cageID[i] = "box8"}
+    else {cageID[i] = "box9"}
+    cageTable = cageTable + '<td id="' + cageID[i] + '" class="' + cageClass[i] + '">' + cageSum[i] + '</td>'
+}*/
+</script>

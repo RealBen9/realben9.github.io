@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "parent": "arcade",
+    "langOverride": "mode-options",
+    "game": "sudden",
+    "pgmusic": "pg-marathon-2"
+  },
+  "data": [
+    {
+      "label": "Sudden",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 99,
+      "min": 0,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "sudden",
+      "settingType": "game"
+    },
+    {
+      "label": "Classic Mode",
+      "description": "If true, uses ARS. Otherwise uses SRS.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "ruleOption",
+      "gameName": "sudden",
+      "settingType": "game"
+    },
+    {
+      "label": "Big",
+      "description": "Allows play on a 5x10 matrix. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "big",
+      "gameName": "sudden",
+      "settingType": "game"
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+#print("⬛ | ⬜ | 🟨 | 🟩")
+from random import *
+guess = ""
+guesses = 0
+length = input("Enter word length (4/5) : ")
+mode = input("Enter mode (1 : [Normal], 2 : easySymble, 3 : Mastermind) :")
+if length == "4":
+  words = ["BEAN","BIRD","CASE","CLAP","CUBE","EASY","FACE","FAIL","FAKE","FAME","FLAP","FOAM","FORT","GAIN","GAME","HARD","HELP","ICON","LACK","LAKE","LEFT","LIKE","LINK","LUCK","MAIN","MAKE","NAIL","NAME","NICE","NOPE","NOTE","OPEN","PAIN","PLAN","PLAY","PLOT","RACE","RAIN","RING","TRAP","TRIP","TYPE","WAIT","WORD"]
+  randword = randint(0, 43)
+if length == "5":
+  words = ["ABOUT","AUDIO","BAILS","BEANS","BIRDS","BLAME","BLAST","BONES","BORED","BOUND","BREAD","BRICK","BRING","CLAMP","CONES","COULD","CRANE","CRATE","CRUMB","DAISY","DRINK","DUCKS","FAILS","FAITH","FAKES","FETCH","FIELD","FILES","FLAME","FLAPS","FLUNG","FRAME","GAMES","GRAIN","GUEST","HAILS","HASTY","HELPS","INPUT","LAKES","LAMBS","LATER","LEARN","LIGHT","LOADS","LOWER","LUMPS","LUNCH","MAILS","MAYBE","NAILS","NAMES","NASTY","NIGHT","OTHER","PAINT","PASTE","PEARL","PONDS","PRINT","PLACE","PLAIN","PLANE","PLATE","QUEST","RAILS","RHYME","ROAST","ROCKS","SALTY","SHIFT","SLATE","SPACE","SPEAK","STALE","STEAK","STONE","SUGAR","SWORD","TAILS","TALKS","TANKS","TEACH","TEAMS","THEIR","TONES","TRACK","TRICK","TRAIL","TRAIN","TURNS","UNITS","UNTIL","VAGUE","WATER","WEARY","WHILE","WIDTH","WORDS","WORLD","WOULD","YOUTH","ZEBRA"]
+  randword = randint(0, 102)
+if mode == "2":
+  symbols = ["!","-","X","=","#","£","$","%","&","*",":"]
+  randgreen = randint(0, 10)
+  randyellow = randint(0, 10)
+  randred = randint(0, 10)
+  green = symbols[randgreen]
+  yellow = symbols[randyellow]
+  gray = symbols[randred]
+word = words[randword]
+word1 = word[0]
+info1 = "?"
+word2 = word[1]
+info2 = "?"
+info3 = " "
+if len(word) >= 3:
+  word3 = word[2]
+  info3 = "?"
+info4 = " "
+if len(word) >= 4:
+  word4 = word[3]
+  info4 = "?"
+info5 = " "
+if len(word) >= 5:
+  word5 = word[4]
+  info5 = "?"
+if length == "4":
+  if mode == "3":
+    print("========W O R D 4 0 0========!-X")
+  else:
+    print("=====W O R D L E (4-letter)=====")
+  while guess != word:
+    greens = 0
+    yellows = 0
+    grays = 0
+    guesses = guesses + 1
+    guess = input("Guess " + str(guesses) + " : ")
+    guess = str.upper(guess)
+    libchk = 0
+    for x in range(0, 44):
+      if guess != words[x] and libchk == 0:
+        libchk = 0
+      else:
+        libchk = 1
+    if libchk == 1:
+      guess1 = guess[0]
+      guess2 = guess[1]
+      guess3 = guess[2]
+      guess4 = guess[3]
+      display = ""
+      if word1 == guess1:
+        if mode == "2":
+          disp1 = green
+        elif mode == "3":
+          greens = greens + 1
+        else:
+          disp1 = "!"
+          info1 = guess1
+      elif word2 == guess1:
+        if mode == "2":
+          disp1 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp1 = "-"
+      elif word3 == guess1:
+        if mode == "2":
+          disp1 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp1 = "-"
+      elif word4 == guess1:
+        if mode == "2":
+          disp1 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp1 = "-"
+      else:
+        if mode == "2":
+          disp1 = gray
+        elif mode == "3":
+          grays = grays + 1
+        else:
+          disp1 = "X"
+      if word1 == guess2:
+        if mode == "2":
+          disp2 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp2 = "-"
+      elif word2 == guess2:
+        if mode == "2":
+          disp2 = green
+        elif mode == "3":
+          greens = greens + 1
+        else:
+          disp2 = "!"
+          info2 = guess2
+      elif word3 == guess2:
+        if mode == "2":
+          disp2 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp2 = "-"
+      elif word4 == guess2:
+        if mode == "2":
+          disp2 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp2 = "-"
+      else:
+        if mode == "2":
+          disp2 = gray
+        elif mode == "3":
+          grays = grays + 1
+        else:
+          disp2 = "X"
+      if word1 == guess3:
+        if mode == "2":
+          disp3 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp3 = "-"
+      elif word2 == guess3:
+        if mode == "2":
+          disp3 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp3 = "-"
+      elif word3 == guess3:
+        if mode == "2":
+          disp3 = green
+        elif mode == "3":
+          greens = greens + 1
+        else:
+          disp3 = "!"
+          info3 = guess3
+      elif word4 == guess3:
+        if mode == "2":
+          disp3 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp3 = "-"
+      else:
+        if mode == "2":
+          disp3 = gray
+        elif mode == "3":
+          grays = grays + 1
+        else:
+          disp3 = "X"
+      if word1 == guess4:
+        if mode == "2":
+          disp4 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp4 = "-"
+      elif word2 == guess4:
+        if mode == "2":
+          disp4 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp4 = "-"
+      elif word3 == guess4:
+        if mode == "2":
+          disp4 = yellow
+        elif mode == "3":
+          yellows = yellows + 1
+        else:
+          disp4 = "-"
+      elif word4 == guess4:
+        if mode == "2":
+          disp4 = green
+        elif mode == "3":
+          greens = greens + 1
+        else:
+          disp4 = "!"
+          info4 = guess4
+      else:
+        if mode == "2":
+          disp4 = gray
+        elif mode == "3":
+          grays = grays + 1
+        else:
+          disp4 = "X"
+      if mode == "3":
+        print("            " + guess1 + " " + guess2 + " " + guess3 + " " + guess4 + "          " + str(greens) + str(yellows) + str(grays))
+      else:
+        print("            " + guess1 + " " + guess2 + " " + guess3 + " " + guess4)
+        print("            " + disp1 + " " + disp2 + " " + disp3 + " " + disp4 + "         " + info1 + info2 + info3 + info4)
+    else:
+      guesses = guesses - 1
+      if guess == "GIVEUP":
+        guess = word
+        print("            " + word1 + " " + word2 + " " + word3 + " " + word4)
+        print("            ! ! ! !")
+      elif guess != "":
+        print("Guess not in library yet.")
+if length == "5":
+  print("=====W O R D L E (5-letter)=====")
+  while guess != word:
+    guesses = guesses + 1
+    guess = input("Guess " + str(guesses) + " : ")
+    guess = str.upper(guess)
+    libchk = 0
+    for x in range(0, 103):
+      if guess != words[x] and libchk == 0:
+        libchk = 0
+      else:
+        libchk = 1
+    if libchk == 1:
+      guess1 = guess[0]
+      guess2 = guess[1]
+      guess3 = guess[2]
+      guess4 = guess[3]
+      guess5 = guess[4]
+      display = ""
+      if word1 == guess1:
+        disp1 = "!"
+        info1 = guess1
+      elif word2 == guess1:
+        disp1 = "-"
+      elif word3 == guess1:
+        disp1 = "-"
+      elif word4 == guess1:
+        disp1 = "-"
+      elif word5 == guess1:
+        disp1 = "-"
+      else:
+        disp1 = "X"
+      if word1 == guess2:
+        disp2 = "-"
+      elif word2 == guess2:
+        disp2 = "!"
+        info2 = guess2
+      elif word3 == guess2:
+        disp2 = "-"
+      elif word4 == guess2:
+        disp2 = "-"
+      elif word5 == guess2:
+        disp2 = "-"
+      else:
+        disp2 = "X"
+      if word1 == guess3:
+        disp3 = "-"
+      elif word2 == guess3:
+        disp3 = "-"
+      elif word3 == guess3:
+        disp3 = "!"
+        info3 = guess3
+      elif word4 == guess3:
+        disp3 = "-"
+      elif word5 == guess3:
+        disp3 = "-"
+      else:
+        disp3 = "X"
+      if word1 == guess4:
+        disp4 = "-"
+      elif word2 == guess4:
+        disp4 = "-"
+      elif word3 == guess4:
+        disp4 = "-"
+      elif word4 == guess4:
+        disp4 = "!"
+        info4 = guess4
+      elif word5 == guess4:
+        disp4 = "-"
+      else:
+        disp4 = "X"
+      if word1 == guess5:
+        disp5 = "-"
+      elif word2 == guess5:
+        disp5 = "-"
+      elif word3 == guess5:
+        disp5 = "-"
+      elif word4 == guess5:
+        disp5 = "-"
+      elif word5 == guess5:
+        disp5 = "!"
+        info5 = guess5
+      else:
+        disp5 = "X"
+      print("            " + guess1 + " " + guess2 + " " + guess3 + " " + guess4 + " " + guess5)
+      print("            " + disp1 + " " + disp2 + " " + disp3 + " " + disp4 + " " + disp5 + "      " + info1 + info2 + info3 + info4 + info5)
+    else:
+      guesses = guesses - 1
+      if guess == "GIVEUP":
+        guess = word
+        print("            " + word1 + " " + word2 + " " + word3 + " " + word4 + " " + word5)
+        print("            ! ! ! ! !")
+      elif guess != "":
+        print("Guess not in library yet.")

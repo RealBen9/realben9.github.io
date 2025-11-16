@@ -1,0 +1,51 @@
+<title>Increlution Calculator</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>Increlution Calculator</h1>
+<h2>An introduction to Increlution</h2>
+<p>Increlution is an idle game based on survival & time management.</p>
+<p>There are many objectives in Increlution that can be made up. One of them is lifetime.</p>
+<p>See, Increlution is a game where your health bar is on a timer. More specifically, you have a consistent <font color=red>health decay (HD)</font>.</p>
+<p>At the beginning of Increlution, your HD starts at <font color=red>0.50 HP/s (health per second)</font>. This value is smooth, so it will be processed every frame (1/60th of a second).</p>
+<p>Additionally, this value increases by 25% per minute. This increase is compounding, so it increases by more over time. This increase is also smooth, so it will also be processed each frame.</p>
+<p>During your first game of Increlution, your max health is 100. This means that with a HD of <font color=red>0.50 HP/s</font>, you would survive for 200 seconds, right? That would only be true if HD was a constant value of <font color=red>0.50 HP/s</font>.</p>
+<p>I wanted to know how long I would truly survive on these conditions, so I decided to try & calculate an estimated lifetime.</p>
+<h2>Calculating estimated lifetime : Part 1 - Idling</h2>
+<p>Now that you understand the values, its time to attempt to calculate an estimated lifetime. This value will assume no changes to HD other than its natural increase & <font color=lime>health (HP)</font> is initially equal to <font color=lime>100</font>.</p>
+<p>My approach to this was to iterate frame-by-frame to keep getting new HD values until HP is less than or equal to <font color=lime>0</font>. Here's how that went :</p>
+<p>Firstly, we need to understand how much HD is naturally increasing every frame.</p>
+<p>(+25%/minute)/(3600 frames/minute) = +0.00694%/frame</p>
+<p>So now we know that HD increases by 0.00694% every frame, which can also be written as *1.0000694/frame.</p>
+<p>Frame 1 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>100 HP</font> - (<font color=red>0.50 HD/<b>s</b>econd</font>)/(60 <b>f</b>rames <b>p</b>er <b>s</b>econd) = <font color=red>0.0083 HD/<b>f</b>rame</font> = <font color=lime>99.9917 HP</font>; [<font color=red>HD</font> <b>N</b>atural <b>I</b>ncrease] <font color=red>0.50 HD/s</font> *1.0000694/f = <font color=red>0.5000347 HD/s</font></p>
+<p>Frame 2 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>99.9917 HP</font> - (<font color=red>0.5000347 HD/s</font>)/(60 fps) = <font color=red>0.0083339116 HD/f</font> = <font color=lime>99.9833660884 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.5000347 HD/s</font> *1.0000694/f = <font color=red>0.50006940240818 HD/s</font></p>
+<p>Frame 3 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>99.9833660884 HP</font> - (<font color=red>0.50006940240818 HD/s</font>)/(60 fps) = <font color=red>0.0083344900401363 HD/f</font> = <font color=lime>99.9750315983598637 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.50006940240818 HD/s</font> *1.0000694/f = <font color=red>0.500104107224707127692 HD/s</font></p>
+<p>At this point I chose to write a program to calculate this for me. If you are interested, the code will be shown at the bottom of this page, after "Program 1"</p>
+<p>Frame 8728 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>0.04666617056760412 HP</font> - (<font color=red>0.9162056820664046 HD/s</font>)/(60 fps) = <font color=red>0.01527009470110674 HD/f</font> = <font color=lime>0.03139607586649738 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.9162056820664046 HD/s</font> *1.0000694/f = <font color=red>0.9162692667407402 HD/s</font></p>
+<p>Frame 8729 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>0.03139607586649738 HP</font> - (<font color=red>0.9162692667407402 HD/s</font>)/(60 fps) = <font color=red>0.015271154445679 HD/f</font> = <font color=lime>0.01612492142081838 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.9162692667407402 HD/s</font> *1.0000694/f = <font color=red>0.9163328558278521 HD/s</font></p>
+<p>Frame 8730 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>0.01612492142081838 HP</font> - (<font color=red>0.9163328558278521 HD/s</font>)/(60 fps) = <font color=red>0.0152722142637975346 HD/f</font> = <font color=lime>0.0008527071570208454 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.9163328558278521 HD/s</font> *1.0000694/f = <font color=red>0.9163964493280466 HD/s</font></p>
+<p>Frame 8731 : [<font color=lime>HP</font> - <font color=red>HD</font>] <font color=lime>0.0008527071570208454 HP</font> - (<font color=red>0.9163964493280466 HD/s</font>)/(60 fps) = <font color=red>0.0152732741554674444 HD/f</font> = <font color=lime>-0.014420566998446599 HP</font>; [<font color=red>HD</font>NI] <font color=red>0.9163964493280466 HD/s</font> *1.0000694/f = <font color=red>0.9164600472416301 HD/s</font></p>
+<p>So the player's estimated lifetime from the beginning of the save file is 8731 frames (145.5167 seconds, or about 2.5 minutes).</p>
+<p>However, this value assumes that the player isn't doing anything to benefit their health for those 8731 frames. We have another 2 options from the beginning of the save. The first of those is gathering berries, so let's discuss that.</p>
+<h2>Calculating estimated lifetime : Part 2 - Berries</h2>
+<p>In Increlution, you can gather 1 berry every 2 seconds from the beginning of a save file. This time will decrease as you gather more berries.</p>
+<p>Eating a berry grants <font color=lime>5</font> HP, but can only be eaten once every 5 seconds. The 5-seconds rule applies to all food items in the game, but that isn't important currently.</p>
+<p>Additionally, food will only be eaten when your HP is low enough to gain the full benefits of the food, or if eating it would prevent death (usually for a moment).</p>
+<p>I don't currently understand how the last rule works as I haven't been able to trigger it in game. Perhaps it's intended for foods which heal more than your max HP?</p>
+<p>Regardless, my idea to add this complexity is to assume that I have infinite berries (as I can only eat one every 5 seconds, but it takes no longer than 2 seconds to gather one.) & effectively add <font color=lime>5</font> HP every time HP is less than or equal to <font color=lime>95</font>. At 60fps, there are 300 frames in 5 seconds, so I need to keep track of that too.</p>
+<p>At 60fps, there are 300 frames in 5 seconds, so I need to keep track of that too. With that in mind, im going to re-write Program 1 to have these changes (under the name "Program 2").</p>
+<h2>Programs</h2>
+<h3>Program 1</h3>
+<p>hp = 100</p>
+<p>hd = 0.5</p>
+<p>ni = 1.0000694</p>
+<p>frame = 0</p>
+<p>while hp &gt; 0:</p>
+<p>&nbsp; &nbsp;&nbsp;frame = frame + 1</p>
+<p>&nbsp; &nbsp;&nbsp;print("Frame :", frame)</p>
+<p>&nbsp; &nbsp;&nbsp;hp = hp - (hd / 60)</p>
+<p>&nbsp; &nbsp;&nbsp;print("HP :", hp)</p>
+<p>&nbsp; &nbsp;&nbsp;hd = hd * ni</p>
+<p>&nbsp; &nbsp;&nbsp;print("HD :", hd)</p>
+<p>exit = input("Press Enter to Exit")</p>
+</div>

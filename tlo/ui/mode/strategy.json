@@ -1,0 +1,37 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "langOverride": "mode-options",
+    "game": "strategy",
+    "pgmusic": "pg-sprint"
+  },
+  "data": [
+    {
+      "label": "Strategy",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 15,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "strategy",
+      "settingType": "game"
+    },
+    {
+      "label": "Hold",
+      "description": "Determines whether or not you can hold a piece.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "hold",
+      "gameName": "strategy",
+      "settingType": "game"
+    }
+  ]
+}

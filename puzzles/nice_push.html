@@ -1,0 +1,22 @@
+<title>? - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>You did it again!</h1>
+<p>Smart play, using the keyboard. Anyways, I'm gonna stop using that header after this level, as I'm assuming you can read level numbers.</p>
+To prove that, what level are you on? : <input id="levelCheck"></input>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">?</h1>
+</div>
+<script>
+function nextlevel() {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "2") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('good_read.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

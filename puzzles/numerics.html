@@ -1,0 +1,23 @@
+<title>5 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>Believe it or not, there were multiple answers to that last one. Embarrassing.</p>
+<p>Perhaps it's time to get rid of inputs.</p>
+<p>WAIT, not yet! I have 1 more puzzle for you!</p>
+Which button is the submit button? : <input id="levelCheck" maxlength=1></input>
+<button onclick="nextlevel('a')">A</button><button onclick="nextlevel('b')">B</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">5</h1>
+</div>
+<script>
+function nextlevel(btn) {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value.toLowerCase()
+    if (levelTest == btn) {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('that_one.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

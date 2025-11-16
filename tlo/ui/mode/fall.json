@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "parent": "retro",
+    "langOverride": "mode-options",
+    "game": "fall",
+    "pgmusic": "pg-retro"
+  },
+  "data": [
+    {
+      "label": "Fall",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 40,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "fall",
+      "settingType": "game"
+    },
+    {
+      "string": "mechanicsLabel",
+      "stringDesc": "mechanicsDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "accurateOption",
+          "value": "accurate"
+        },
+        {
+          "string": "modernOption",
+          "value": "modern"
+        }
+      ],
+      "setting": "mechanics",
+      "gameName": "fall",
+      "settingType": "game"
+    }
+  ]
+}

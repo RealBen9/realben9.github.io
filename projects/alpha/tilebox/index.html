@@ -1,0 +1,138 @@
+<title>Tilebox</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"><style>td { width:16px;height:16px;text-align:center; }</style></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>Tilebox</h1>
+<h2>Input Display</h2>
+<p id="inputs">[]</p>
+<h2>plr1</h2>
+<h3>Debug</h3>
+<p id="debug1"></p>
+<p id="feed1">-</p>
+<div id="world"></div>
+<h3>Inventory</h3>
+<p id="inv1">[]</p>
+</div>
+<script>
+    //seed = 1
+    const currentInputs = []
+    const grasslands = ["grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","tallgrass","water","deepwater","stone","trap"]
+    const solid = ["tallgrass","deepwater","stone","trap"]
+    const interactable = ["grass"]
+    const world = []
+    world[0] = []
+    tilegen = grasslands.length-1
+    while (solid.includes(grasslands[tilegen])) {
+        tilegen = Math.floor(Math.random() * grasslands.length)
+    }
+    world[0][0] = grasslands[tilegen]
+    const plr1 = {}
+    plr1.inventory = []
+    plr1.hp = 100
+    plr1.vision = 7
+    plr1.pos = {}
+    plr1.pos.x = 0
+    plr1.pos.y = 0
+    plr1.biome = "grasslands"
+    function movement(plr,dir) {
+        const feed1 = document.getElementById("feed1")
+        feed1.innerText = "-"
+        mx = 0
+        my = 0
+        if (dir == "U") {my++}
+        else if (dir == "L") {mx--}
+        else if (dir == "D") {my--}
+        else if (dir == "R") {mx++}
+        valid = !solid.includes(world[plr.pos.x+mx][plr.pos.y+my])
+        if (valid == true) {
+            plr.pos.x += mx
+            plr.pos.y += my
+            //console.log(plr.pos.x + 1/plr.pos.y) fails if y = 1,0,-1
+        }
+        else {feed1.innerText = "You can't move there!"}
+    }
+    function interact(plr,dir) {
+        const feed1 = document.getElementById("feed1")
+        feed1.innerText = "-"
+        inttile = world[plr.pos.x][plr.pos.y]
+        valid = interactable.includes(inttile)
+        if (inttile == "grass") {
+            feed1.innerText = "You cut some grass. It regrows instantly."
+            plr.inventory.push(inttile)
+        }
+        else if (valid == true) {
+            feed1.innerText = "You interact with the " + inttile + "!"
+        }
+        else {feed1.innerText = "You can't interact with the " + inttile + "!"}
+    }
+    function render(plr) {
+        for (ix=plr.pos.x-plr.vision; ix<plr.pos.x+plr.vision+1; ix++) {
+            if (world[ix] == undefined) {world[ix] = []}
+            for (iy=plr.pos.y-plr.vision; iy<plr.pos.y+plr.vision+1; iy++) {
+                if (world[ix][iy] == undefined) {
+                    tilegen = Math.floor(Math.random() * grasslands.length)
+                    world[ix][iy] = grasslands[tilegen]
+                }
+            }
+        }
+        const disp = document.getElementById("world")
+        disp.innerText = ""
+        for (ix=-plr.vision; ix<plr.vision+1; ix++) {
+            for (iy=-plr.vision; iy<plr.vision+1; iy++) {
+                elem = document.createElement("img")
+                elem.id = iy + "," + -ix
+                disp.appendChild(elem)
+            }
+            newliner = document.createElement("br")
+            disp.appendChild(newliner)
+        }
+        for (ix=-plr.vision; ix<plr.vision+1; ix++) {
+            for (iy=-plr.vision; iy<plr.vision+1; iy++) {
+                document.getElementById(ix + "," + iy).src = "img/" + world[plr.pos.x+ix][plr.pos.y+iy] + ".png"
+            }
+        }
+        plr.tile = world[plr.pos.x][plr.pos.y]
+        document.getElementById("0,0").src = "img/plr1.png"
+        document.getElementById("inv1").innerText = "[" + plr.inventory + "]"
+    }
+    function mainLoop() {
+        objects = document.getElementsByClassName("col")
+        document.getElementById("debug1").innerHTML = "pos : " + plr1.pos.x + "," + plr1.pos.y + "<br>biome : " + plr1.biome + "<br>tile : " + plr1.tile
+        if (currentInputs.includes("ArrowUp")) {
+            movement(plr1,"U")
+            render(plr1)
+            currentInputs.splice(currentInputs.indexOf("ArrowUp"),1)
+        }
+        if (currentInputs.includes("ArrowLeft")) {
+            movement(plr1,"L")
+            render(plr1)
+            currentInputs.splice(currentInputs.indexOf("ArrowLeft"),1)
+        }
+        if (currentInputs.includes("ArrowDown")) {
+            movement(plr1,"D")
+            render(plr1)
+            currentInputs.splice(currentInputs.indexOf("ArrowDown"),1)
+        }
+        if (currentInputs.includes("ArrowRight")) {
+            movement(plr1,"R")
+            render(plr1)
+            currentInputs.splice(currentInputs.indexOf("ArrowRight"),1)
+        }
+        if (currentInputs.includes("KeyE")) {
+            interact(plr1)
+            render(plr1)
+            currentInputs.splice(currentInputs.indexOf("KeyE"),1)
+        }
+        var t = setTimeout(function(){mainLoop()},17)
+    }
+    document.addEventListener('keydown', (event) => {
+        if (!currentInputs.includes(event.code)) {currentInputs.push(event.code)}
+        document.getElementById("inputs").innerText = "[" + currentInputs.toString() + "]"
+    })
+    document.addEventListener('keyup', (event) => {
+        if (currentInputs.includes(event.code)) {currentInputs.splice(currentInputs.indexOf(event.code),1)}
+        document.getElementById("inputs").innerText = "[" + currentInputs.toString() + "]"
+    })
+    render(plr1)
+    mainLoop()
+</script>

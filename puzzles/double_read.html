@@ -1,0 +1,24 @@
+<title>14 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>I feel like I should tone the difficulty down a bit, so here's something a bit different.</p>
+<p>You probably already knew this, but I can add random data to the page title.</p>
+What number did I add this time? : <input id="levelCheck" maxlength=2></input>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">14</h1>
+</div>
+<script>
+const titleRand = Math.floor(Math.random() * 100)
+document.title += titleRand
+function nextlevel() {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value
+    if (levelTest == titleRand) {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('title_rand.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

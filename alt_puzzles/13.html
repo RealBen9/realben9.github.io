@@ -1,0 +1,65 @@
+<title>Alt Puzzles - 13</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="r.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Rectangles</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1"><tbody>
+    <tr><td>2</td><td></td><td>4</td><td></td><td></td><td></td><td>5</td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>18</td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>9</td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td>3</td><td>3</td><td></td><td>12</td><td></td><td></td></tr>
+    <tr><td>7</td><td></td><td></td><td>15</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>6</td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td>9</td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td>2</td><td></td><td></td><td></td><td></td><td>3</td><td></td></tr>
+</tbody></table>
+<!--<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>-->
+<h2>Rules</h2>
+<p>Divide the grid into a series of rectangles or squares, such that every cell is in exactly one region. Numbers indicate the size of each region: For instance a '5' in a cell means that cell is part of a region that contains five cells in total. There is only one number in each region.</p>
+<h1 id="puzzle">Daily #13 (R#3)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    /*levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "1") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'*/
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

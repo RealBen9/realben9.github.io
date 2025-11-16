@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135926838-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-135926838-3');
+  </script>-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetra Legends Omega</title>
+  <link rel="prerender" as="font" href="fonts/material-icons.woff2" type="font/woff2" crossorigin="anonymous">
+  <!--<link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-100.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-300.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-500.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-700.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-900.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-jp-v25-latin_japanese-regular.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-100.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-300.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-500.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-700.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-900.woff2" type="font/woff2" crossorigin="anonymous">
+  <link rel="prerender" as="font" href="fonts/noto-sans-sc-v11-chinese-simplified_latin-regular.woff2" type="font/woff2" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/zen.css">
+  <link rel="stylesheet" href="css/sudden.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+  <video autoplay muted loop id="myVideo">
+    <source src="vid/DiscoLightsVidevo.mov" type="video/mp4">
+  </video>
+  <div id="lights-warning" class="hidden">
+    <img src="img/tetrion/warning.svg" alt="">
+    Flashing Lights
+  </div>
+  <div id="main">
+    <div id="error-stack" class="error-stack">
+    </div>
+
+    <div id="dev" style="z-index:300;user-select:all;background-color:red;display:none">
+      <div>Random Queue Seed:</div>
+      <input type="text" name="queuerand" id="queuerand">
+    </div>
+    <div id="key-popup" class="modal hidden">
+      <div class="header">Control Configuration</div>
+      <div class="body">Press the key you wish to use for this action</div>
+    </div>
+    <div id="title-container">
+      <div id="logo-container"></div>
+      <div id="press-container" class="hidden"></div>
+    </div>
+    <div id="menu-container" class="hidden">
+      <div id="menu">
+      </div>
+      <div id="description"></div>
+      <div id="description-text" style="display:none"></div>
+      <ul id="vertical-menu" style="display:none">
+      </ul>
+
+    </div>
+    <div id="game-container" class="hidden">
+      <div id="kill-message-container" class="kill-message-container hidden">
+        <div id="kill-message" class="kill-message">BLOCK OUT</div>
+      </div>
+      <div id="end-message-container" class="end-message-container hidden">
+        <div id="end-message" class="end-message">Game Over</div>
+        <div id="end-stats" class="end-stats"></div>
+        <img src="img/buttons/keyboard-backspace.svg" alt="" style="height: 1.4em;margin-top:.4em">
+        <div id="return-to-menu" class="return">Return to Menu</div>
+        <div id="save-replay" class="return">Save Replay (WIP) (O)</div>
+      </div>
+      <div id="game" class="game">
+        <div class="game-left">
+          <div class="warning-message-container-hold" id="warning-message-container-hold">
+            <!-- <img src="img/tetrion/warning-red.svg" alt="" height="28pt"> -->
+            <img src="img/tetrion/warning.svg" alt="" height="28pt">
+            <div class="warning-message" id="warning-message-hold">
+              BLOCK OUT
+            </div>
+            <!-- <img src="img/tetrion/warning-red.svg" alt="" height="28pt"> -->
+          </div>
+          <div class="hold-disappear-message" id="hold-disappear-message">
+          </div>
+          <div class="skip-amount" id="skip-amount">8</div>
+          <div class="hold-container-container" id="hold-container-container">
+            <div class="hold-container" id="hold-container">
+              <p class="hold-label" id="hold-label">HOLD</p>
+              <canvas id="hold" class="hold-canvas"></canvas>
+            </div>
+          </div>
+          <div class="stats" id="stats">
+          </div>
+        </div>
+        <div class="game-center" id="game-center">
+          <canvas id="stack" class="stack-canvas game-canvas"></canvas>
+          <canvas id="next-piece" class="game-canvas next-matrix"></canvas>
+          <canvas id="piece" class="game-canvas pulse"></canvas>
+          <canvas id="particle" class="game-canvas particle-canvas"></canvas>
+          <div class="garbage-counter-container" id="garbage-counter-container">
+            <div class="garbage-counter" id="garbage-counter">
+
+            </div>
+          </div>
+          <div class="rotation-warning hidden" id="rotation-warning">
+            <img src="img/tetrion/rotation-warning.svg" alt="">
+          </div>
+          <div class="delay-time" id="delay">
+            500ms
+          </div>
+          <div class="infinity-symbol" id="infinity-symbol">
+            ∞
+          </div>
+          <div class="manip-grid" id="pip-grid">
+          </div>
+          <progress max="1" value="1" id="lockdown" class="lockdown-meter"></progress>
+          <progress max="1" value="1" id="rise" class="rise-meter"></progress>
+          <progress max="1" value="1" id="das" class="das-meter"></progress>
+          <div class="pause" id="pause-label">
+            PAUSE
+          </div>
+          <div class="main-message" id="message">
+            READY
+          </div>
+          <div class="load-message" id="load-message">
+            Loading...
+          </div>
+          <progress max="1500" value="1500" id="ready-meter" class="ready-meter"></progress>
+          <div class="timer paused" id="timer">
+            00:00:00.00
+          </div>
+          <div class="timer timer-real paused" id="timer-real">
+            00:00:00.00
+          </div>
+          <div class="lives" id="lives"></div>
+          <img id="life0" style="position:absolute;bottom:-3.6em;right:19.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life1" style="position:absolute;bottom:-3.6em;right:17.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life2" style="position:absolute;bottom:-3.6em;right:16.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life3" style="position:absolute;bottom:-3.6em;right:14.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life4" style="position:absolute;bottom:-3.6em;right:13.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life5" style="position:absolute;bottom:-3.6em;right:11.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life6" style="position:absolute;bottom:-5.1em;right:19.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life7" style="position:absolute;bottom:-5.1em;right:17.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life8" style="position:absolute;bottom:-5.1em;right:16.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life9" style="position:absolute;bottom:-5.1em;right:14.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life10" style="position:absolute;bottom:-5.1em;right:13.2em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <img id="life11" style="position:absolute;bottom:-5.1em;right:11.7em" src="img/tetrion/life.png" alt="" width="6.67%">
+          <div id="levelType"></div>
+          <div class="clutch-message-container" id="clutch-message-container">
+            <div class="clutch-message" id="clutch-message">CLUTCH</div>
+          </div>
+          <div class="warning-message-container" id="warning-message-container">
+            <!-- <img src="img/tetrion/warning-red.svg" alt=""> -->
+            <img src="img/tetrion/warning.svg" alt="" height="28pt">
+            <div class="warning-message" id="warning-message">
+            </div>
+            <!-- <img src="img/tetrion/warning-red.svg" alt=""> -->
+          </div>
+        </div>
+        <div class="game-right">
+          <div class="main-next-container" id="main-next-container">
+            <p class="next-label" id="next-label">NEXT</p>
+            <canvas id="next-main" class="main-next-canvas"></canvas>
+          </div>
+          <div class="sub-next-container">
+            <canvas id="next-sub" class="sub-next-canvas"></canvas>
+          </div>
+          <div class="combo-counter-container hidden" id="combo-counter-container">
+            <div class="combo-counter" id="combo-counter">
+              5 Combo
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="zen_panel">
+        <div id="zen_panel_content">
+          <h1>MISC</h1><label>INFINITE HOLD</label>
+          <div class="panel_optionset" id="cfghold">
+            <button onclick="btn_toggle('cfghold','ON')" class="panel_option panel_button selected" title="Allow infinite holding.">ON</button><br>
+            <button onclick="btn_toggle('cfghold','OFF')" class="panel_option panel_button" title="Do not allow infinite holding.">OFF</button>
+          </div>
+          <h1>SPINS</h1>
+          <div class="panel_optionset" id="cfgspin">
+            <button onclick="btn_toggle('cfgspin','3CORNER')" class="panel_option panel_button selected" title="Each piece gets 4 points around it. At least 3 must be filled for a spin. 2 specific points must be filled for a full spin; otherwise, the spin is mini, but only if the first 4 rotations in the offset table are used.">3CORNER</button><br>
+            <button onclick="btn_toggle('cfgspin','IMMOBILE')" class="panel_option panel_button" title="If a piece gets rotated into a position where it cannot move up, down, left, or right, then it is a spin. There are no mini spins.">IMMOBILE</button><br>
+            <button onclick="btn_toggle('cfgspin','EZIMMOBILE')" class="panel_option panel_button" title="Same as immobile, but if upon rotating a piece it kicks (rotates, but not on its center-axis) and it does not satisfy the requirements for an immobile spin, then it is a mini spin.">EZIMMOBILE</button><br>
+            <button onclick="btn_toggle('cfgspin','NULL')" class="panel_option panel_button" title="Do not detect spins.">NULL</button>
+          </div>
+          <h1>KICK TABLE</h1>
+          <div class="panel_optionset" id="cfgkick">
+            <button onclick="btn_toggle('cfgkick','TETRAX')" class="panel_option panel_button" title="Novel rotation system by DR OCELOT.">TETRAX</button><br>
+            <button onclick="btn_toggle('cfgkick','SRS')" class="panel_option panel_button selected" title="The standard natural rotation system with more powerful 180 spins.">SRS</button><br>
+            <button onclick="btn_toggle('cfgkick','ASC')" class="panel_option panel_button" title="Permissive rotation system by WINTERNEBS.">ASC</button><br>
+            <button onclick="btn_toggle('cfgkick','ASCX')" class="panel_option panel_button" title="Permissive rotation system by WINTERNEBS with more powerful 180 spins.">ASCX</button><br>
+            <button onclick="btn_toggle('cfgkick','ARS')" class="panel_option panel_button" title="Rotation system used in arcade games.">ARS</button><br>
+            <button onclick="btn_toggle('cfgkick','ARSTI')" class="panel_option panel_button" title="Rotation system used in arcade games.">ARSTI</button><br>
+            <button onclick="btn_toggle('cfgkick','ARSX')" class="panel_option panel_button" title="Rotation system used in arcade games with more powerful 180 spins.">ARSX</button><br>
+            <button onclick="btn_toggle('cfgkick','WORLD')" class="panel_option panel_button" title="The standard natural rotation system adapted for arcade games.">WORLD</button><br>
+            <button onclick="btn_toggle('cfgkick','RETRO')" class="panel_option panel_button" title="The classic rotation system. Also known as NRS & NINTENDO-R.">RETRO</button><br>
+            <button onclick="btn_toggle('cfgkick','HANDHELD')" class="panel_option panel_button" title="The classic rotation system. Also known as GBRS & NINTENDO-L.">HANDHELD</button><br>
+            <button onclick="btn_toggle('cfgkick','DELUXE')" class="panel_option panel_button" title="A prototype of the standard natural rotation system. Used in Tetra DX.">DELUXE</button><br>
+            <button onclick="btn_toggle('cfgkick','OSHISAURE')" class="panel_option panel_button" title="Also known as VRS.">OSHISAURE</button><br>
+            <button onclick="btn_toggle('cfgkick','ORIGINAL')" class="panel_option panel_button" title="No kicks possible.">ORIGINAL</button>
+          </div>
+          <h1>GRAVITY</h1>
+          <div class="panel_optionset" id="cfggravity">
+            <label style="margin-left:1.5em">GRAVITY (G)</label>
+            <input class="panel_input" id="gravitystatic" value="20" type="number" min="0" max="20" step="0.1">
+            <button onclick="btn_submit('gravitystatic')" class="panel_option panel_button">Submit</button><br>
+            <label style="margin-left:1.5em">LOCK DELAY (MS)</label>
+            <input class="panel_input" id="lockdelaystatic" value="500" type="number" min="0" max="1000">
+            <button onclick="btn_submit('lockdelaystatic')" class="panel_option panel_button">Submit</button><br>
+          </div>
+          <!--<h1>GARBAGE</h1>
+          <div class="panel_optionset" id="cfggarbage">
+            <button onclick="btn_toggle('cfggarbage','OFF')" class="panel_option panel_button selected" title="No garbage.">OFF</button><br>
+            <button onclick="btn_toggle('cfggarbage','BACKFIRE 0.5X')" class="panel_option panel_button" title="Half your attack power is sent back to you.">BACKFIRE 0.5X</button><br>
+            <button onclick="btn_toggle('cfggarbage','BACKFIRE 1X')" class="panel_option panel_button" title="All your attack power is sent back to you.">BACKFIRE 1X</button><br>
+            <button onclick="btn_toggle('cfggarbage','BACKFIRE 2X')" class="panel_option panel_button" title="Double your attack power is sent back to you.">BACKFIRE 2X</button><br>
+            <button onclick="btn_toggle('cfggarbage','UNCLEAR 0.5X')" class="panel_option panel_button" title="Half your attack power is immediately pushed onto your board.">UNCLEAR 0.5X</button><br>
+            <button onclick="btn_toggle('cfggarbage','UNCLEAR 1X')" class="panel_option panel_button" title="All your attack power is immediately pushed onto your board.">UNCLEAR 1X</button><br>
+            <button onclick="btn_toggle('cfggarbage','UNCLEAR 2X')" class="panel_option panel_button" title="Double your attack power is immediately pushed onto your board.">UNCLEAR 2X</button><br>
+            <button onclick="btn_toggle('cfggarbage','CHEESE LAYER')" class="panel_option panel_button" title="A static layer of cheese is added onto your board.">CHEESE LAYER</button><br>
+            <label style="margin-left:1.5em">LAYER HEIGHT</label>
+            <input class="panel_input" id="cheeselayer_height" value="6" type="number" min="0" max="20"><br>
+            <button onclick="btn_toggle('cfggarbage','CHEESE TIMER')" class="panel_option panel_button" title="One line of cheese is sent periodically.">CHEESE TIMER</button><br>
+            <label style="margin-left:1.5em">TIMER INTERVAL</label>
+            <input class="panel_input" id="cheesetimer_interval" value="4" type="number" min="0.1" max="60" step="0.1">
+          </div><label>CHEESE MESSINESS %</label><input class="panel_input" id="cheesemessiness" value="100" type="number" min="0" max="100">-->
+          <h1>SCORE TABLE</h1>
+          <div class="panel_optionset" id="cfgscore">
+            <button onclick="btn_toggle('cfgscore','GUIDELINE')" class="panel_option panel_button selected" title="GUIDELINE">GUIDELINE</button><br>
+            <button onclick="btn_toggle('cfgscore','RETRO')" class="panel_option panel_button" title="RETRO">RETRO</button><br>
+            <button onclick="btn_toggle('cfgscore','TETRAX')" class="panel_option panel_button" title="TETRAX">TETRAX</button><br>
+            <button onclick="btn_toggle('cfgscore','BLANK')" class="panel_option panel_button" title="BLANK">BLANK</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div id="sprite" style="display:none"></div>
+      </div>
+    </div>
+
+    <div id="button-hint-container" class="" style="display:none">
+      <!-- <kbd class="key">Z</kbd> -->
+      <!-- <label>OK</label> -->
+      <!--
+      <table>
+        <td class="key big icon">keyboard_backspace</td>
+        <td class="label">Main Menu</td>
+      </table>
+      <table>
+        <td class="key ">R</td>
+        <td class="label">Retry</td>
+      </table>
+      <table>
+        <td class="key multi">Esc</td>
+        <td class="key ">P</td>
+        <td class="label">Pause</td>
+      </table>
+      -->
+      <table>
+        <td class="label pulse">Early Alpha - Nothing is Final
+</td>
+      </table>
+    </div>
+  </div>
+
+  <!-- <script type="module" src="locale.js"></script> -->
+  <script src="lib/gamepad.min.js"></script>
+  <script src="lib/howler.min.js"></script>
+  <script src="lib/seedrandom.min.js"></script>
+  <script type="module" src="app.js"></script>
+  <script src="zen.js"></script>
+  <script>
+    // code I found to stop backspace from F***ING everything up
+    document.onkeydown = function (event) {
+
+      if (!event) { /* This will happen in IE */
+        event = window.event;
+      }
+
+      var keyCode = event.keyCode;
+
+      if (keyCode == 8 &&
+        ((event.target || event.srcElement).tagName != "TEXTAREA") &&
+        ((event.target || event.srcElement).tagName != "INPUT")) {
+
+        if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+          event.stopPropagation();
+        } else {
+          alert("prevented");
+          event.returnValue = false;
+        }
+
+        return false;
+      }
+    };
+    // and some code I found to stop other s*** from F***ING everything up
+    window.addEventListener("keydown", function (e) {
+      // space and arrow keys
+      if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
+    }, false);
+    const dev = {}
+    dev.show = () => {
+      document.getElementById('dev').style.setProperty('display', 'block');
+    }
+    dev.hide = () => {
+      document.getElementById('dev').style.setProperty('display', 'none');
+    }
+    let enableVideo = () => {
+      document.documentElement.innerHTML = `<video autoplay muted loop id="myVideo">
+    <source src="vid/DiscoLightsVidevo.mov" type="video/mp4">
+  </video>` + document.documentElement.innerHTML;
+  enableVideo = () => {};
+    }
+
+  </script>
+
+  <script>
+    let date = new Date()
+    let month = date.getUTCMonth()
+    let day = date.getUTCDate()
+    let hh = date.getUTCHours()
+    if ((month == 2 && day == 25 && hh >= 1) || (month == 2 && day > 25) || (month == 3 && day == 1 && hh < 1)) {
+      document.head.innerHTML = document.head.innerHTML + '<style>div.sudden { animation-duration: .5s; animation-name: fire; animation-iteration-count: infinite; animation-direction: alternate; } div.sudden.selected { animation-name: fire-selected !important; animation-iteration-count: infinite !important; animation-direction: alternate !important; color:#fff !important; background-color:#f40 !important; } </style>'
+    }
+  </script>
+
+</body>
+
+</html>

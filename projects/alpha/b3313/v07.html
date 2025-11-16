@@ -1,0 +1,792 @@
+<title>B3313 v0.7 Hierarchy</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"><style>
+#items {
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  color: black;
+}
+
+.items ul {
+  padding-top: 20px;
+  position: relative;
+}
+
+/* Make all children "inline" */
+.items li {
+  float: left;
+  display: inline-block;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+}
+
+/* Add horizontal connector. Note: they are 2 pseudo-elements */
+.items li::before, .items li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 55%;
+  height: 42px;
+  z-index: -1;
+  border-top: 1px solid #000;
+}
+
+.items li::after {
+  border-left: 1px solid #000;
+  left: 50%;
+  right: auto;
+}
+
+/* Remove left and right connector from a single child */
+.items li:only-child::after, .items li:only-child::before {
+  display: none;
+}
+
+.items li:only-child {
+  padding-top: 0;
+}
+
+/* Remove "outer" connector */
+.items li:first-child::before, .items li:last-child::after {
+  border: 0 none;
+}
+/* Add back the down connector for last node */
+.items li:last-child::before {
+  border-right: 1px solid #000;
+  border-radius: 0 5px 0 0;
+}
+
+/* Add curve line to the first child's connector */
+.items li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+
+/* Add down connector from parent */
+.items ul ul::before {
+  content: '';
+  border-left: 1px solid #000;
+  z-index: -1;
+  height: 20px;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 0;
+}
+
+/* Add cosmetic for each item */
+.items li a {
+  text-shadow: 1px 1px 4px black;
+  font-size: 12px;
+  background-color: #aaa;
+  border: 1px solid #000;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+/* Change bg-color while hovering each item */
+.items li a:hover {
+  background-color: #777;
+}
+
+/* Make each duplicate item have a dark red background */
+.items li a.duplicate {
+  background-color: #700;
+}
+.items li a.duplicate:hover {
+  background-color: #500;
+}
+/* Make each jumpscare item have a light red background */
+.items li a.jumpscare {
+  background-color: #a00;
+}
+.items li a.jumpscare:hover {
+  background-color: #800;
+}
+/* Make each metal item have a special green background */
+.items li a#metal {
+  background: linear-gradient(to right,#0a0 0%,#050 50%,#0a0 100%);
+}
+.items li a#metal:hover {
+  background: linear-gradient(to right,#080 0%,#040 50%,#080 100%);
+}
+/* Make each wing item have a special red background */
+.items li a#wing {
+  background: linear-gradient(to right,#a00 0%,#500 50%,#a00 100%);
+}
+.items li a#wing:hover {
+  background: linear-gradient(to right,#800 0%,#400 50%,#800 100%);
+}
+/* Make each vanish item have a special blue background */
+.items li a#vanish {
+  background: linear-gradient(to right,#00a 0%,#005 50%,#00a 100%);
+}
+.items li a#vanish:hover {
+  background: linear-gradient(to right,#008 0%,#004 50%,#008 100%);
+}
+
+/* EXPERIMENTAL for multiple parents */
+/* Add margin for the parents */
+.items li a:not(:only-of-type) {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+/* Add "down" connector (vertical line) from each multi-parent, EXCEPT the last one */
+.items li > a:not(:last-of-type)::after{
+  content: '';
+  position: absolute;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  top: 20px;
+  width: 75%;
+  height: 20px;
+  left: 50%;
+  z-index: -1;
+}
+
+/* Special case for the last multiple-parent, using border-right */
+.items li > a:not(:only-of-type):last-of-type::after {
+  content: '';
+  position: absolute;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  top: 20px;
+  width: 50%;
+  height: 20px;
+  right: 50%;
+  z-index: -1; 
+  border-bottom-right-radius: 5px;
+}
+
+/* Give the curve line to the first multiple parent .... */
+.items li > a:not(:only-of-type):first-child::after {
+  border-bottom-left-radius: 5px;
+}
+
+/* The middle element of multi-parents*/
+.items li > a:not(:first-child):not(:last-of-type)::before {
+  content: '';
+  position: absolute;
+  border-bottom: 1px solid #000;
+  top: 40px;
+  width: 50%;
+  right: 50%;
+  z-index: -1;
+}
+
+.items ul:last-of-type li {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+</style></head>
+<script src="../../../index.js"></script>
+<div id="snow" style="width:max-content">
+<h1><font style="color:#f0f">B</font><font style="color:#f00">3</font><font style="color:#00f">3</font><font style="color:#ff0">1</font><font style="color:#0f0">3</font><i> v0.7</i> Hierarchy (You may need to zoom in/out)</h1>
+<h1><i>(Pro Tip : Use Ctrl-F if using mid-game as a reference)</i></h1>
+<h2><i>[*<font color="red">*</font>] : Requires Basement <font color="red">Upstairs</font> Key</i></h2>
+<h2><i>[M/W/V] : Requires Metal/Wing/Vanish Cap</i></h2>
+<h2><i>NOTE : This was created in sm64ex-coop using the Area Display mod as a reference. As a result, some names may be from v0.9 & some "Door 1"s & "Door 2"s may be swapped.</i></h2>
+<div class="items" style="position:relative;left:-160px">
+  <ul>
+    <li>
+      <a href="#" style="color:#0ff">Castle Grounds [Reset]</a>
+      <ul>
+        <li>
+          <a href="#" style="color:#0ff">Beta Lobby A [Front Door]</a>
+          <ul>
+            <li><a href="#" style="color:#ff0">Snow Slide (B-Roll) [Door 2]</a>
+              <ul>
+                <li>
+                  <a href="#" style="color:#0f0">Monkey Slide [Hole]</a>
+                  <ul>
+                    <li>
+                      <a href="#" style="color:#ff0">Snow Slide 2 [Hole]</a>
+                      <ul>
+                        <li><a href="#" class="duplicate" style="color:#0f0">Monkey Slide [Hole,Hole]</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Front Door]</a>
+              <a href="#" style="color:#ff0">Mountain (B-Roll) [Door 1]</a>
+              <a href="#" style="color:#ff0">Fire Bubble (B-Roll) [Door 3L]</a>
+              <a href="#" style="color:#ff0">Water Land [Door 3R]</a>
+              <ul>
+                <li>
+                  <a href="#" style="color:#0ff">Beta Lobby B [EtC]</a>
+                  <ul>
+                  <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Front Door]</a></li>
+                  <li>
+                    <a href="#" style="color:#ff0">Frosty Highlands [Door 2]</a>
+                    <ul>
+                      <li><a href="#" class="duplicate" style="color:#ff0">Cold, Cold Crevasse [Wall]</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" style="color:#ff0">Whomp's Kingdom [Door 1]</a>
+                    <ul>
+                      <li>
+                        <a href="#" style="color:#ff0">Whomp's Prison [Wall]</a>
+                        <ul>
+                          <li><a href="#" style="color:#f0f">King Whomp's Battle Arena [Pipe]</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" style="color:#0ff">Plexal Upstairs [Door U]</a>
+                    <ul>
+                      <li><a href="#" style="color:#ff0">Pleasant, Pleasant Falls [Painting L,Near]</a></li>
+                      <li><a href="#" style="color:#ff0">Dry Town [Painting L,Far]</a></li>
+                      <li>
+                        <a href="#" style="color:#ff0">Piranha Plant Garden [Door LM,Painting]</a>
+                        <ul>
+                          <li><a href="#" style="color:#ff0">Piranha's Igloo [Pipe]</a></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#" style="color:#0ff">Plexal Hallway [Door L2,M]</a>
+                        <ul>
+                          <li>
+                            <a href="#" style="color:#ff0">Rocky Trek [Door 3,Painting]</a>
+                            <ul>
+                              <li><a href="#" style="color:#f0f">Checkerboard 4 [Box]</a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <a href="#" style="color:#ff0">Bob-Omb Tower [Door 1D,Painting]</a>
+                            <ul>
+                              <li>
+                                <a href="#" style="color:#ff0">Dark Downtown [Hole]</a>
+                                <ul>
+                                  <li><a href="#" class="duplicate" style="color:#ff0">Ice-Cold Warzone [Pipe]</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle [Door L]</a></li>
+                          <li><a href="#" style="color:#ff0">Cave City [Door U,1,Hole]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" style="color:#ff0">Creepy Cove [Painting M]</a></li>
+                      <li>
+                        <a href="#" style="color:#0ff">Uncanny Courtyard (Crimson) [Passage R]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Uncanny Courtyard (Windy) [Fountain]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="duplicate" style="color:#ff0">Lavish Lava Mountain A7 [Door RL,Painting L]</a></li>
+                      <li><a href="#" style="color:#ff0">Lavish Lava Mountain A6 [Door RL,Painting R]</a></li>
+                      <li><a href="#" style="color:#ff0">Sky-High Pathway [Hole RM]</a></li>
+                      <li>
+                        <a href="#" style="color:#0ff">Cryptic Hideout A2 [Door RRM]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Funhouse [Door L]</a></li>
+                          <li>
+                            <a href="#" style="color:#ff0">Click Clock Climb [Clock]</a>
+                            <ul>
+                              <li><a href="#" style="color:#f0f">Checkerboard 4 [Box]</a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <a href="#" class="jumpscare" style="color:#f0f">Cryptic Hideout A3 [Door R,Statue]</a>
+                            <ul>
+                              <li><a href="#" class="jumpscare" style="color:#f0f">Cryptic Hideout A4 [Statue?]</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#" style="color:#0ff">Underground Passageway [Door RRR]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Plexal Basement [Pipe]</a></li>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Bowser's Castle [Door]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" style="color:#ff0">Rainbow Ride (Beta) [Painting RR3,Near]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0f0">Forest Maze [Hole RR3]</a></li>
+                      <li>
+                        <a href="#" style="color:#ff0">Big Boo's Fortress [Painting RR3,Far]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#ff0">Big Boo's Haunted Forest [Cage]</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" style="color:#0ff">Plexal Lobby [Door D]</a>
+                    <ul>
+                      <li>
+                        <a href="#" style="color:#0ff">Funhouse [Door 2L,Hole]</a>
+                        <ul>
+                          <li>
+                            <a href="#" style="color:#0f0">Forest Maze [Green Door]</a>
+                            <ul>
+                              <li>
+                                <a href="#" style="color:#0ff">Bowser's Castle [Door L]</a>
+                                <ul>
+                                  <li><a href="#" class="duplicate" style="color:#0ff">Purple Upstairs [Door L]</a></li>
+                                  <li>
+                                    <a href="#" style="color:#ff0">Cold, Cold Crevasse [Door 2,L,Pipe]</a>
+                                    <ul>
+                                      <li><a href="#" class="duplicate" style="color:#ff0">Frosty Highlands [Front? Wall]</a></li>
+                                    </ul>
+                                  </li>
+                                  <li>
+                                    <a href="#" style="color:#ff0">Lethal Cavern [Door 2,Painting R]</a>
+                                    <ul>
+                                      <li><a href="#" class="duplicate" style="color:#0f0">The Void [Wall]</a></li>
+                                      <li><a href="#" style="color:#f0f">Checkerboard 4 [Box]</a></li>
+                                    </ul>
+                                  </li>
+                                  <li><a href="#" class="duplicate" style="color:#0ff">Underground Passageway [Door R,L]</a></li>
+                                </ul>
+                              </li>
+                              <li><a href="#" class="duplicate" style="color:#0f0">Forest Maze [Door M]</a></li>
+                              <li><a href="#" class="duplicate" style="color:#0f0">Forest Maze [Door R]</a></li>
+                            </ul>
+                          </li>
+                          <li>
+                            <a href="#" class="duplicate" style="color:#0ff">Uncanny Courtyard (Sunny) [Cloud? Door]</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Crimson Hallway [Door 2L,Pipe]</a></li>
+                      <li><a href="#" style="color:#ff0">Grassy Highlands [Door 2M]</a></li>
+                      <li><a href="#" style="color:#ff0">Bob-omb Test Site [Door UM,3]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Beta Lobbies C and D [Door UM,Hall L,Door 3]</a></li>
+                      <li>
+                        <a href="#" style="color:#0ff">Clock Hall [Door UM,Hall L,Door U]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Floor 2B [Door U] [V]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Vanilla Lobby [Door UM,Hall L,Pipe R]</a></li>
+                      <li><a href="#" style="color:#ff0">Goomba Hills [Door UM,Hall L,Door 1]</a></li>
+                      <li><a href="#" style="color:#0f0">Balcony [Door UM,L]</a></li>
+                      <li><a href="#" style="color:#f0f">Castle Garden [Door UM,M]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Bowser's Maze [Door UM,R]</a></li>
+                      <li>
+                        <a href="#" style="color:#0ff">Vanilla Lobby [Door 2R]</a>
+                        <ul>
+                            <li>
+                              <a href="#" style="color:#0ff">Dark Lobby [Front Door]</a>
+                              <ul>
+                                <li>
+                                  <a href="#" style="color:#0ff">Cresent Castle (Segment 2) [Door L]</a>
+                                  <ul>
+                                    <li><a href="#" style="color:#f0f">Delicious Cake [Peach]</a></li>
+                                    <li><a href="#" class="duplicate" style="color:#0ff">Dark Lobby [Door]</a></li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <a href="#" style="color:#0f0">Deadly Descent ["Rug",Z]</a>
+                                  <ul>
+                                    <li><a href="#" style="color:#ff0">Infernal Tower [Wall]</a></li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <a href="#" style="color:#0ff">Floor 2B [Front Door]</a>
+                                  <ul>
+                                    <li>
+                                      <a href="#" class="duplicate" style="color:#0ff">Clock Hall [Door L]</a>
+                                    </li>
+                                    <li><a href="#" style="color:#f0f">Wiggler's Forest Fortress [Hole M,Door 2]</a></li>
+                                    <li>
+                                      <a href="#" style="color:#ff0">Ice-Cold Warzone [Hole M,Door M,Painting]</a>
+                                      <ul>
+                                        <li><a href="#" class="duplicate" style="color:#ff0">Bob-omb Battlefield (Beta)</a></li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <a href="#" style="color:#0ff">Fake Lobby [Hole M,Door R]</a>
+                                      <ul>
+                                        <li>
+                                          <a href="#" style="color:#0ff">Cresent Castle (Segment 1) [Front Door]</a>
+                                          <ul>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Plexal Hallway [Door L]</a></li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Door M,Hole L]</a></li>
+                                            <li>
+                                              <a href="#" style="color:#ff0">Tick Tock Blocks [Door M,M,L,Hole]</a>
+                                              <ul>
+                                                <li><a href="#" style="color:#f0f">Checkerboard 4 [Box]</a></li>
+                                              </ul>
+                                            </li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Plexal Basement [Door M,M,L,Pipe,Door]</a></li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Door M,M,M]</a></li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle (Segment 2) [Door M,M,R]</a></li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Vanilla Upstairs [Door M,Painting RM]</a></li>
+                                            <li>
+                                              <a href="#" style="color:#0ff">Bowser's Floor / Peach's Floor (Segment 1) [Door M,Painting RR]</a>
+                                              <ul>
+                                                <li>
+                                                  <a href="#" style="color:#ff0">Bob-Omb Village [Painting L]</a>
+                                                  <ul>
+                                                    <li>
+                                                      <a href="#" style="color:#f0f">Dead Village [Star Exit]</a>
+                                                      <ul>
+                                                        <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Wall]</a></li>
+                                                      </ul>
+                                                    </li>
+                                                  </ul>
+                                                </li>
+                                                <li>
+                                                  <a href="#" style="color:#f0f">Peaceful Sewer Maze [Door RD,Hall U,Hole]</a>
+                                                  <ul>
+                                                    <li><a href="#" class="duplicate" style="color:#f0f">Scary Sewer Maze A3 [Statue (Slow)]</a></li>
+                                                  </ul>
+                                                </li>
+                                                <li>
+                                                  <a href="#" style="color:#0ff">Bowser Hallway / Bowser's Prison (Segment 2) [Door RD,Hall L,Door L3]</a>
+                                                  <ul>
+                                                    <li>
+                                                      <a href="#" style="color:#0ff">Bowser's Floor / Peach's Floor (Segment 2) [Door,Chair (Slow)]</a>
+                                                      <ul>
+                                                        <li>
+                                                          <a href="#" style="color:#0f0">Peach's Cell [Door U,U,Pipe]</a>
+                                                          <ul>
+                                                            <li>
+                                                              <a href="#" style="color:#0f0">Ruins in the Blood Lake [Star Exit]</a>
+                                                              <ul>
+                                                                <li>
+                                                                  <a href="#" style="color:#0f0">Haunted Castle Grounds [Pipe]</a>
+                                                                  <ul>
+                                                                    <li><a href="#" class="duplicate" style="color:#0ff">Beta Lobby A [Front Door]</a></li>
+                                                                    <li>
+                                                                      <a href="#" style="color:#ff0">Randomized Realm [Star Door,Pipe]</a>
+                                                                      <ul>
+                                                                        <li><a href="#" style="color:#f0f">Eternal Fort (Beta) [Pipe]</a></li>
+                                                                      </ul>
+                                                                    </li>
+                                                                    <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle [Back Door]</a></li>
+                                                                  </ul>
+                                                                </li>
+                                                              </ul>
+                                                            </li>
+                                                          </ul>
+                                                        </li>
+                                                      </ul>
+                                                    </li>
+                                                  </ul>
+                                                </li>
+                                              </ul>
+                                            </li>
+                                            <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Door R]</a></li>
+                                          </ul>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li><a href="#" style="color:#ff0">Midnight Meadow [Painting R]</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" style="color:#ff0">Bob-omb Battlefield (Beta) [Door 2]</a>
+                              <ul>
+                                <li>
+                                  <a href="#" style="color:#ff0">Bob-omb River [Pipe]</a>
+                                  <ul>
+                                    <li>
+                                      <a href="#" style="color:#f0f">Big Bob-Omb's Fortress [Pipe]</a>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" style="color:#ff0">Cool, Cool Mountain (Beta) [Door 3L]</a>
+                              <ul>
+                                <li><a href="#" style="color:#f0f">Checkerboard 3 [Box]</a></li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" style="color:#0ff">Purple Upstairs [Door U] [**]</a>
+                              <ul>
+                                <li><a href="#" class="duplicate" style="color:#0ff">Bowser's Castle [Front Door]</a></li>
+                                <li><a href="#" style="color:#ff0">Goomboss Battle [Door U,2L,Painting L]</a></li>
+                                <li><a href="#" class="duplicate" style="color:#0ff">Vanilla Upstairs [Door U,Painting RR]</a></li>
+                                <li>
+                                  <a href="#" style="color:#0ff">Vanilla Upstairs [Door U,2R,2] [V]</a>
+                                  <ul>
+                                    <li>
+                                      <a href="#" style="color:#ff0">Tall, Tall Mountain [TTM Painting]</a>
+                                      <ul>
+                                        <li><a href="#" class="duplicate" style="color:#0f0">Monkey Slide [Painting]</a></li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <a href="#" style="color:#ff0">Wet-Dry World (Beta) [WDW Painting]</a>
+                                      <ul>
+                                        <li><a href="#" class="duplicate" style="color:#ff0">Dry Town [Hole] [W]</a></li>
+                                      </ul>
+                                    </li>
+                                    <li><a href="#" class="duplicate" style="color:#0ff">Purple Upstairs [Painting RR]</a></li>
+                                    <li>
+                                      <a href="#" style="color:#0ff">Uncanny Courtyard [Door 2L,Painting L]</a>
+                                      <ul>
+                                        <li><a href="#" class="duplicate" style="color:#0f0">Deadly Descent [Fountain (Slow)]</a></li>
+                                      </ul>
+                                    </li>
+                                    <li><a href="#" class="duplicate" style="color:#ff0">Tiny-Huge Island (Beta) [Door 2L,Painting R]</a></li>
+                                    <li>
+                                      <a href="#" style="color:#0f0">Snowman's Darkness [Door 2R,SL Painting]</a>
+                                      <ul>
+                                        <li><a href="#" style="color:#f0f">Chief Chilly's Ring [Wall]</a></li>
+                                      </ul>
+                                    </li>
+                                    <li>
+                                      <a href="#" style="color:#f0f">Sinister Clockwork [Door RR,TTC Painting]</a>
+                                      <ul>
+                                        <li><a href="#" class="duplicate" style="color:#0ff">Uncanny Courtyard (Crimson) [Pipe]</a></li>
+                                      </ul>
+                                    </li>
+                                    <li><a href="#" id="wing" style="color:#ff0">Wing Cap by the Rainbow Highway [Door RR,Hole R]</a></li>
+                                    <li><a href="#" class="duplicate" style="color:#0ff">Purple Upstairs [Door RR,U,Hole]</a></li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <a href="#" style="color:#0ff">Bowser Hallway / Bowser's Prison (Segment 1) [Door U,RR,U,Door]</a>
+                                  <ul>
+                                    <li><a href="#" class="duplicate" style="color:#0ff">Bowser's Floor / Peach's Floor (Segment 1) [Painting U]</a></li>
+                                  </ul>
+                                </li>
+                                <li><a href="#" class="duplicate" style="color:#f0f">Bowser in the Dark World (Shoshinkai) [Door U,RR,U,Hole]</a></li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" style="color:#0ff">Vanilla Basement [Door D,Near]</a>
+                              <ul>
+                                <li><a href="#" style="color:#ff0">Water Land [DDD Painting]</a></li>
+                                <li><a href="#" style="color:#ff0">Desert Maze [SSL Painting]</a></li>
+                                <li><a href="#" class="duplicate" style="color:#ff0">Blazing Bully Base [LLL Painting]</a></li>
+                                <li><a href="#" style="color:#f0f">Hazy Maze Cave (Empty) [HMC Painting]</a></li>
+                                <li><a href="#" style="color:#f0f">Empty Flooded Hallway [Moat Door]</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="#" class="duplicate" style="color:#ff0">Uncanny Courtyard (Sunny) [Door D,Far]</a></li>
+                            <li><a href="#" style="color:#ff0">Whomp's Fortress (Beta) [Door 1D]</a></li>
+                            <li><a href="#" style="color:#ff0">Big Boo's Haunted Forest [Door 1U]</a></li>
+                            <li>
+                              <a href="#" style="color:#ff0">Jolly Roger Bay (Beta) [Door 3R]</a>
+                              <ul>
+                                <li><a href="#" style="color:#f0f">Eel Graveyard (Beta) [Hole U]</a></li>
+                              </ul>
+                            </li>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#" style="color:#0ff">Genesis Basement [Door UR]</a>
+                        <ul>
+                          <li><a href="#" style="color:#ff0">Chroma Tundra [Door L]</a></li>
+                          <li>
+                            <a href="#" style="color:#ff0">Flower Fields [Door ML,R,Near,Pipe]</a>
+                            <ul>
+                              <li><a href="#" style="color:#f0f">Checkerboard 3 [Box]</a></li>
+                            </ul>
+                          </li>
+                          <li><a href="#" style="color:#f0f">Holy Yellow Switch Palace [Door ML,Outside,Pipe]</a></li>
+                          <li>
+                            <a href="#" style="color:#0ff">Orange Hall [Door MR]</a>
+                            <ul>
+                              <li>
+                                <a href="#" style="color:#ff0">Vanish Cap under the Moat (Beta) [Hole L]</a>
+                                <li>
+                                  <a href="#" class="duplicate" style="color:#0ff">Plexal Basement [Door M]</a>
+                                </li>
+                              </li>
+                              <li><a href="#" class="duplicate" style="color:#f0f">Scary Sewer Maze A3 [Painting R]</a></li>
+                            </ul>
+                          </li>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Door R]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Plexal Basement [Door D]</a></li>
+                      <li>
+                        <a href="#" style="color:#ff0">Floating Hotel [Front Door,Door L,M]</a>
+                        <ul>
+                          <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Door M,Any] [*]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="duplicate" style="color:#ff0">Big Boo's Haunted Forest [Front Door,Door L,R]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Front Door,Door M,L]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle [Front Door,Door M,M,Door] [V]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Crimson Hallway [Front Door,Door M,M,Cage] [V]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Front Door,Door M,R]</a></li>
+                      <li><a href="#" class="duplicate" style="color:#0ff">Uncanny Courtyard (Windy) [Front Door,Door R]</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" style="color:#ff0">Blazing Bully Base A1 [Door 3L]</a>
+                    <ul>
+                      <li>
+                        <a href="#" style="color:#ff0">Blazing Bully Base A3 [Star,Near]</a>
+                        <ul>
+                          <li><a href="#" style="color:#f0f">Bowser in the Bully Battlefield [Bowser Warp]</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" style="color:#f0f">Bowser in the Bully Battlefield [Bowser Warp]</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#" id="metal" style="color:#ff0">Jolly Roger Lagoon [Door 3R]</a></li>
+                  <li>
+                    <a href="#" style="color:#0ff">Beta Lobbies C and D [C^]</a>
+                    <ul>
+                    <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Front Door]</a></li>
+                    <li><a href="#" style="color:#ff0">Snowman's Land (Beta) [Door C3L,D1]</a></li>
+                    <li><a href="#" class="duplicate" style="color:#ff0">Bob-omb River [Door C3L,D2]</a></li>
+                    <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Door C3L,DU]</a></li>
+                    <li><a href="#" class="duplicate" style="color:#0ff">Plexal Basement [Door C3L,DD]</a></li>
+                    <li><a href="#" style="color:#f0f">Bowser in the Dark World (Shoshinkai) [Door CU]</a></li>
+                    <li>
+                      <a href="#" style="color:#0ff">Crimson Hallway [Door CD]</a>
+                      <ul>
+                        <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Door L,Cage]</a></li>
+                        <li><a href="#" style="color:#f0f">Bowser's Checkered Madness [Door L,M,Hole]</a></li>
+                        <li><a href="#" class="duplicate" style="color:#ff0">Uncanny Courtyard (Sunny) [Door M]</a></li>
+                        <li><a href="#" style="color:#ff0">Aquatic Tunnel [Hall R]</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" style="color:#ff0">Lavish Lava Mountain A7 [Door C2]</a></li>
+                    <li><a href="#" class="duplicate" style="color:#ff0">Jolly Roger Bay (Beta) [Door C3R]</a></li>
+                    <li><a href="#" class="duplicate" style="color:#0ff">Beta Lobby B [C^]</a></li>
+                    </ul>
+                  </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="duplicate" style="color:#0ff">Beta Lobby B [Door U]</a>
+            </li>
+            <li>
+              <a href="#" style="color:#0ff">Uncanny Courtyard (Sunny) [Door D]</a>
+              <ul>
+                <li><a href="#" class="duplicate" style="color:#0ff">Beta Lobby A [Front Door]</a></li>
+                <li>
+                  <a href="#" style="color:#0ff">Uncanny Courtyard (Windy) [Fountain]</a>
+                  <ul>
+                    <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Front Door]</a></li>
+                    <li><a href="#" style="color:#f0f">Checkerboard 2 [L-Stone (Slow)]</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" style="color:#ff0">Battle Fort [Hole]</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" style="color:#0f0">The Star [C^]</a>
+              <ul>
+                <li>
+                  <a href="#" style="color:#0ff">3rd Floor (Beta) [Pipe]</a>
+                  <ul>
+                    <li><a href="#" style="color:#ff0">Geometric Frenzy [Hole L]</a></li>
+                    <li><a href="#" style="color:#ff0">Minion Base [Door 3L,Hole]</a></li>
+                    <li><a href="#" style="color:#ff0">Test Level [Door 3M,Hole]</a></li>
+                    <li><a href="#" style="color:#ff0">Cubic Greens [Door 3R,L,Hole D]</a></li>
+                    <li><a href="#" style="color:#ff0">Big Blocky Bonanza [Door 3R,L,Hole U] [V]</a></li>
+                    <li><a href="#" id="wing" style="color:#ff0">Wing Cap by the Rainbow Highway [Door 3R,Painting M]</a></li>
+                    <li>
+                      <a href="#" style="color:#ff0">Tall Floating Fortress [Door 3R,Painting R]</a>
+                      <ul>
+                        <li><a href="#" style="color:#f0f">Checkerboard 4 [Box]</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" style="color:#ff0">Parkour Playground [Hole R]</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" style="color:#f0f">Scary Sewer Maze A3 [Bridge Hole U]</a>
+          <ul>
+            <li>
+              <a href="#" class="jumpscare" style="color:#f0f">Scary Sewer Maze A6 [Statue]</a>
+              <ul>
+                <li><a href="#" style="color:#f0f">Scary Sewer Maze A7 [Statue?]</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#" class="duplicate" style="color:#0ff">Genesis Basement [Bridge Hole D]</a></li>
+        <li><a href="#" style="color:#ff0">Sunken Castle [Moat? Hole]</a></li>
+        <li>
+          <a href="#" style="color:#0ff">Silent Hall [Moat? Door]</a>
+          <ul>
+            <li>
+              <a href="#" style="color:#0ff">Bowser's Maze [Door L]</a>
+              <ul>
+                <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Alt Door]</a></li>
+                <li><a href="#" class="duplicate" style="color:#f0f">Scary Sewer Maze A3 [Pipe]</a></li>
+              </ul>
+            </li>
+            <li><a href="#" id="vanish" style="color:#ff0">Vanish Cap within the Plexus [Door M]</a></li>
+            <li>
+              <a href="#" style="color:#0ff">Plexal Basement [Door R]</a>
+              <ul>
+                <li><a href="#" class="duplicate" style="color:#f0f">Bowser in the Dark World (Shoshinkai) [Door L,Hole]</a></li>
+                <li><a href="#" class="duplicate" style="color:#ff0">Flooded Town [Door U,WDW Painting]</a></li>
+                <li>
+                  <a href="#" style="color:#ff0">Shifted Sand Land [Door U,Near WDW Painting]</a>
+                  <ul>
+                    <li><a href="#" style="color:#f0f">Eyerok's Tomb [Wall]</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="duplicate" style="color:#ff0">Vanilla Basement [Door U,Hall L,R,U,Door L]</a></li>
+                <li><a href="#" class="duplicate" style="color:#ff0">Orange Hall [Door U,Hall L,R,U,R,Door]</a></li>
+                <li><a href="#" class="duplicate" style="color:#f0f">Bowser in the Dark World (Shoshinkai) [Door U,Hall L,R,R,R,U,Hole L] [V]</a></li>
+                <li><a href="#" class="duplicate" style="color:#0ff">Underground Passageway [Door U,Hall L,R,R,R,U,Door M,Pipe] [V]</a></li>
+                <li><a href="#" class="duplicate" style="color:#0ff">Plexal Lobby [Door U,Hall L,R,R,R,U,Door R,Hall L,Door] [V]</a></li>
+                <li><a href="#" class="duplicate" style="color:#ff0">Cave City [Door U,Hall L,R,R,R,U,Door R,M,Hole] [V]</a></li>
+                <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle [Door U,Hall L,R,R,R,U,Door R,R] [V]</a></li>
+                <li>
+                  <a href="#" style="color:#ff0">Tiny-Huge Island (Beta) [Door U,Hall L,R,R,R,R,Door 1,Painting]</a>
+                  <ul>
+                    <li><a href="#" class="duplicate" style="color:#f0f">Wiggler's Forest Fortress [Hole]</a></li>
+                    <li><a href="#" style="color:#f0f">Checkerboard 1 [Box]</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Door U,Hall L,R,Hole U]</a></li>
+                <li><a href="#" class="duplicate" style="color:#ff0">Desert Maze [Door U,1,Hole]</a></li>
+                <li><a href="#" class="duplicate" style="color:#f0f">Beta Lobbies C and D [Door U,R]</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="duplicate" style="color:#0ff">Cresent Castle (Segment 1) [Back Door]</a>
+          <ul>
+            <li><a href="#" class="duplicate" style="color:#0ff">Cresent Castle (Segment 2) [Door L]</a></li>
+          </ul>
+        </li>
+        <!-- This is the "main" orientation, to get to the "map" orientation, go to [Door M,M,M]. -->
+        <li>
+          <a href="#" style="color:#0f0">Dark Hallway [Back Hole]</a>
+          <ul>
+            <li>
+              <a href="#" style="color:#0f0">The Void [Star]</a>
+              <ul>
+                <li><a href="#" class="duplicate" style="color:#0ff">Castle Grounds [Hole]</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</div>

@@ -1,0 +1,32 @@
+<title>9 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>OK, you now understand colour notation. (Or just got VERY lucky! (Or brute-forced it))</p>
+<p>Regardless, time for some actual colours to be on screen!</p>
+<p>This one will be quite similar to the last; press the buttons in the right order.</p>
+<p>The difference : The order is the product of 2 <u>light</u> colours at a time.</p>
+<img style="width:16px" src="img/clrf00.png" alt="R"><img style="width:16px" src="img/clr0f0.png" alt="G">, <img style="width:16px" src="img/clrf00.png" alt="R"><img style="width:16px" src="img/clr0ff.png" alt="C">, <img style="width:16px" src="img/clrf00.png" alt="R"><img style="width:16px" src="img/clr00f.png" alt="B">, <img style="width:16px" src="img/clrf00.png" alt="R"><img style="width:16px" src="img/clr070.png" alt="dG">
+<p>(RG, RC, RB, RdG)</p>
+<button style="background-color:#f70" onclick="orange()">O</button><button style="background-color:#fff" onclick="white()">W</button><button style="background-color:#ff0" onclick="yellow()">Y</button><button style="background-color:#f0f" onclick="magenta()">M</button>
+<h1 id="puzzle">9</h1>
+</div>
+<script>
+var stage = 0
+function yellow() {
+    if (stage == 0) {stage++}
+    else {stage = 0}
+}
+function white() {
+    if (stage == 1) {stage++}
+    else {stage = 0}
+}
+function magenta() {
+    if (stage == 2) {stage++}
+    else {stage = 0}
+}
+function orange() {
+    if (stage == 3) {window.location.replace('colour_read.html')}
+    else {stage = 0}
+}
+</script>

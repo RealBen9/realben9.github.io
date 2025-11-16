@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'perfect-dos-vga-437-win';
+  src: local('perfect-dos-vga-437-win'), url(perfect-dos-vga-437-win.ttf);
+}
+@font-face {
+font-family: 'vcr-osd-mono-1-001';
+src: local('vcr-osd-mono-1-001'), url(vcr-osd-mono-1-001.ttf);
+}
+body { background-color:lightBlue; }
+#snow{
+  font-family: perfect-dos-vga-437-win;
+  background-image: url('img/bg0.png'), url('img/bg1.png'), url('img/bg2.png');
+  left: 0;
+  position: absolute;
+  top: 0;
+  min-height: 100%;
+  min-width: 100%;
+  animation: snow 1000s linear infinite;
+}
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  100% {background-position: 50000px 50000px, 10000px 20000px, -10000px 15000px;}
+}

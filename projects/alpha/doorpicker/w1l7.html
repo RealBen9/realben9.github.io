@@ -1,0 +1,92 @@
+<title>[1-7] DoorPicker</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"><link rel="stylesheet" type="text/css" href="doorpicker.css"></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>DoorPicker</h1>
+<h2>Input Display</h2>
+<p id="inputs">[]</p>
+<h2>1-7 : Escort</h2>
+<img id="whiteKey" src="img/whiteKey.png" style="left:0px;top:224px">
+<img id="orangeKey" src="img/orangeKey.png" style="left:0px;top:256px">
+<img id="purpleKey" src="img/purpleKey.png" style="left:0px;top:288px">
+<img id="pinkKey" src="img/pinkKey.png" style="left:0px;top:320px">
+<img id="cyanKey" src="img/cyanKey.png" style="left:0px;top:352px">
+<p id="whiteKeys">x 0</p>
+<p id="orangeKeys">x 0</p>
+<p id="purpleKeys">x 0</p>
+<p id="pinkKeys">x 0</p>
+<p id="cyanKeys">x 0</p>
+<p id="desc"><s>Regarding your movement speed: You can hold [Up] to move faster on the ground, and [Down] to slow down, which is very helpful in cramped spaces so you don't run into a key or door on accident. You can also press [E] to toggle Auto-Run, which switches the run and walk speeds.</s></p>
+<div id="next" style="display:none">
+    <h2 id="next">Congratulations!</h2>
+    <p><a href="w1la.html">1-A</a></p>
+    <p><a href="w1lb.html">1-B</a></p>
+</div>
+<img class="back1b" src="img/blank.png" style="left:64px;bottom:480px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:256px;bottom:480px;width:320px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:736px;bottom:480px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:32px;bottom:448px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:128px;bottom:448px;width:576px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:768px;bottom:448px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:0px;bottom:416px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:128px;bottom:416px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:672px;bottom:416px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:800px;bottom:416px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:64px;bottom:384px;width:704px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:64px;bottom:352px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:736px;bottom:352px;width:32px;height:32px">
+<img class="back1b" src="img/blank.png" style="left:32px;bottom:160px;width:32px;height:160px">
+<img class="back1a" src="img/blank.png" style="left:160px;bottom:96px;width:64px;height:224px">
+<img class="back1b" src="img/blank.png" style="left:768px;bottom:160px;width:32px;height:160px">
+<img class="back1a" src="img/blank.png" style="left:576px;bottom:224px;width:32px;height:64px">
+<img class="back1a" src="img/blank.png" style="left:608px;bottom:160px;width:32px;height:128px">
+<img class="back1a" src="img/blank.png" style="left:640px;bottom:96px;width:32px;height:192px">
+<img id="plr1" src="img/plr1.png" data-startX="408" data-startY="288">
+<img class="col floor1" src="img/blank.png" style="left:128px;bottom:64px;width:576px;height:32px">
+<img class="col wall1" src="img/blank.png" style="left:128px;bottom:96px;width:32px;height:288px">
+<img class="col wall1" src="img/blank.png" style="left:672px;bottom:96px;width:32px;height:288px">
+<img class="col floor1" src="img/blank.png" style="left:128px;bottom:384px;width:576px;height:32px">
+<img class="col floor1" src="img/blank.png" style="left:192px;bottom:416px;width:448px;height:64px">
+<img class="col floor1" src="img/blank.png" style="left:160px;bottom:320px;width:64px;height:64px">
+<img class="col wall1" src="img/blank.png" style="left:64px;bottom:128px;width:64px;height:224px">
+<img class="col floor1" src="img/blank.png" style="left:512px;bottom:320px;width:96px;height:32px">
+<img class="col wall1" src="img/blank.png" style="left:704px;bottom:128px;width:64px;height:224px">
+<img class="col floor1" src="img/blank.png" style="left:576px;bottom:288px;width:96px;height:32px">
+<img class="col floor1" src="img/blank.png" style="left:288px;bottom:256px;width:256px;height:32px">
+<img class="col floor1" src="img/blank.png" style="left:256px;bottom:192px;width:352px;height:32px">
+<img class="col floor1" src="img/blank.png" style="left:224px;bottom:128px;width:416px;height:32px">
+<img class="col floor1" src="img/blank.png" style="left:192px;bottom:0px;width:448px;height:64px">
+<img class="col pinkDoor" src="img/blank.png" style="left:528px;bottom:352px;width:32px;height:32px" data-count="1">
+<img class="col purpleDoor" src="img/blank.png" style="left:560px;bottom:352px;width:32px;height:32px" data-count="1">
+<img class="col cyanDoor" src="img/blank.png" style="left:304px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col purpleDoor" src="img/blank.png" style="left:368px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col cyanDoor" src="img/blank.png" style="left:432px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col purpleDoor" src="img/blank.png" style="left:496px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col orangeDoor" src="img/blank.png" style="left:288px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col cyanDoor" src="img/blank.png" style="left:352px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col purpleDoor" src="img/blank.png" style="left:416px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col orangeDoor" src="img/blank.png" style="left:480px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col whiteDoor" src="img/blank.png" style="left:544px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col whiteDoor" src="img/blank.png" style="left:256px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col pinkDoor" src="img/blank.png" style="left:320px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col purpleDoor" src="img/blank.png" style="left:384px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col pinkDoor" src="img/blank.png" style="left:448px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col whiteDoor" src="img/blank.png" style="left:512px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col orangeDoor" src="img/blank.png" style="left:576px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col whiteKey" src="img/blank.png" style="left:352px;bottom:320px;width:32px;height:32px" data-count="1">
+<img class="col purpleKey" src="img/blank.png" style="left:448px;bottom:320px;width:32px;height:32px" data-count="1">
+<img class="col orangeKey" src="img/blank.png" style="left:336px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col pinkKey" src="img/blank.png" style="left:400px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col orangeKey" src="img/blank.png" style="left:464px;bottom:224px;width:32px;height:32px" data-count="1">
+<img class="col orangeKey" src="img/blank.png" style="left:320px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col pinkKey" src="img/blank.png" style="left:384px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col whiteKey" src="img/blank.png" style="left:448px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col whiteKey" src="img/blank.png" style="left:512px;bottom:160px;width:32px;height:32px" data-count="1">
+<img class="col cyanKey" src="img/blank.png" style="left:288px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col cyanKey" src="img/blank.png" style="left:352px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col whiteKey" src="img/blank.png" style="left:416px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col cyanKey" src="img/blank.png" style="left:480px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col orangeKey" src="img/blank.png" style="left:544px;bottom:96px;width:32px;height:32px" data-count="1">
+<img class="col goal" src="img/blank.png" style="left:624px;bottom:336px;width:32px;height:32px">
+</div>
+<script src="doorpicker.js"></script>

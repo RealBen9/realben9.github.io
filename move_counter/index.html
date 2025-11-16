@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Move Counters that get more cursed</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com/">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+        <link href="css2.css" rel="stylesheet">
+        <style>
+            @font-face {
+                font-family: 'CBA';
+                src: url('AdobeKaitiStd-Regular.otf');
+            }
+
+            body {
+                font-family: Tajawal, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+            }
+
+            .game-container {
+                text-align: center;
+                margin-top: -200px;
+            }
+
+            .grid {
+                /* GRIDLENGTH EDIT */
+                display: grid;
+                gap: 10px;
+            }
+
+            .leveldesc {
+                line-height: 1;
+                position: absolute
+            }
+
+            .cell, .lookslikea {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 3em;
+                font-weight: bold;
+                -webkit-user-select: none;
+                user-select: none;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1), inset 0 -4px 4px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease;
+                /*animation: fall-down 0.5s ease-in-out; cursor: move; */
+            }
+
+            .cell.null {
+                visibility: hidden
+            }
+
+            .lookslikea.queen {
+                background-color: #fb36d1;
+                color: white;
+            }
+
+            .lookslikea.diagonal {
+                background-color: #9b59b6;
+                color: white;
+            }
+
+            .lookslikea.rook {
+                background-color: #4c4ae2;
+                color: white;
+            }
+
+            .lookslikea.knight {
+                background-color: #c05b4f;
+                color: white;
+            }
+
+            @keyframes fall-down {
+                0% {
+                    transform: translateY(-600%);
+                }
+
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            .cell:not(.empty):hover:not([class^="meta"]) {
+                box-shadow: 0 6px 8px rgba(189, 146, 146, 0.15), inset 0 -6px 6px rgba(0,0,0,0.15);
+            }
+
+            .lookslikea:not(.empty):hover:not([class^="meta"]) {
+                transform: scale(1.3);
+                box-shadow: 0 6px 8px rgba(189, 146, 146, 0.15), inset 0 -6px 6px rgba(0,0,0,0.15);
+            }
+
+            .cell.row {
+                background-color: #4a90e2;
+                color: white;
+            }
+
+            .cell.bloodstainedrow {
+                background: radial-gradient(at 0% 30%, #ff0000 30px, transparent 10%, transparent 50%), #4a90e2;
+                color: white;
+            }
+
+            .cell.column {
+                background-color: #50c878;
+                color: white;
+            }
+
+            .cell.move {
+                background-color: #e74c3c;
+                color: white;
+            }
+
+            .cell.knight {
+                background-color: #c05b4f;
+                color: white;
+            }
+
+            .cell.diagonal {
+                background-color: #9b59b6;
+                color: white;
+            }
+
+            .cell.queen {
+                background-color: #fb36d1;
+                color: white;
+            }
+
+            .cell.area {
+                background-color: #f39c12;
+                color: white;
+            }
+
+            .cell.allcount {
+                background-color: #4a90e2;
+                color: rgb(92, 87, 87);
+            }
+
+            .cell.countercounter {
+                background-color: #946314;
+                color: white;
+            }
+
+            .cell.countercounteradj {
+                background-color: #7c5414;
+                color: white;
+            }
+
+            .cell.countercounteradj2 {
+                background-color: #8b5b0c;
+                color: white;
+            }
+
+            .cell.countercountercounter {
+                background-color: #946314;
+                color: white;
+            }
+
+            .cell.counter4chain {
+                background-color: #855810;
+                color: white;
+            }
+
+            .cell.redcounter {
+                background: radial-gradient( red, white);
+                color: white;
+            }
+
+            .cell.evilmovecounter {
+                background: radial-gradient( red, black, red, black);
+                color: red
+            }
+
+            .cell.encountercounter {
+                background: linear-gradient(217deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%), linear-gradient(127deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%), linear-gradient(336deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%);
+                color: white;
+                text-shadow: 1px 1px 2px black
+            }
+
+            .cell.consecutive {
+                background-color: #4a90e2;
+                color: white;
+            }
+
+            .cell.rook {
+                background-color: #4c4ae2;
+                color: white;
+            }
+
+            .cell.pawn {
+                background-color: #b8c35f;
+                color: white;
+            }
+
+            .cell.countercounter8adj {
+                background-color: #645;
+                color: white;
+            }
+
+            .cell.metaswapcounter {
+                box-shadow: none;
+            }
+
+            .cell.metaswapcounter:before {
+                content: 'Swaps';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+            }
+
+            .cell.metamovetarget {
+                box-shadow: none;
+            }
+
+            .cell.metamovetarget:before {
+                content: 'Target';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+            }
+
+            .cell.metamovesleft {
+                box-shadow: none;
+            }
+
+            .cell.metamovesleft:before {
+                content: 'Moves Left';
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 60px
+            }
+
+            .cell.metacursum {
+                box-shadow: none;
+            }
+
+            .cell.metacursum:before {
+                content: 'Total';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+            }
+
+            .cell.bloodstainedcursum, .bloodstainedmovetarget {
+                box-shadow: none;
+                background: radial-gradient(at 0% 30%, #ff0000 30px, #cc000055 50%, #80000055 80%, transparent 100%);
+            }
+
+            .cell.bloodstainedcursum:before {
+                content: 'Total';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+                z-index: 50;
+            }
+
+            .cell.bloodstainedmovetarget:before {
+                content: 'Target';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+                z-index: 50;
+            }
+
+            .cell.globalmovecounter {
+                background: radial-gradient(circle at center, #0080ff, #00ee00);
+                color: blue;
+                text-shadow: 1px 1px 2px cyan
+            }
+
+            .cell.globalmovecounter:before {
+                content: 'Movecount';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+            }
+
+            .todal {
+                background: url(toadsphere.png);
+                color: lime;
+                text-shadow: 2px 2px 2px black;
+                background-size: contain;
+            }
+
+            .todespoked {
+                background: url(toadspoked.png);
+                color: lime;
+                text-shadow: 2px 2px 2px black;
+                background-size: contain;
+            }
+
+            .toad {
+                background: url(toadsphere.png);
+                color: black;
+            }
+
+            .toad1 {
+                background: url(toad1.png);
+                color: black;
+                background-size: contain;
+            }
+
+            .toad2 {
+                background: url(toad2.png);
+                color: black;
+                background-size: contain;
+            }
+
+            .toad3 {
+                background: url(toad3.png);
+                color: black;
+                background-size: contain;
+            }
+
+            .toad4 {
+                background: url(toad4.png);
+                color: black;
+                background-size: contain;
+            }
+
+            .cell.toad1, .cell.toad2, .cell.toad3, .cell.toad4 {
+                color: transparent
+            }
+
+            .cell.todal:before {
+                content: 'Toadal';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+                z-index: 50;
+            }
+
+            .cell.todespoked:before {
+                content: 'Poked';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+                z-index: 50;
+            }
+
+            .cell.rook {
+                background-color: #4c4ae2;
+                color: white;
+            }
+
+            .cell.cacounter {
+                background: linear-gradient(to left, rgb(255, 115, 0) 28px, red 77%, darkred);
+                color: #f88;
+                text-shadow: 1px 1px 2px #fc0
+            }
+
+            .cell.cacounter2 {
+                background: linear-gradient(to left, rgb(0, 255, 106) 28px, red 77%, rgb(139, 0, 69));
+                color: #f88;
+                text-shadow: 1px 1px 2px #fc0
+            }
+
+            .cell.geo {
+                background: conic-gradient(at 0% 30%, rgb(0 217 255) 10%, rgb(255 132 0) 30%, #4c657e 50%)
+            }
+
+            .mcmc {
+                background: conic-gradient(at 0% 30%, rgb(140, 0, 255) 10%, rgb(0, 255, 191) 30%, rgb(255, 0, 119) 50%);
+                background-size: 100% 100%;
+                animation: gradient-rotation 2s ease-in-out infinite alternate-reverse;
+            }
+
+            .counterargument {
+                background: conic-gradient(at 0% 30%, red 10%, yellow 30%, #1e90ff 50%);
+            }
+
+            .doublecounter {
+                background-image: conic-gradient(from 0deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #7f00ff, #ff00ff);
+                color: white;
+            }
+
+            .censorshipcounter {
+                background: black;
+                color: #fff6;
+            }
+
+            .discounter {
+                background-image: conic-gradient(from 270deg, #008cba, #006699, #004477, #002255, #000033, #000000);
+                color: white;
+            }
+
+            @keyframes gradient-rotation {
+                0% {
+                    background-position: 0% 0%;
+                }
+
+                100% {
+                    background-position: 100% 100%;
+                }
+            }
+
+            .cell.besadabouttheworldcounter {
+                background: linear-gradient(to left, blue 28px, rgb(139, 0, 0) 77%, darkred);
+                color: rgb(255, 255, 255);
+                text-shadow: 1px 1px 2px rgb(255, 60, 0)
+            }
+
+            .cell.metaturncounter, .cell.metaturncountercw, .cell.metaturncounterccw {
+                box-shadow: none;
+                color: blue
+            }
+
+            .cell.metaturncounter:before,.cell.metaturncountercw:before, .cell.metaturncounterccw:before {
+                content: 'Turns';
+                position: absolute;
+                font-size: 35%;
+                line-height: 1;
+                transform: translateY(160%);
+            }
+
+            .cell.metapassiveleft, .cell.metacountsleft, .cell.metacountersleft {
+                box-shadow: none;
+            }
+
+            .cell.metapassiveleft:before, .cell.metacountsleft:before, .cell.metacountersleft:before {
+                content: 'Moves Left';
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 60px
+            }
+
+            .cell.metapassiveright, .cell.metacountsright, .cell.metacountersright {
+                box-shadow: none;
+            }
+
+            .cell.metapassiveright:before, .cell.metacountsright:before, .cell.metacountersright:before {
+                content: 'Moves Right';
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 60px
+            }
+
+            .cell.metapassiveup, .cell.metacountsup, .cell.metacountersup {
+                box-shadow: none;
+            }
+
+            .cell.metapassiveup:before, .cell.metacountsup:before, .cell.metacountersup:before {
+                content: 'Moves Up';
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 60px
+            }
+
+            .cell.metapassivedown, .cell.metapassivedown, .cell.metacountersdown {
+                box-shadow: none;
+            }
+
+            .cell.metapassivedown:before, .cell.metacountsdown:before, .cell.metacountersdown:before {
+                content: 'Moves Down';
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 60px
+            }
+
+            .cell.chess, .cell.battle, .cell.advanced, .cell.cba {
+                color: transparent;
+                background: black;
+                font-family: 'CBA';
+                text-shadow: 1px 1px 2px black, 3px 2px 4px black;
+            }
+
+            .cell.chess:before {
+                content: 'Chess';
+                color: white;
+                text-decoration: red wavy underline;
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                line-height: 1;
+            }
+
+            .cell.battle:before {
+                content: 'Battle';
+                color: white;
+                text-decoration: red wavy underline;
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                line-height: 1;
+            }
+
+            .cell.advanced:before {
+                content: 'Advanced';
+                color: white;
+                text-decoration: red wavy underline;
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                line-height: 1;
+            }
+
+            .cell.cba:before {
+                content: 'Chess Battle Advanced';
+                text-decoration: red wavy underline;
+                color: white;
+                position: absolute;
+                width: 100px;
+                text-align: center;
+                font-size: 35%;
+                line-height: 1;
+                margin-top: 0px
+            }
+
+            .cell.ncounter {
+                background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%), linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%), linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+                color: white;
+            }
+
+            .cell.shake {
+                animation: shake 0.5s ease-in-out;
+            }
+
+            .counterofncounters {
+                background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%), linear-gradient(127deg, rgba(0,1,0,.8), rgba(0,1,0,0) 70.71%), linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+            }
+
+            @keyframes shake {
+                0% {
+                    margin-left: 0;
+                    color: red;
+                }
+
+                25% {
+                    margin-left: -5px;
+                }
+
+                50% {
+                    margin-left: 5px;
+                }
+
+                75% {
+                    margin-left: -5px;
+                }
+
+                100% {
+                    margin-left: 0;
+                    color: black;
+                }
+            }
+
+            .winshake {
+                animation: winshake 0.5s ease-in-out;
+            }
+
+            @keyframes winshake {
+                0% {
+                    margin-left: 0;
+                    color: rgb(0, 255, 0);
+                }
+
+                25% {
+                    margin-left: -1px;
+                }
+
+                50% {
+                    margin-left: 1px;
+                }
+
+                75% {
+                    margin-left: -1px;
+                    color: rgb(21, 207, 21);
+                }
+
+                100% {
+                    margin-left: 0;
+                    color: black;
+                }
+            }
+
+            #restart.badshake {
+                animation: shake 0.5s ease-in-out;
+            }
+
+            .cell.countdown {
+                background: linear-gradient(45deg, black, red)
+            }
+
+            .cell.hidden {
+                opacity: 0.1;
+            }
+
+            .cell[data-player="true"] {
+                box-shadow: 0 0 20px 10px #fff5, 0 0 30px 15px rgba(0, 238, 255, 0.1), 0 0 40px 15px #0ff5;
+            }
+
+            .empty {
+                background-color: #d3d3d3;
+                box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+                cursor: default;
+            }
+
+            .info {
+                display: flex;
+                justify-content: space-between;
+                font-size: 18px;
+                margin-top: 130px;
+                line-height: 1;
+                position: absolute;
+                z-index: 1
+            }
+
+            .ghost {
+                position: fixed;
+                pointer-events: none;
+                z-index: 100;
+                opacity: 0.8;
+                transform: translate(-50%, -50%);
+            }
+
+            .tooltip {
+                margin-top: 20px;
+                font-size: 16px;
+                min-height: 24px;
+                font-weight: bold;
+                position: absolute;
+                transform: translateY(150px);
+                transition: opacity 0.1s ease-out;
+                -webkit-user-select: none;
+                user-select: none;
+                pointer-events: none
+            }
+
+            .highlight {
+                transform: scale(1.1);
+                box-shadow: 0 0 15px rgba(0, 255, 242, 0.7);
+            }
+
+            /*.unhighlight exposes the meta too early...*/
+            h2 {
+                line-height: 1;
+                margin: 5px
+            }
+
+            button.cyan {
+                box-shadow: inset 0px 1px 0px 0px #97c4fe;
+                padding-block-start: 0px; padding-inline-end: 8px; padding-block-end: 0px; padding-inline-start: 8px; border: 2px outset #3daaaa;
+                border-radius: 2px;
+                background-color: #3dcccc;
+                text-indent: 0;
+                display: inline-block;
+                color: #ffffff;
+                font-family: 'Tajawal';
+                font-size: 15px;
+                font-weight: bold;
+                font-style: normal;
+                line-height: 22px;
+                text-decoration: none;
+                text-align: center;
+                text-shadow: 1px 1px 0px #1570cd;
+                -webkit-user-select: none;
+                user-select: none
+            }
+
+            button.cyan:hover {
+                background-color: #5ef6f6;
+                cursor: pointer;
+            }
+
+            button.cyan:hover:active {
+                background-color: #019595;
+                color: #dff;
+                padding-block-start: 0px; padding-inline-end: 7px; padding-block-end: 0px; padding-inline-start: 9px; border-style: inset;
+            }
+
+            button {
+                box-shadow: inset 0px 1px 0px 0px #97c4fe;
+                padding: 0px 8px;
+                border: 2px outset #3daaaa;
+                border-radius: 2px;
+                background-color: #3dcccc;
+                text-indent: 0;
+                display: inline-block;
+                color: #ffffff;
+                font-family: 'Tajawal';
+                font-size: 15px;
+                font-weight: bold;
+                font-style: normal;
+                line-height: 22px;
+                text-decoration: none;
+                text-align: center;
+                text-shadow: 1px 1px 0px #1570cd;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            button:hover {
+                background-color: #5ef6f6;
+                cursor: pointer;
+            }
+
+            button:hover:active {
+                background-color: #019595;
+                color: #dff;
+                padding: 0px 7px 0px 9px;
+                border-style: inset;
+            }
+
+            /* Monochrome styles */
+            button, button:hover, button:hover:active {
+                color: #000;
+                background-color: #fff;
+                border-color: #ccc;
+                text-shadow: none;
+            }
+
+            :focus {
+                outline: 1px solid cyan;
+            }
+
+            button:focus {
+                outline: none;
+            }
+
+            .focuson button:focus {
+                box-shadow: 0 0 2px 3px rgba(182, 255, 248, 0.7);
+            }
+        </style>
+    </head>
+    <body style="overflow: auto; height: 100vh; width: 100vw;">
+        <div id="watermark1" style="position: absolute; font-weight: bold; opacity: 0.5; top: 0; user-select: none;"><a href="https://icely.itch.io/move-counters-that-get-more-cursed">play the offical build here</a></div>
+        <div id="watermark2" style="position: absolute; font-weight: bold; opacity: 0.1; bottom: 0; user-select: none;"><a href="?speedrunMode=off">default mode</a></div>
+        <div id="watermark3" style="position: absolute; font-weight: bold; opacity: 0.1; left: 0; user-select: none;"><a href="?speedrunMode=vanilla">fast mode</a></div>
+        <div id="watermark4" style="position: absolute; font-weight: bold; opacity: 0.1; right: 0; user-select: none;"><a href="?speedrunMode=nonstop">faster mode</a></div>
+        <div id="anticheatwarning" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.9); z-index: 1000; display: none; font-size: 200%">
+            <div style="position: absolute; top: 40%; left: 5%; font-family: Tajawal;color: white; font-size: 200%; font-weight: bold">
+            <!--just so you are aware, text edits are a cheat-->
+            </div>
+        </div>
+        <div id="coveritup" style="position: absolute; top: 0px; left: 0px; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.9); z-index: 1000; display: none">
+            <div style="position: absolute; top: 80%; left: 30%; font-family: Tajawal; font-size: 200%; color: white">
+                <b>Type 'chess battle advanced' to start</b>
+                <br>
+                <input style="position: absolute; top: 80%; left: 10%; font-family: Tajawal; font-weight: bold; font-size: 200%; width: 620px" oninput="if (this.value == 'chess battle advanced') document.getElementById('coveritup').style.display='none';" type="text" id="coverinput" autofocus="">
+            </div>
+        </div>
+        <div id="promo" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.2); z-index: 1000; display: none">
+            <div style="position: absolute; top: 12%; left: 30%; font-family: Tajawal;color: white; background-color: rgba(0, 0, 0, 0.8); border-radius: 30px; padding: 40px">
+                <b style=" font-size: 300%; ">Choose what to promote to:</b>
+                <div class="lookslikea queen">#</div>
+                <b style=" font-size: 200%; ">ALL-LINE Counter</b>
+                <div class="lookslikea rook">#</div>
+                <b style=" font-size: 200%; ">Mystery Counter</b>
+                <div class="lookslikea diagonal">#</div>
+                <b style=" font-size: 200%; ">Diagonal Counter</b>
+                <div class="lookslikea knight">#</div>
+                <b style=" font-size: 200%; ">Counterintuitive Counter</b>
+            </div>
+        </div>
+        <div class="game-container">
+            <div class="grid" id="grid" style="grid-template-columns: repeat(5, 80px);">
+                <div class="cell metamovetarget" data-moves="10" data-type="metamovetarget">10</div>
+                <div class="cell null" data-moves="0" data-type="null">0</div>
+                <div class="cell null" data-moves="0" data-type="null">0</div>
+                <div class="cell null" data-moves="0" data-type="null">0</div>
+                <div class="cell null" data-moves="0" data-type="null">0</div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell move" data-player="true" data-moves="0" data-type="move">0</div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+                <div class="cell empty"></div>
+            </div>
+            <div class="bottomstuff">
+                <div class="info" style="width: 450px;">
+                    <!--<div>Sum of Numbers: <span id="sumOfNumbers">0</span></div>-->
+                    <button id="prevencu" onclick="clickPreviousLevel()" style="visibility: hidden;">Prev Encounter</button>
+                    <button id="restart" onclick="clickReset()">Restart Encounter</button>
+                    <button id="nextencu" onclick="clickNextLevel()" style="opacity: 1;">Next Encounter</button>
+                    <!--<select id="levelselect" style="font-size: 16px; font-family: Tajawal; font-weight: bold;">
+                        <option value="0" id="dropdowny0" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">0</option>
+                        <option value="1" id="dropdowny1" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">1</option>
+                        <option value="2" id="dropdowny2" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">2</option>
+                        <option value="3" id="dropdowny3" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">3</option>
+                        <option value="4" id="dropdowny4" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">4</option>
+                        <option value="5" id="dropdowny5" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">5</option>
+                        <option value="6" id="dropdowny6" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">6</option>
+                        <option value="7" id="dropdowny7" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">7</option>
+                        <option value="8" id="dropdowny8" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">8</option>
+                        <option value="9" id="dropdowny9" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">9</option>
+                        <option value="10" id="dropdowny10" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">10</option>
+                        <option value="11" id="dropdowny11" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">11</option>
+                        <option value="12" id="dropdowny12" style="background: rgba(170, 0, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">12</option>
+                        <option value="13" id="dropdowny13" style="background: rgba(170, 0, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">13</option>
+                        <option value="14" id="dropdowny14" style="background: rgba(170, 0, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">14</option>
+                        <option value="15" id="dropdowny15" style="background: rgba(136, 85, 0, 0.6); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">15</option>
+                        <option value="16" id="dropdowny16" style="background: rgba(136, 85, 0, 0.6); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">16</option>
+                        <option value="17" id="dropdowny17" style="background: rgba(255, 0, 0, 0.6); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">17</option>
+                        <option value="18" id="dropdowny18" style="background: rgba(255, 0, 0, 0.6); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">18</option>
+                        <option value="19" id="dropdowny19" style="background: rgba(255, 0, 0, 0.6); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">19</option>
+                        <option value="20" id="dropdowny20" style="background: rgb(255, 209, 220); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">20</option>
+                        <option value="21" id="dropdowny21" style="background: rgb(232, 204, 235); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">21</option>
+                        <option value="22" id="dropdowny22" style="background: rgb(255, 204, 0); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">22</option>
+                        <option value="23" id="dropdowny23" style="background: rgb(176, 212, 241); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">23</option>
+                        <option value="24" id="dropdowny24" style="background: rgb(247, 232, 183); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">24</option>
+                        <option value="25" id="dropdowny25" style="background: rgb(245, 169, 127); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">25</option>
+                        <option value="26" id="dropdowny26" style="background: rgb(198, 66, 110); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">26</option>
+                        <option value="27" id="dropdowny27" style="background: white; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">27</option>
+                        <option value="28" id="dropdowny28" style="background: rgb(251, 54, 209); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">28</option>
+                        <option value="29" id="dropdowny29" style="background: rgb(251, 54, 209); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">29</option>
+                        <option value="30" id="dropdowny30" style="background: rgba(0, 51, 255, 0.333); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">30</option>
+                        <option value="31" id="dropdowny31" style="background: rgba(0, 0, 255, 0.4); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">31</option>
+                        <option value="32" id="dropdowny32" style="background: rgba(0, 0, 255, 0.4); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">32</option>
+                        <option value="33" id="dropdowny33" style="background: rgba(0, 0, 255, 0.4); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">33</option>
+                        <option value="34" id="dropdowny34" style="background: rgba(0, 0, 255, 0.4); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">34</option>
+                        <option value="35" id="dropdowny35" style="background: rgb(192, 91, 79); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">35</option>
+                        <option value="36" id="dropdowny36" style="background: rgba(0, 0, 255, 0.4); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">36</option>
+                        <option value="37" id="dropdowny37" style="background: rgb(184, 195, 95); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">37</option>
+                        <option value="38" id="dropdowny38" style="background: rgb(184, 195, 95); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">38</option>
+                        <option value="39" id="dropdowny39" style="background: rgb(184, 195, 95); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">39</option>
+                        <option value="40" id="dropdowny40" style="background: rgb(255, 204, 204); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">40</option>
+                        <option value="41" id="dropdowny41" style="background: rgb(119, 119, 119); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">41</option>
+                        <option value="42" id="dropdowny42" style="background: rgb(119, 119, 119); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">42</option>
+                        <option value="43" id="dropdowny43" style="background: rgb(119, 119, 119); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">43</option>
+                        <option value="44" id="dropdowny44" style="background: rgb(119, 119, 119); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">44</option>
+                        <option value="45" id="dropdowny45" style="background: rgb(119, 119, 119); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">45</option>
+                        <option value="46" id="dropdowny46" style="background: red; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">46</option>
+                        <option value="47" id="dropdowny47" style="background: orange; font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">47</option>
+                        <option value="48" id="dropdowny48" style="background: rgb(255, 0, 68); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">48</option>
+                        <option value="49" id="dropdowny49" style="background: rgb(136, 0, 255); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">49</option>
+                        <option value="50" id="dropdowny50" style="background: rgb(0, 255, 136); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">50</option>
+                        <option value="51" id="dropdowny51" style="background: rgb(203, 172, 186); font-size: 16px; font-weight: bold; text-shadow: black 1px 1px 1px; font-family: Tajawal;">-</option>
+                    </select>-->
+                </div>
+                <h1 class="leveldesc" id="leveldesc" style="width: 450px;">Press WASD or arrow keys to move. Reach the target number to win.</h1>
+                <div class="tooltip" id="tooltip" style="width: 450px;"></div>
+            </div>
+        </div>
+        <div class="volume-control" style="position: absolute; bottom: 10px; right: 10px; font-weight: bold; opacity: 0.7">
+            <label for="volume-slider">Sound Volume</label>
+            <br>
+            <label for="volume-sliderx" id="volnum">50</label>
+            <input type="range" id="volume-slider" min="0" max="100" value="80" step="1" oninput="$('#volnum').textContent = this.value == 0? 'None' : this.value" onmouseup="play_sound('cba.mp3'); localStorage.setItem('volume', this.value); updateAllCells()">
+        </div>
+        <script>
+            speedrunMode = 0
+            var query = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+            for (let i = 0; i < query.length; i++) {
+            	if (query[i].toLowerCase() == "speedrunmode=vanilla") {speedrunMode = 1}
+                else if (query[i].toLowerCase() == "speedrunmode=nonstop") {speedrunMode = 2}
+            }
+            function $(selectors) {
+                return document.querySelector(selectors);
+            }
+            function $$(selectors) {
+                return document.querySelectorAll(selectors);
+            }
+            function numify(string) {
+                return parseInt(string, 10);
+            }
+            function play_sound(string, volume=1, delay=0) {
+                if (string) {
+                    let sound = new Audio(string);
+                    sound.volume = volume * $('#volume-slider').value / 100;
+                    if (delay != 0) {
+                        setTimeout(function() {
+                            sound.play();
+                        }, delay);
+                        return;
+                    }
+                    return sound.play(),
+                    sound;
+                }
+            }
+            $('#volume-slider').value = parseInt(localStorage.getItem('volume')),
+            $('#volnum').textContent = $('#volume-slider').value == 0 ? 'None' : $('#volume-slider').value;
+            const grid = document.getElementById('grid')
+              , globalMovesEl = document.getElementById('globalMoves')
+              , sumOfNumbersEl = document.getElementById('sumOfNumbers')
+              , tooltipEl = document.getElementById('tooltip');
+            let draggedCell = null
+              , ghostElement = null
+              , globalMoves = 0
+              , globalTurns = 0
+              , globalToadsPoked = 0;
+            var encounterCounter = 0
+              , furthestLevel = 0;//1;
+            (localStorage.getItem('furthestL') && speedrunMode == 0) && (furthestLevel = parseInt(localStorage.getItem('furthestL')),
+            furthestLevel > 5 && ($('#coveritup').style.display = 'none'));
+            const descriptions = {
+                0: {
+                    'description': 'Oh you found secret level 0. These are autogenerated and may not be solvable.'
+                },
+                1: {
+                    'description': 'Press WASD or arrow keys to move. Reach the target number to win.'
+                },
+                2: {
+                    'description': 'The target counts the sum of normal counters.'
+                },
+                3: {
+                    'description': 'The target must be hit exactly.'
+                },
+                4: {
+                    'description': 'The blue counter counts the number of counters in the row (including itself).',
+                    'themecolor': '#03f5'
+                },
+                5: {
+                    'description': 'Sometimes you may have a limited number of moves.',
+                    'themecolor': '#03f5'
+                },
+                6: {
+                    'description': '...Huh?',
+                    'themecolor': '#03f5'
+                },
+                7: {
+                    'description': 'Oh. I forgot to mention you could do that.'
+                },
+                8: {
+                    'description': ''
+                },
+                9: {
+                    'description': 'Not all levels have playable counters.',
+                    'themecolor': '#03f5'
+                },
+                10: {
+                    'description': '',
+                    'themecolor': '#03f5'
+                },
+                11: {
+                    'description': '',
+                    'themecolor': '#03f5'
+                },
+                12: {
+                    'description': '',
+                    'themecolor': '#a0f5'
+                },
+                13: {
+                    'description': '',
+                    'themecolor': '#a0f5'
+                },
+                14: {
+                    'description': '',
+                    'themecolor': '#a0f5'
+                },
+                15: {
+                    'description': 'Okay why does this exist.',
+                    'themecolor': '#8509'
+                },
+                16: {
+                    'description': '',
+                    'themecolor': '#8509'
+                },
+                17: {
+                    'description': 'This mechanic seems even more pointless...',
+                    'themecolor': '#f009'
+                },
+                18: {
+                    'description': '',
+                    'themecolor': '#f009'
+                },
+                19: {
+                    'description': 'What.',
+                    'themecolor': '#f009'
+                },
+                20: {
+                    'description': 'No way.',
+                    'themecolor': '#FFD1DC'
+                },
+                21: {
+                    'description': 'Wait, I thi<span style="text-decoration: underline">n</span>k I\'m rui<span style="text-decoration: underline">n</span>i<span style="text-decoration: underline">n</span>g it...',
+                    'themecolor': '#E8CCEB'
+                },
+                22: {
+                    'description': 'Your farthest level is saved by the way. (well, it should be...)',
+                    'themecolor': '#fc0'
+                },
+                23: {
+                    'description': 'Uh oh.',
+                    'themecolor': '#B0D4F1'
+                },
+                24: {
+                    'description': '',
+                    'themecolor': '#F7E8B7'
+                },
+                25: {
+                    'description': 'no',
+                    'themecolor': '#F5A97F'
+                },
+                26: {
+                    'description': 'Well this sounds impossible!',
+                    'themecolor': '#C6426E'
+                },
+                27: {
+                    'description': 'nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn'
+                },
+                28: {
+                    'description': 'I don\'t know what those last couple levels were, so here is a better one. <span style="font-size: 50%">(i got 128 on this btw)</span>',
+                    'themecolor': '#fb36d1'
+                },
+                29: {
+                    'description': '<span style="font-size: 50%; opacity: 0">we should call the diagonal counter the bishop counter</span>',
+                    'themecolor': '#fb36d1',
+                    'gridsize': 7
+                },
+                30: {
+                    'description': '',
+                    'themecolor': '#03f5'
+                },
+                31: {
+                    'themecolor': '#00f6'
+                },
+                32: {
+                    'themecolor': '#00f6'
+                },
+                33: {
+                    'themecolor': '#00f6'
+                },
+                34: {
+                    'description': 'wow this game has objects that can move into each other, another classic flamewar topic',
+                    'themecolor': '#00f6'
+                },
+                35: {
+                    'description': '<span style="font-size: 70%"> i made this game in 2 days and it was going to end here but then Chris S𝜃𝜗𝛪𝜄vey had to give me these bonus Move Left Counters',
+                    'themecolor': '#c05b4f'
+                },
+                36: {
+                    'themecolor': '#00f6'
+                },
+                37: {
+                    'gridsize': 8,
+                    'themecolor': '#b8c35f'
+                },
+                38: {
+                    'gridsize': 8,
+                    'themecolor': '#b8c35f'
+                },
+                39: {
+                    'themecolor': '#b8c35f'
+                },
+                40: {
+                    'description': 'hey doesn\'t chess have a 50 turn rule or something like that?',
+                    'themecolor': '#fcc'
+                },
+                41: {
+                    'themecolor': '#777'
+                },
+                42: {
+                    'gridsize': 8,
+                    'themecolor': '#777'
+                },
+                43: {
+                    'themecolor': '#777'
+                },
+                44: {
+                    'themecolor': '#777'
+                },
+                45: {
+                    'description': 'when the target is infinity',
+                    'themecolor': '#777'
+                },
+                46: {
+                    'description': 'sorry about the bloodstains on the grid today',
+                    'themecolor': 'red'
+                },
+                47: {
+                    'description': '',
+                    'themecolor': 'orange'
+                },
+                48: {
+                    'description': '<span style="font-size: 55%; opacity: 0.3">THE N-COUNTER STRIKES AGAIN <span style="font-size: 50%">much bugs were caused by this stupid mechanic</span></span>',
+                    'themecolor': '#f04',
+                    'gridsize': 9
+                },
+                49: {
+                    'description': ':( <span style="font-size: 30%">once again scouoyuey came up with \'counterattack\'</span>',
+                    'themecolor': '#80f'
+                },
+                50: {
+                    'description': 'This is the final puzzle.',
+                    'themecolor': '#0f8'
+                },
+                51: {
+                    'description': 'That\'s all :) <a href="https://www.youtube.com/@IcelyPuzzles" target="_blank" >chess battle advanced</a> <span style="font-size: 50%"> <span style="font-size: 25%">thanks souvey for the Over the Counter, counterattacks, and turn counter (the counterclockwise idea managed to work out way better with that) </span></span>',
+                    'themecolor': '#cbacba'
+                }
+            }
+              , gridConfigurations = {
+                1: ['metamovetarget=10', 'null', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                2: ['metamovetarget=30', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                3: ['metamovetarget=5', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                4: ['metamovetarget=40', 'metacursum', 'null', 'null', 'null', 'empty', 'row', 'row', 'row', 'row', 'move_player', 'empty', 'row', 'row', 'row', 'empty', 'empty', 'empty', 'row', 'row', 'empty', 'empty', 'empty', 'empty', 'row'],
+                5: ['metamovetarget=30', 'metacursum', 'null', 'null', 'metamovesleft=8', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'empty', 'move_player', 'empty', 'empty', 'empty', 'row', 'empty', 'row', 'row', 'empty', 'row', 'row'],
+                6: ['metamovetarget=21', 'metacursum', 'null', 'null', 'metamovesleft=1', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'row', 'empty', 'row', 'row'],
+                7: ['metamovetarget=15', 'metacursum', 'null', 'null', 'metamovesleft=6', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'metazero', 'metazero', 'metazero', 'metazero', 'empty', 'move_player', 'move_player', 'metazero', 'metazero', 'metazero'],
+                8: ['metamovetarget=4', 'metacursum', 'null', 'null', 'metamovesleft=2', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty'],
+                9: ['metamovetarget=4', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'row', 'empty', 'empty', 'empty', 'empty'],
+                10: ['metamovetarget=3', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'row', 'empty', 'empty', 'empty', 'empty'],
+                11: ['metamovetarget=0', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'row', 'empty', 'empty', 'empty', 'empty'],
+                12: ['metamovetarget=20', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'diagonal', 'diagonal', 'empty', 'empty', 'empty', 'diagonal', 'diagonal', 'diagonal', 'empty', 'empty'],
+                13: ['metamovetarget=0', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'diagonal', 'diagonal', 'empty', 'empty', 'empty', 'diagonal', 'diagonal', 'diagonal', 'empty', 'empty'],
+                14: ['metamovetarget=0', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'diagonal', 'diagonal', 'empty', 'row', 'empty', 'diagonal', 'diagonal', 'diagonal', 'row', 'empty'],
+                15: ['metamovetarget=7', 'metacursum', 'null', 'null', 'metamovesleft=3', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'countercounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'countercounter', 'countercounter', 'empty', 'countercounter', 'empty', 'empty'],
+                16: ['metamovetarget=27', 'metacursum', 'null', 'null', 'metamovesleft=3', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'countercounter', 'empty', 'empty', 'counter4chain', 'empty', 'empty', 'empty', 'countercounteradj2', 'countercounter', 'empty', 'countercounteradj', 'empty', 'countercountercounter'],
+                17: ['metamovetarget=200', 'metacursum', 'null', 'null', 'metamovesleft=1', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'redcounter', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty'],
+                18: ['metamovetarget=501', 'metacursum', 'null', 'null', 'metamovesleft=2', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'redcounter', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'redcounter', 'empty', 'redcounter', 'empty'],
+                19: ['metamovetarget=405', 'metacursum', 'null', 'null', 'metamovesleft=3', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'redcounter', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty'],
+                20: ['metamovetarget=18', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                21: ['metamovetarget=18', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                22: ['metamovetarget=22', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty', 'encountercounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                23: ['metamovetarget=9', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty'],
+                24: ['metamovetarget=8', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty'],
+                25: ['metamovetarget=24', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                26: ['metamovetarget=26', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'evilmovecounter', 'empty', 'empty', 'empty', 'empty', 'empty', 'counter4chain'],
+                27: ['metamovetarget=161', 'metacursum', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'ncounter', 'empty', 'row', 'column', 'empty', 'empty', 'empty', 'move', 'evilmovecounter', 'empty', 'empty', 'empty', 'diagonal', 'countercounter', 'counter4chain'],
+                28: ['metamovetarget=125', 'metacursum', 'null', 'null', 'null', 'empty', 'row', 'column', 'diagonal', 'diagonal', 'area', 'empty', 'row', 'column', 'diagonal', 'diagonal', 'area', 'empty', 'row', 'column', 'queen', 'area', 'empty', 'row', 'column'],
+                29: ['metamovetarget=0', 'null', 'null', 'null', 'null', 'null', 'null', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'queen', 'empty', 'empty', 'empty', 'empty', 'empty', 'queen', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'queen', 'empty', 'empty', 'empty', 'queen', 'empty', 'empty', 'queen', 'empty', 'empty', 'empty', 'empty', 'queen'],
+                30: ['metamovetarget=35', 'metacursum', 'null', 'null', 'metamovesleft=2', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'row', 'row', 'empty', 'row', 'row', 'row', 'row', 'empty', 'consecutive', 'empty', 'empty', 'empty', 'empty'],
+                31: ['metamovetarget=31', 'metacursum', 'null', 'globalmovecounter', 'metamovesleft=2', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row_player', 'row_player', 'row_player', 'row_player', 'row_player'],
+                32: ['metamovetarget=10', 'metacursum', 'null', 'null', 'metacountersleft=1', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'area', 'empty', 'empty', 'empty', 'area'],
+                33: ['metamovetarget=14', 'metacursum', 'null', 'null', 'metapassiveleft=4', 'empty', 'empty', 'metapassiveleft=6', 'empty', 'empty', 'metamovesleft=2', 'metapassiveleft=2', 'empty', 'metapassiveleft=4', 'metapassiveleft=5', 'empty', 'empty', 'metapassiveleft=3', 'empty', 'empty', 'empty', 'empty', 'metapassiveleft=5', 'empty', 'globalmovecounter'],
+                34: ['metamovetarget=9', 'metacursum', 'null', 'null', 'metapassiveleft=2', 'empty', 'empty', 'metapassiveup=2', 'empty', 'empty', 'metazero', 'metamovesleft=2', 'empty', 'metapassiveright=2', 'metazero', 'empty', 'empty', 'metapassivedown=2', 'empty', 'empty', 'empty', 'empty', 'metazero', 'empty', 'globalmovecounter'],
+                35: ['metamovetarget=9', 'metacursum', 'null', 'null', 'metacountersleft=10', 'empty', 'empty', 'empty', 'empty', 'empty', 'knight', 'empty', 'knight', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'rook'],
+                36: ['metamovetarget=8', 'metacursum', 'null', 'null', 'metapassiveleft=2', 'empty', 'empty', 'empty', 'empty', 'empty', 'metacountsleft=0', 'metamovesleft=3', 'empty', 'metacountsleft=0', 'metapassiveleft=1', 'metacountersleft=2', 'metacountsleft=0', 'empty', 'metacountsleft=4', 'metacountsleft=0', 'empty', 'empty', 'empty', 'empty', 'globalmovecounter'],
+                37: ['metamovetarget=43', 'metacursum', 'null', 'null', 'null', 'metaswapcounter', 'metacountersup=1', 'metamovesleft=1', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'rook', 'knight', 'diagonal', 'queen', 'countercounter8adj', 'diagonal', 'knight', 'rook'],
+                38: ['metamovetarget=100', 'metacursum', 'null', 'null', 'null', 'null', 'null', 'metacountersleft=1', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'rook', 'knight', 'diagonal', 'queen', 'countercounter8adj', 'diagonal', 'knight', 'rook'],
+                39: ['metamovetarget=4', 'metacursum', 'null', 'null', 'metamovesleft=2', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'null', 'empty', 'empty', 'empty', 'pawn', 'empty', 'pawn', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                40: ['metamovetarget=50', 'metacursum', 'null', 'null', 'metacountersleft=0', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'metaturncounter'],
+                41: ['metamovetarget=1', 'metacursum', 'null', 'null', 'metamovesleft=2', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player_rotated90', 'empty', 'metaturncounterccw'],
+                42: ['metamovetarget=1', 'metacursum', 'null', 'null', 'null', 'null', 'null', 'metamovesleft=1', 'metaturncounterccw', 'metaturncounterccw', 'countercounter_rotated-90', 'countercountercounter_rotated-90', 'empty', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'empty', 'empty', 'empty', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncountercw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw', 'metaturncounterccw'],
+                43: ['metamovetarget=20', 'metacursum', 'null', 'null', 'metamovesleft=5', 'row_rotated-160', 'row_rotated45', 'row_rotated-90', 'row_rotated-180', 'row_rotated-90', 'empty', 'empty', 'empty', 'empty', 'empty', 'row_rotated90', 'row_rotated-45', 'row_rotated135', 'row_rotated-90', 'row_rotated-135', 'empty', 'empty', 'empty', 'empty', 'metaturncountercw'],
+                44: ['metamovetarget=9', 'metacursum', 'null', 'null', 'metamovesleft=8', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'metaturncountercw'],
+                45: ['metamovetarget=Infinity', 'metacursum', 'null', 'null', 'metamovesleft=9', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'metaturncounterccw'],
+                46: ['metamovetarget=2Infinity', 'bloodstainedcursum', 'metacountersleft=3', 'bloodstainedcursum', 'metamovesleft=3', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty'],
+                47: ['bloodstainedmovetarget=3Infinity', 'metacursum', 'null', 'null', 'metacountersdown=Infinity', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'row', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty'],
+                48: ['metamovetarget=1828', 'null', 'metacursum', 'null', 'null', 'null', 'empty', 'null', 'metamovesleft=1', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'empty', 'empty', 'empty', 'discounter', 'empty', 'empty', 'empty', 'ncounter', 'ncounter', 'empty', 'doublecounter', 'empty', 'globalmovecounter', 'empty', 'countercountercounter', 'empty', 'ncounter', 'ncounter', 'empty', 'column', 'empty', 'move', 'empty', 'queen', 'empty', 'ncounter', 'ncounter', 'empty', 'diagonal', 'empty', 'empty', 'empty', 'row', 'empty', 'ncounter', 'ncounter', 'empty', 'counterargument', 'knight', 'geo=1', 'rook', 'counterofncounters', 'empty', 'ncounter', 'ncounter', 'counter4chain', 'censorshipcounter', 'pawn', 'cacounter2', 'countercounter8adj', 'empty', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'ncounter', 'empty', 'ncounter', 'ncounter', 'ncounter'],
+                49: ['metamovetarget=2', 'metacursum', 'null', 'null', 'metamovesleft=1', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move', 'empty', 'empty', 'empty', 'empty', 'besadabouttheworldcounter=5', 'empty', 'empty', 'cacounter', 'empty', 'geo', 'empty', 'cacounter2'],
+                50: ['metamovetarget=9', 'metacursum', 'null', 'null', 'metamovesleft=3', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'move_player', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'mcmc'],
+                51: ['todespoked', 'todal', 'empty', 'cba', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'chess', 'battle', 'advanced', 'empty', 'empty', 'empty', 'empty', 'empty', 'empty', 'toad1', 'toad2', 'toad3', 'toad4', 'empty']
+            };
+            $('.info').appendChild(document.createElement('select')).id = 'levelselect';
+            const levelSelector = document.getElementById('levelselect');
+            function put_dropdown_index(index) {
+                const elem = document.createElement('option');
+                elem.text = index,
+                elem.value = index,
+                elem.id = 'dropdowny' + index,
+                index == Object.values(gridConfigurations).length && (elem.text = '-'),
+                elem.style = 'background: ' + (descriptions[index]?.['themecolor'] ?? 'white') + '; ' + (descriptions[index]?.['themecolor'] == 'black' ? 'color:white' : '') + 'font-size: 16px; font-weight: bold; text-shadow: 1px 1px 1px black; font-family: Tajawal',
+                levelSelector.appendChild(elem);
+            }
+            function populate_levelselect_dropdown() {
+                levelSelector.innerHTML = '';
+                let _0x3ddbdf = furthestLevel + 1;
+                for (let i = 0; i < _0x3ddbdf; i++) {
+                    put_dropdown_index(i);
+                }
+                levelSelector.addEventListener('change', () => {
+                    const _0xbcbec0 = levelSelector.value;
+                    if (winningSoNoActions)
+                        return;
+                    startLevel(parseInt(_0xbcbec0));
+                }
+                );
+            }
+            populate_levelselect_dropdown(),
+            levelSelector.style = 'display: none';
+            (parseInt(localStorage.getItem('furthestL')) >= Object.keys(gridConfigurations).length - 16 && speedrunMode == 0) && (levelSelector.style = 'font-size: 16px; font-family: Tajawal; font-weight: bold;');
+            var GRIDLENGTH = 5;
+            function createGrid() {
+                grid.innerHTML = '';
+                for (let i = 0; i < GRIDLENGTH * GRIDLENGTH; i++) {
+                    const elem = document.createElement('div');
+                    elem.className = 'cell',
+                    grid.appendChild(elem);
+                }
+            }
+            function initializeGrid(_0x5df4f5, _0x52214b=GRIDLENGTH) {
+                globalMoves = 0,
+                globalTurns = 0,
+                globalToadsPoked = 0,
+                GRIDLENGTH = _0x52214b,
+                createGrid(_0x52214b),
+                $('#grid').style = 'grid-template-columns: repeat(' + _0x52214b + ', 80px); ' + (_0x52214b > 7 ? 'transform: scale(0.9)' : '');
+                const _0x52946e = document.querySelectorAll('.cell')
+                  , _0xbfa492 = ['row', 'column', 'counter4chain', 'diagonal', 'area', 'empty', 'empty', 'empty', 'queen'];
+                for (let i = 0; i < _0x52946e.length; i++) {
+                    let _0x1c17e0 = _0x52946e[i]
+                      , _0x4eeca1 = _0xbfa492[Math.floor(Math.random() * _0xbfa492.length)];
+                    if (_0x5df4f5 && _0x5df4f5[i])
+                        _0x4eeca1 = _0x5df4f5[i];
+                    else {
+                        if (i == 0)
+                            _0x4eeca1 = 'metamovetarget';
+                        else {
+                            if (i == 1)
+                                _0x4eeca1 = 'metacursum';
+                            else {
+                                if (i == GRIDLENGTH - 1)
+                                    _0x4eeca1 = 'metamovesleft=4';
+                                else
+                                    i < GRIDLENGTH && (_0x4eeca1 = 'null');
+                            }
+                        }
+                    }
+                    const _0x110815 = _0x4145f7 => {
+                        while (_0x4145f7.attributes.length > 0) {
+                            _0x4145f7.removeAttribute(_0x4145f7.attributes[0].name);
+                        }
+                    }
+                    ;
+                    _0x110815(_0x1c17e0),
+                    _0x1c17e0.className = 'cell',
+                    _0x1c17e0.dataset = {};
+                    _0x4eeca1.includes('_player') && (_0x4eeca1 = _0x4eeca1.replace('_player', ''),
+                    _0x1c17e0.dataset.player = true);
+                    if (_0x4eeca1.includes('_rotated')) {
+                        let _0x2a73df = _0x4eeca1.split('_rotated');
+                        _0x4eeca1 = _0x2a73df[0],
+                        _0x1c17e0.style.transform = 'rotate(' + _0x2a73df[1] + 'deg)';
+                    }
+                    if (_0x4eeca1 !== 'empty') {
+                        _0x1c17e0.dataset.moves = '0';
+                        if (_0x4eeca1.includes('=')) {
+                            const [_0x394388,_0x40e8d] = _0x4eeca1.split('=');
+                            _0x1c17e0.dataset.moves = _0x40e8d,
+                            _0x1c17e0.dataset.type = _0x394388,
+                            _0x1c17e0.classList.add(_0x394388);
+                        } else
+                            _0x1c17e0.classList.add(_0x4eeca1),
+                            _0x1c17e0.dataset.type = _0x4eeca1;
+                    } else
+                        _0x1c17e0.classList.add('empty');
+                }
+                updateAllCells(),
+                curLevel == 0 && (document.querySelectorAll('.cell')[0].dataset.moves = getSum() + (Math.floor(Math.random() * 15) + 10) * (Math.random() > 0.5 ? -1 : 1),
+                updateAllCells());
+            }
+            function dragStart(mouseEvent, elem) {
+                if (mouseEvent.button !== 0 || elem.classList.contains('empty'))
+                    return;
+                if (!checkIfYouAreAllowedToMove())
+                    return;
+                draggedCell = elem,
+                ghostElement = draggedCell.cloneNode(true),
+                ghostElement.classList.add('ghost'),
+                ghostElement.classList.remove('highlight'),
+                document.body.appendChild(ghostElement),
+                ghostElement.style.transform.includes('rotate') && (ghostElement.style.transform = 'translate(-50%, -50%)' + ghostElement.style.transform),
+                draggedCell.classList.add('hidden'),
+                play_sound('chippickup.mp3'),
+                draggedCell.className.includes('toad') && (globalToadsPoked++,
+                updateAllCells()),
+                dragMove(mouseEvent),
+                mouseEvent.preventDefault();
+            }
+            function dragMove(_0x497bde) {
+                ghostElement && (ghostElement.style.left = _0x497bde.clientX + 'px',
+                ghostElement.style.top = _0x497bde.clientY + 'px');
+            }
+            function shakeCounter(_0x1e8a2b) {
+                _0x1e8a2b.classList.remove('shake'),
+                _0x1e8a2b.offsetWidth = _0x1e8a2b.offsetWidth + 0,
+                _0x1e8a2b.classList.add('shake'),
+                play_sound('shake.mp3', 0.5);
+            }
+            var lastDragged, lastTargetCell, consecutiveCounter = 0;
+            function drop(_0x213929) {
+                if (!draggedCell || !ghostElement)
+                    return;
+                play_sound('chipdrop.mp3', 0.5),
+                draggedCell.classList.remove('hidden');
+                const _0x3081b = document.elementFromPoint(_0x213929.clientX, _0x213929.clientY);
+                if (_0x3081b && _0x3081b.classList.contains('cell') && _0x3081b !== draggedCell) {
+                    let _0x3a83d9 = false;
+                    !_0x3081b.classList.contains('empty') && ($('.metaswapcounter') ? (_0x3a83d9 = true,
+                    shakeCounter($('.metaswapcounter'))) : globalMoves++);
+                    let _0x55543f = {
+                        'up': _0x3b975c => getCellRow(_0x3b975c) > getCellRow(_0x3081b),
+                        'down': _0x1ca87c => getCellRow(_0x1ca87c) < getCellRow(_0x3081b),
+                        'left': _0x525091 => getCellColumn(_0x525091) > getCellColumn(_0x3081b),
+                        'right': _0x556b98 => getCellColumn(_0x556b98) < getCellColumn(_0x3081b)
+                    };
+                    const _0x1c1fa4 = _0x43b558 => {
+                        const _0x388aed = $('.metacounters' + _0x43b558)
+                          , _0x56190a = $('.metacounts' + _0x43b558);
+                        if (_0x388aed && _0x388aed.dataset.moves > 0)
+                            _0x388aed.dataset.moves -= 1,
+                            players_to_check = [],
+                            _0x388aed.classList.remove('shake'),
+                            _0x388aed.offsetWidth = _0x388aed.offsetWidth + 0,
+                            _0x388aed.classList.add('shake'),
+                            play_sound('shake.mp3', 0.5),
+                            _0x3a83d9 = true;
+                        else
+                            _0x56190a && $$('.metacounts' + _0x43b558).forEach(_0x4b5c94 => {
+                                _0x4b5c94.dataset.moves = parseInt(_0x4b5c94.dataset.moves) + 1;
+                            }
+                            );
+                        ;
+                    }
+                    ;
+                    Object.keys(_0x55543f).forEach(_0x13199d => {
+                        _0x55543f[_0x13199d](draggedCell) && _0x1c1fa4(_0x13199d);
+                    }
+                    );
+                    if (!_0x3a83d9) {
+                        swapCells(draggedCell, _0x3081b),
+                        globalMoves++,
+                        globalTurns++,
+                        draggedCell.dataset.movedConsecutive = (parseInt(draggedCell.dataset.movedConsecutive) || 0) + 1,
+                        _0x3081b.dataset.movedConsecutive = (parseInt(_0x3081b.dataset.movedConsecutive) || 0) + 1,
+                        consecutiveCounter = Math.max(draggedCell.dataset.movedConsecutive, _0x3081b.dataset.movedConsecutive),
+                        lastDragged = draggedCell,
+                        lastTargetCell = _0x3081b;
+                        const _0x5e20c9 = document.querySelectorAll('.cell');
+                        _0x5e20c9.forEach(_0xe64888 => {
+                            _0xe64888 !== draggedCell && _0xe64888 !== _0x3081b && (_0xe64888.dataset.movedConsecutive = '0');
+                        }
+                        ),
+                        _0x3081b.classList.contains('cacounter') && destroyRandomCounter(_0x3081b);
+                    }
+                    reduceMovesByOne(),
+                    endOfTurnPassiveMoves(),
+                    updateAllCells();
+                }
+                deleteGhost();
+            }
+            function deleteGhost() {
+                ghostElement && (document.body.removeChild(ghostElement),
+                ghostElement = null,
+                draggedCell = null);
+            }
+            function swapCells(elemA, elemB) {
+                const _0x568c3c = elemA.innerHTML
+                  , _0x51a767 = elemA.className
+                  , _0x59b29a = elemA.dataset.type
+                  , _0x78e5af = elemA.dataset.moves
+                  , _0xc89180 = elemA.dataset.player
+                  , _0x2fc37e = elemA.dataset.immovable
+                  , _0x5b78e1 = elemA.dataset.movedConsecutive
+                  , _0x558f0e = elemA.style.transform;
+                elemA.innerHTML = elemB.innerHTML,
+                elemA.className = elemB.className,
+                elemA.dataset.type = elemB.dataset.type,
+                elemA.dataset.moves = elemB.dataset.moves,
+                elemA.dataset.player = elemB.dataset.player,
+                elemA.dataset.immovable = elemB.dataset.immovable,
+                elemA.dataset.movedConsecutive = _0x5b78e1,
+                elemA.style.transform = elemB.style.transform,
+                elemB.innerHTML = _0x568c3c,
+                elemB.className = _0x51a767,
+                elemB.dataset.type = _0x59b29a,
+                elemB.dataset.moves = _0x78e5af,
+                elemB.dataset.player = _0xc89180,
+                elemB.dataset.immovable = _0x2fc37e,
+                elemB.dataset.movedConsecutive = _0x5b78e1,
+                elemB.style.transform = _0x558f0e,
+                elemA.style.transition = 'none',
+                elemB.style.transition = 'none',
+                setTimeout( () => {
+                    elemA.style.transition = '',
+                    elemB.style.transition = '';
+                }
+                , 300);
+                (elemA.dataset.type === 'move' || elemA.dataset.type === 'doublecounter') && (elemA.dataset.moves = parseInt(elemA.dataset.moves) + 1);
+                (elemB.dataset.type === 'move' || elemB.dataset.type === 'doublecounter') && (elemB.dataset.moves = parseInt(elemB.dataset.moves) + 1);
+                if (elemA.dataset.type === 'countermover') {
+                    const _0x2f70c4 = getAdjacentCells(elemA);
+                    _0x2f70c4.forEach(_0x4b47a5 => {
+                        _0x4b47a5.dataset.type === 'counter' && (_0x4b47a5.dataset.moves = parseInt(_0x4b47a5.dataset.moves) + 1);
+                        ;
+                    }
+                    );
+                }
+            }
+            let ncountercache = null;
+            function updateAllCells() {
+                validnchange = true;
+                const _0x2cd41b = document.querySelectorAll('.cell');
+                ncountercache = null,
+                _0x2cd41b.forEach(updateCellValue),
+                _0x2cd41b.forEach(checkCells),
+                _0x2cd41b.forEach(updateCellValue),
+                _0x2cd41b.forEach(updateCellValue);
+                if ($('.metamovetarget')) {
+                    if ($('.metacursum')) {
+                        if ($('.metacursum').innerHTML === $('.metamovetarget').innerHTML)
+                            win();
+                        else
+                            parseInt($('.metacursum').textContent) > parseInt($('.metamovetarget').textContent) && losekinda();
+                    } else {
+                        if (getSum() > 1e+305 && $('.bloodstainedcursum'))
+                            win();
+                        else
+                            getSum() === parseInt($('.metamovetarget').textContent) && win();
+                    }
+                } else
+                    $('.bloodstainedmovetarget') && getSum() == 38 && ($('.metacursum').innerHTML = '3' + INFINITYSTRING,
+                    win());
+                $('.pawn') && getCellRow($('.pawn')) == 0 && $('#promo').style.display != 'block' && ($('#promo').style.display = 'block',
+                play_sound('promote.mp3')),
+                $('.bloodstainedcursum') && winningSoNoActions && ($$('.bloodstainedcursum')[0].innerHTML = INFINITYSTRING,
+                $$('.bloodstainedcursum')[1].innerHTML = INFINITYSTRING),
+                validnchange = false;
+            }
+            const INFINITYSTRING = '<span style="display: inline-block; transform: rotate(-90deg); pointer-events: none; user-select: none">8</span>';
+            var winningSoNoActions = false;
+            nextLevelDelay = 1200
+            if (speedrunMode == 2) {nextLevelDelay = 0}
+            function win() {
+                if (winningSoNoActions)
+                    return;
+                let elem = $('.metamovetarget');
+                $('.bloodstainedmovetarget') && (elem = $('.bloodstainedmovetarget')),
+                elem.classList.remove('shake'),
+                elem.classList.remove('winshake'),
+                elem.offsetWidth = elem.offsetWidth + 0,
+                elem.classList.add('winshake'),
+                play_sound('win.mp3'),
+                winningSoNoActions = true,
+                setTimeout( () => {
+                    winningSoNoActions && nextLevel();
+                }
+                , nextLevelDelay);
+            }
+            function losekinda() {
+                $('.metamovetarget').classList.remove('badshake'),
+                $('.metamovetarget').offsetWidth = $('.metamovetarget').offsetWidth + 0,
+                $('.metamovetarget').classList.add('badshake');
+            }
+            function getCellIndex(_0xfefc56) {
+                return Array.from(grid.children).indexOf(_0xfefc56);
+            }
+            function getCellRow(_0x502554) {
+                return Math.floor(getCellIndex(_0x502554) / GRIDLENGTH);
+            }
+            function getCellColumn(_0x4bcb6b) {
+                return getCellIndex(_0x4bcb6b) % GRIDLENGTH;
+            }
+            function updateCellValue(elem) {
+                if (elem.classList.contains('empty')) {
+                    elem.textContent = '';
+                    return;
+                }
+                if (elem.classList.contains('ghost'))
+                    return;
+                let _0x547edc = 0;
+                const _0x308a59 = Array.from(grid.children).indexOf(elem)
+                  , _0x278338 = Math.floor(_0x308a59 / GRIDLENGTH)
+                  , _0x516e9a = _0x308a59 % GRIDLENGTH;
+                if (_0x308a59 == -1)
+                    return;
+                if (Object.keys(funks).includes(elem.dataset.type)) {
+                    const _0x2372a2 = funks[elem.dataset.type];
+                    _0x547edc = _0x2372a2(_0x278338, _0x516e9a).length;
+                    switch (elem.dataset.type) {
+                    case 'metacursum':
+                        _0x547edc = getSum();
+                        break;
+                    case 'bloodstainedcursum':
+                        !winningSoNoActions && (_0x547edc = getSum());
+                        ;break;
+                    case 'redcounter':
+                        _0x547edc *= 100;
+                        break;
+                    }
+                } else
+                    switch (elem.dataset.type) {
+                    case 'globalmovecounter':
+                        _0x547edc = globalMoves;
+                        break;
+                    case 'ncounter':
+                        ncountercache ? _0x547edc = ncountercache : (_0x547edc = countNsInTextNodes(document),
+                        ncountercache = _0x547edc);
+                        break;
+                    case 'encountercounter':
+                        _0x547edc = encounterCounter;
+                        break;
+                    case 'consecutive':
+                        _0x547edc = consecutiveCounter;
+                        break;
+                    case 'metaturncounter':
+                        _0x547edc = globalTurns;
+                        break;
+                    case 'todespoked':
+                        _0x547edc = globalToadsPoked;
+                        break;
+                    case 'doublecounter':
+                        _0x547edc = parseInt(elem.dataset.moves) * 2;
+                        break;
+                    case 'move':
+                    case 'metamovetarget':
+                    case 'metamovesleft':
+                    default:
+                        _0x547edc = parseInt(elem.dataset.moves);
+                        break;
+                    }
+                elem.textContent = _0x547edc;
+                if (elem.dataset.moves == 'Infinity' || _0x547edc == 'Infinity' || elem.classList.contains('bloodstainedcursum') && getSum() == Infinity)
+                    elem.innerHTML = INFINITYSTRING;
+                else {
+                    if (elem.dataset.moves == '2Infinity')
+                        elem.innerHTML = '2' + INFINITYSTRING;
+                    else
+                        elem.dataset.moves == '3Infinity' && (elem.innerHTML = '3' + INFINITYSTRING);
+                }
+            }
+            var keyboardHit = false
+              , validnchange = true;
+            function showTooltip(_0x21b552, _0x102403) {
+                validnchange = true;
+                const _0x4e8b12 = getTooltipText(_0x102403);
+                tooltipEl.style.opacity = '1',
+                tooltipEl.innerHTML = _0x4e8b12,
+                removeHighlights(),
+                highlightAffectedCells(_0x102403),
+                $('.ncounter') && updateAllCells(),
+                validnchange = false;
+            }
+            function hideTooltip() {
+                validnchange = true,
+                removeHighlights(),
+                ($('.ncounter') || $('.redcounter')) && updateAllCells(),
+                validnchange = false;
+            }
+            document.addEventListener('mousedown', _0x556d47 => {
+                if (winningSoNoActions)
+                    return;
+                const _0x390a4c = _0x556d47.target;
+                _0x390a4c.classList.contains('cell') && !_0x390a4c.classList.contains('empty') && dragStart(_0x556d47, _0x390a4c);
+                if (_0x390a4c.classList.contains('lookslikea')) {
+                    let _0x2d6f43 = _0x390a4c.className.replace('lookslikea ', '');
+                    $('.pawn').dataset.type = _0x2d6f43,
+                    $('.pawn').classList.add(_0x2d6f43),
+                    $('.pawn').classList.remove('pawn'),
+                    $('#promo').style.display = 'none',
+                    play_sound('promote.mp3'),
+                    updateAllCells();
+                }
+            }
+            ),
+            document.addEventListener('mousemove', dragMove),
+            document.addEventListener('mouseup', drop),
+            document.addEventListener('mousemove', _0x4f5785 => {
+                const _0x3a6046 = _0x4f5785.target;
+                _0x3a6046.classList.contains('cell') && !_0x3a6046.classList.contains('empty') ? showTooltip(_0x4f5785, _0x3a6046) : hideTooltip();
+            }
+            );
+            function getTooltipText(_0xd76eea) {
+                switch (_0xd76eea.dataset.type) {
+                case 'empty':
+                    return '';
+                case 'row':
+                    return '<h2 style="background: #03f5; padding: 5px; border-radius: 6px;">Row Counter</h2>Counts counters (including self) in a row.';
+                case 'column':
+                    return '<h2 style="background: #0f35; padding: 5px; border-radius: 6px;">Row Counter Counterpart</h2>Counts counters (including self) in a column.';
+                case 'move':
+                    return '<h2 style="background: #f005; padding: 5px; border-radius: 6px;">Move Counter</h2>Counts each time this moves.';
+                case 'diagonal':
+                    return '<h2 style="background: #a0f5; padding: 5px; border-radius: 6px;">Diagonal Counter</h2>Counts counters in both diagonals to this.';
+                case 'queen':
+                    return '<h2 style="background: #f075; padding: 5px; border-radius: 6px;">ALL-LINE Counter</h2>Counts counters in the same row, column, and diagonals as this.';
+                case 'area':
+                    return '<h2 style="background: #fa05; padding: 5px; border-radius: 6px;">Area Counter</h2>Counts connected counters (including self).';
+                case 'counterabove':
+                    return '<h2 style="background: #0ff5; padding: 5px; border-radius: 6px;">Counter Counterer</h2>Counters the counter above.';
+                case 'metamovetarget':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Target Counter</h2>Counts the total you need to win (must be exact).';
+                case 'metamovesleft':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Left Counter</h2>Counts how many moves you have left. Counters your ability to move at 0.';
+                case 'metacursum':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Total Counter</h2>Counts the total of readable counter counts <i>not on the top row</i> and with no white background.';
+                case 'bloodstainedmovetarget':
+                    return '<h2 style="background: radial-gradient(at 0% 30%, #ff0000 30px, transparent 10%, transparent 50%); padding: 5px; border-radius: 6px;">Target Counter</h2>Counts the total you need to win (must be exact).';
+                case 'bloodstainedcursum':
+                    return '<h2 style="background: radial-gradient(at 0% 30%, #ff0000 30px, transparent 10%, transparent 50%); padding: 5px; border-radius: 6px;">Total Counter</h2>Counts the total of readable counter counts <i>not on the top row</i> and with no white background.';
+                case 'todal':
+                    return '<h2 class="todal" style="padding: 5px; border-radius: 6px;">Toadal Counter</h2>Counts ALL toads.';
+                case 'toad1': //'toad1' instead of 'toad' fixes a bug
+                    return '<h2 class="toad" style="padding: 5px; border-radius: 6px;">Toad</h2>very pokeable';
+                case 'toad2':
+                    return '<h2 class="toad" style="padding: 5px; border-radius: 6px;">Toad</h2>very pokeable';
+                case 'toad3':
+                    return '<h2 class="toad" style="padding: 5px; border-radius: 6px;">Toad</h2>very pokeable';
+                case 'toad4':
+                    return '<h2 class="toad" style="padding: 5px; border-radius: 6px;">Toad</h2>very pokeable';
+                case 'todespoked':
+                    return '<h2 class="todal" style="padding: 5px; border-radius: 6px;">Toads Poked Counter</h2>Counts the count of how many toads you\'ve poked this encounter.';
+                case 'globalmovecounter':
+                    return '<h2 style="background: radial-gradient(circle at center, #0080ff, #00ee00); padding: 5px; border-radius: 6px; color: blue; text-shadow: 1px 1px 2px cyan">Move Counter</h2>Counts the number of moves made this encounter.';
+                case 'metazero':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Zero "Counter"</h2>';
+                case 'countercounter':
+                    return '<h2 style="background: #9505; padding: 5px; border-radius: 6px;">Counter Counter</h2>Counts the count of counters in this encounter.';
+                case 'countercounteradj':
+                    return '<h2 style="background: #9505; padding: 5px; border-radius: 6px;">Counter Counter</h2>Counts the count of counters near this counter.';
+                case 'countercounteradj2':
+                    return '<h2 style="background: #9505; padding: 5px; border-radius: 6px;">Counter Counter</h2>Counts the count of counters two counts of squares away from this counter.';
+                case 'redcounter':
+                    return '<h2 style="background: radial-gradient(#f005, white); padding: 5px; border-radius: 6px;">Red Counter</h2>Counts the count of red pixels in the 4 adjacent cells, conveniently that is always 100 times the count of red counters.';
+                case 'countermover':
+                    return '<h2 style="background: #0f05; padding: 5px; border-radius: 6px;">Counter Mover</h2>After moving, it moves the 8 adjacent counters away as far as possible.';
+                case 'ncounter':
+                    return '<h2 style="background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),\n            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),\n            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%); padding: 5px; border-radius: 6px;">N-Counter</h2>Counts the count of N\'s on the page (both lowercase and uppercase).';
+                case 'counterofncounters':
+                    return '<h2 class="counterofncounters" style="padding: 5px; border-radius: 6px;">N-Counter Counter</h2>Counts the count of counters that count N\'s.';
+                case 'countercountercounter':
+                    return '<h2 style="background: #9505; padding: 5px; border-radius: 6px;">Counter Counter Counter</h2>Counts the count of counters that count counters in this encounter.';
+                case 'counter4chain':
+                    return '<h2 style="background: #9505; padding: 5px; border-radius: 6px;">Counter Counter Counter Counter</h2>Counts the count of counters that count the count of counters that count counters in this encounter.';
+                case 'evilmovecounter':
+                    return '<h2 style="background: #500f; padding: 5px; border-radius: 6px; color: red; text-decoration: wavy red underline">Move Counter</h2>Counters your ability to move anything.';
+                case 'encountercounter':
+                    return '<h2 style=" background: linear-gradient(217deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%),    linear-gradient(127deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%),    linear-gradient(336deg, rgba(255,165,0,.8), rgba(255,165,0,0) 70.71%); padding: 5px; border-radius: 6px;">Encounter Counter</h2>Counts the count of encounters you\'ve encountered this session.';
+                case 'consecutive':
+                    return '<h2 style="background: #03f5; padding: 5px; border-radius: 6px;">Row Counter</h2>Counts how much you\'ve moved the same counter in a row.';
+                case 'metapassiveleft':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Left Counter</h2>Counts how many times this can move left on its own, and does so at the end of every turn.';
+                case 'metapassiveright':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Right Counter</h2>Counts how many times this can move right on its own, and does so at the end of every turn.';
+                case 'metapassiveup':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Up Counter</h2>Counts how many times this can move up on its own, and does so at the end of every turn.';
+                case 'metapassivedown':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Down Counter</h2>Counts how many times this can move down on its own, and does so at the end of every turn.';
+                case 'metacountsleft':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Left Counter</h2>Counts how many times a counter has moved left this encounter.';
+                case 'metacountersleft':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Left Counter</h2>Counts the count of how many times this can counter the ability to move left. But apparently swapping the opposite direction is okay.';
+                case 'metacountersright':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Right Counter</h2>Counts the count of how many times this can counter the ability to move right. But apparently swapping the opposite direction is okay.';
+                case 'metacountersup':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Up Counter</h2>Counts the count of how many times this can counter the ability to move up. But apparently swapping the opposite direction is okay.';
+                case 'metacountersdown':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Moves Down Counter</h2>Counts the count of how many times this can counter the ability to move down. But apparently swapping the opposite direction is okay.';
+                case 'knight':
+                    return '<h2 style="background: #c05b4f55; padding: 5px; border-radius: 6px;">Counterintuitive Counter</h2>Counts the count of counters 2 counts away and 1 count away from that new position in a perpendicular direction... okay this isn\'t very intuitive, what a nightmare.';
+                case 'counterattackcounter':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Counterattack Counter</h2>Counts the count of counters this counter has attacked this encounter. After moving, attacks a counter.';
+                case 'rook':
+                    return '<h2 style="background: #4c4ae299; padding: 5px; border-radius: 6px;">Mystery Counter</h2>Counts... something unknown... This is kind of a "rookie designer" thing to make a mystery counter but I\'m out of deep ideas.';
+                case 'pawn':
+                    return '<h2 style="background: #b8c35f55; padding: 5px; border-radius: 6px;">Over the Counter</h2>Counts the count of counters that are one count diagonally upleft and/or one count diagonally upright from this counter. Also has a mystery mechanic. thanks souyyuvey';
+                case 'countercounter8adj':
+                    return '<h2 style="background: #6455; padding: 5px; border-radius: 6px;">One-Count Counter + Two-Count Counter</h2>Counts the count of counters that are one count away from this counter or two counts away in different directions from this counter.';
+                case 'metaswapcounter':
+                    return '<h2 style="background: #fff5; padding: 5px; border-radius: 6px;">Swap Counter</h2>Counters your ability to swap.';
+                case 'cacounter':
+                    return '<h2 style="background: linear-gradient(to left, rgb(255, 115, 0) 28px, red 77%, darkred); padding: 5px; border-radius: 6px;">Counterattacking Counter</h2>After moving this counter, Counterattacking Counter attacks a random (🤮) counter.';
+                case 'cacounter2':
+                    return '<h2 style="background: linear-gradient(to left, rgb(0, 255, 106) 28px, red 77%, rgb(139, 0, 69));  padding: 5px; border-radius: 6px;">Counterattacking Counter</h2>If Counterattacking Counter is attacked by a counter, Counterattacking Counter attacks the counter that attacked this counter.';
+                case 'geo':
+                    return '<h2 style="background: conic-gradient(at 0% 30%, rgb(0 217 255) 10%, rgb(255 132 0) 30%, #4c657e 50%); padding: 5px; border-radius: 6px;">Global Offensive Counter</h2>When a counter strikes, Global Offensive Counter counts up by one.';
+                case 'ccwcounter':
+                    return '<h2 style="background: #4c4ae255; padding: 5px; border-radius: 6px;">Counterclockwise Counter</h2>Counts the counter counter-clockwise from this counter.';
+                case 'mcmc':
+                    return '<h2 class="mcmc" style="padding: 5px; border-radius: 6px">Move Counter Move Counter</h2>This counter counters the counter to moving a counter while moving a counter.';
+                case 'doublecounter':
+                    return '<h2 class="doublecounter" style="padding: 5px; border-radius: 6px">Doublemove Counter</h2>Counts the number of moves plus the number of moves. great new counters idcly';
+                case 'counterargument':
+                    return '<h2 class="counterargument" style="padding: 5px; border-radius: 6px">Counterargument</h2>Completely counters your entire ideology and belief system, etc. :walcomebuck:</h2>';
+                case 'censorshipcounter':
+                    return `<h2 class="censorshipcounter" style="padding: 5px; border-radius: 6px">Censorship Counter</h2>Counters the Counterargument counter while not actually countering the Counterargument counter. This contortion of language is a not-natural nefarious nexus nudging non-allied arguments to be nonjustifyingly noticed as nonsensical notions. (also the volume counter isn't None in this puzzle)</h2>`;
+                case 'discounter':
+                    return '<h2 class="discounter" style="padding: 5px; border-radius: 6px">Discounter</h2>All shop prices are 50% off! Counts how much money you saved.</h2>';
+                case 'metaturncounter':
+                    return '<h2 style="background: blue; color: white; padding: 5px; border-radius: 6px;">Turn Counter</h2>Counts the count of turns taken this encounter.';
+                case 'metaturncountercw':
+                    return '<h2 style="background: blue; color: white; padding: 5px; border-radius: 6px;">Turn Counter</h2>After this moves, turns the (non-white-background) counter above it. Turns counter clockwise.';
+                case 'metaturncounterccw':
+                    return '<h2 style="background: blue; color: white; padding: 5px; border-radius: 6px;">Turn Counter</h2>After this moves, turns the (non-white-background) counter above it. Turns counterclockwise.';
+                case 'besadabouttheworldcounter':
+                    return '<h2 style="background: linear-gradient(to left, blue 28px, rgb(139, 0, 0) 77%, darkred); padding: 5px; border-radius: 6px;">Reasons To Feel Sad At The World Counter</h2>Counts the count of sad things about the world.<br>1: "In a world of mass dysfunction, often those who are in the most position to help are always looking away, due to all sorts of malformed incentives. When the world is populated by so many who would intentionally and maliciously misinterpret, you can only vaguely gesture at the issues. Maybe you\'ll waste 6 years of your life writing an entire book vagueposting about issues in society. Because specificposting and noticing too much will get you slammed into the ground. So we wade through life grateful to small wonders but being clueless to more, and can only cope with it through pointless irony." -dokehu#1512 <br> 2: Is it \'eloquently\'? No that\'s like- that describes the upper end, it\'s like, how... what\'s the opposite of... why can\'t... why- it\'s such- it\'s such an irony that I can\'t describe the problem, that sometimes comes up in my talking because of the problem... that comes up in my talking and always comes up when I\'m trying to describe it... you understand what I\'m saying but the- but but- but the bad weather is like the analogy to... when... when my words aren\'t coming out... evenly. You know when I\'m- is it s- I\'m not stuttering but I\'m like s- is it stammering? Yeah I think that\'s the word... that\'s the bad weather and the ship is like... my- like the- the- the- chatting... you know the ship, the ship is what I\'m, you know, is like the what I\'m trying to say, you know? Well no the ship isn\'t what I\'m trying to say, the voyage is what I\'m trying to say, the voyage is what- okay I need to leave, okay cough so stream is over- I- I- to go now, bye bye, see you l- see you next time.<br> 3: "WHY INNOCENTS ALWAYS HAVE TO DIE." -Leonardo \'StrShPlyr\' Vergara, Inventor of Chess Battle Advanced.<br> 4: \'Due to critical hardware failure of the power distribution units in a rack that houses several of our core servers at our hosting provider, we unfortunately have to do some emergency maintenance with very short notice. At 03:00am UTC (11:00pm EDT and 08:00pm PDT Thursday evening) the multiplayer service will be down for about 30 minutes for hardware replacements\' -The Spaghetti Monster<br> 5: "if he wants to talk trash about me not accepting his spammy hijacking of announcements channel then he should do it here instead of leaving like a pansy and talking about it somewhere else. Idea that me removing his announcements spam means he cannot "work on his project in peace" while still being allowed to post about it in every other channel and thread is absurd. The vibe I\'m starting to get is that he thinks his project is superior to CEO which is a great mindset for development motivation but completely idiotic in practice if he expects to just hijack the entire OOCBA discord for his prototype. No idea what the prismata situation was but I\'ve seen the screenshots of his prismata mod and it has such a horrible aesthetics that casual prismata players looking at a glance would probably assume it\'s some kind of knockoff or meme or spam, and I\'m assuming he posted screenshots of it there hundreds of times... did he then try to take the place of the game\'s developer and tableflip when people didn\'t say that his mod was somehow superior to the actual god-tier game he was building from in the first place? IMO this is all very silly dramaqueen fiasco, especially because I\'m not even opposed to him having an active thread here dedicated to his game or posting about it everywhere...  seems like I\'ve drawn the line at literally-spamming-announcements and he wants to act like he was made into a martyr" -The Spaghetti Monster';
+                default:
+                    return '';
+                }
+            }
+            function highlightAffectedCells(cell) {
+                const _0x97638a = Array.from(grid.children).indexOf(cell)
+                  , _0x1300a2 = Math.floor(_0x97638a / GRIDLENGTH)
+                  , _0x200904 = _0x97638a % GRIDLENGTH
+                  , _0xd31a71 = document.querySelectorAll('.cell');
+                _0xd31a71.forEach(_0x189ba6 => _0x189ba6.classList.add('unhighlight'));
+                if (Object.keys(funks).includes(cell.dataset.type)) {
+                    const _0x104c0e = funks[cell.dataset.type];
+                    _0x104c0e(_0x1300a2, _0x200904).forEach(_0x3f5f38 => _0x3f5f38.classList.add('highlight'));
+                } else {
+                    if (cell.dataset.type === 'counterabove') {
+                        const _0x473d98 = grid.children[_0x97638a - GRIDLENGTH];
+                        _0x473d98 && _0x473d98.classList.add('highlight');
+                    }
+                }
+            }
+            function removeHighlights() {
+                const _0x9db522 = document.querySelectorAll('.cell');
+                _0x9db522.forEach(_0x23ac1b => _0x23ac1b.classList.remove('unhighlight')),
+                _0x9db522.forEach(_0x17f14a => _0x17f14a.classList.remove('highlight'));
+            }
+            function cellIsNotEmpty(cell) {
+                return !cell.classList.contains('empty') && !cell.classList.contains('null');
+            }
+            const funks = {
+                'row': countInRow,
+                'bloodstainedrow': countInRow,
+                'column': countInColumn,
+                'diagonal': countInDiagonals,
+                'area': countConnectedArea,
+                'rook': (_0xd44914, _0x3d73c2) => {
+                    return [...countInRow(_0xd44914, _0x3d73c2), ...countInColumn(_0xd44914, _0x3d73c2)].filter(_0x487d1f => _0x487d1f !== grid.children[_0xd44914 * GRIDLENGTH + _0x3d73c2]);
+                }
+                ,
+                'queen': queenCount,
+                'metacursum': getSumCells,
+                'bloodstainedcursum': getSumCells,
+                'knight': countKnightAwayCounters,
+                'countercounter': (_0x474665, _0x3756b6) => {
+                    return Array.from(grid.children).filter(_0x26fa21 => cellIsNotEmpty(_0x26fa21));
+                }
+                ,
+                'counterofncounters': (_0x2ee7c9, _0x6231b9) => {
+                    return Array.from(grid.children).filter(_0x59a213 => cellIsNotEmpty(_0x59a213) && _0x59a213.classList.contains('ncounter'));
+                }
+                ,
+                'todal': (_0x220707, _0x1d31ef) => {
+                    return Array.from(grid.children).filter(_0x4d4829 => cellIsNotEmpty(_0x4d4829) && _0x4d4829.className.includes('toad'));
+                }
+                ,
+                'countercounteradj': (_0x246f97, _0x45ac96) => {
+                    const _0x584cf5 = [];
+                    return _0x45ac96 > 0 && _0x584cf5.push(grid.children[_0x246f97 * GRIDLENGTH + _0x45ac96 - 1]),
+                    _0x45ac96 < GRIDLENGTH - 1 && _0x584cf5.push(grid.children[_0x246f97 * GRIDLENGTH + _0x45ac96 + 1]),
+                    _0x246f97 > 0 && _0x584cf5.push(grid.children[(_0x246f97 - 1) * GRIDLENGTH + _0x45ac96]),
+                    _0x246f97 < GRIDLENGTH - 1 && _0x584cf5.push(grid.children[(_0x246f97 + 1) * GRIDLENGTH + _0x45ac96]),
+                    _0x584cf5.filter(_0xb3457f => _0xb3457f && cellIsNotEmpty(_0xb3457f));
+                }
+                ,
+                'countercounteradj2': (_0x40bd65, _0x48c9c1) => {
+                    const _0x2d8a8c = [];
+                    return _0x48c9c1 > 0 && _0x2d8a8c.push(grid.children[_0x40bd65 * GRIDLENGTH + _0x48c9c1 - 2]),
+                    _0x48c9c1 < GRIDLENGTH - 2 && _0x2d8a8c.push(grid.children[_0x40bd65 * GRIDLENGTH + _0x48c9c1 + 2]),
+                    _0x40bd65 > 1 && _0x2d8a8c.push(grid.children[(_0x40bd65 - 2) * GRIDLENGTH + _0x48c9c1]),
+                    _0x40bd65 < GRIDLENGTH - 2 && _0x2d8a8c.push(grid.children[(_0x40bd65 + 2) * GRIDLENGTH + _0x48c9c1]),
+                    _0x2d8a8c.filter(_0x371123 => _0x371123 && cellIsNotEmpty(_0x371123));
+                }
+                ,
+                'countercounter8adj': (_0x495be3, _0x396dd0) => {
+                    const _0x298ed2 = [];
+                    return _0x396dd0 > 0 && _0x298ed2.push(grid.children[_0x495be3 * GRIDLENGTH + _0x396dd0 - 1]),
+                    _0x396dd0 < GRIDLENGTH - 1 && _0x298ed2.push(grid.children[_0x495be3 * GRIDLENGTH + _0x396dd0 + 1]),
+                    _0x495be3 > 0 && _0x298ed2.push(grid.children[(_0x495be3 - 1) * GRIDLENGTH + _0x396dd0]),
+                    _0x495be3 < GRIDLENGTH - 1 && _0x298ed2.push(grid.children[(_0x495be3 + 1) * GRIDLENGTH + _0x396dd0]),
+                    _0x495be3 > 0 && _0x396dd0 > 0 && _0x298ed2.push(grid.children[(_0x495be3 - 1) * GRIDLENGTH + _0x396dd0 - 1]),
+                    _0x495be3 < GRIDLENGTH - 1 && _0x396dd0 > 0 && _0x298ed2.push(grid.children[(_0x495be3 + 1) * GRIDLENGTH + _0x396dd0 - 1]),
+                    _0x495be3 > 0 && _0x396dd0 < GRIDLENGTH - 1 && _0x298ed2.push(grid.children[(_0x495be3 - 1) * GRIDLENGTH + _0x396dd0 + 1]),
+                    _0x495be3 < GRIDLENGTH - 1 && _0x396dd0 < GRIDLENGTH - 1 && _0x298ed2.push(grid.children[(_0x495be3 + 1) * GRIDLENGTH + _0x396dd0 + 1]),
+                    _0x298ed2.filter(_0x3a148b => _0x3a148b && cellIsNotEmpty(_0x3a148b));
+                }
+                ,
+                'countercountercounter': (_0x33a4d0, _0x4e19ee) => {
+                    return Array.from(grid.children).filter(_0x9a000b => _0x9a000b.classList.contains('countercounter'));
+                }
+                ,
+                'counter4chain': (_0x4cec4e, _0x443992) => {
+                    return Array.from(grid.children).filter(_0x14f348 => _0x14f348.classList.contains('countercountercounter'));
+                }
+                ,
+                'redcounter': (_0x550fc0, _0x217245) => {
+                    return funks.countercounteradj(_0x550fc0, _0x217245).filter(_0x3f3ecc => _0x3f3ecc.classList.contains('move') || _0x3f3ecc.classList.contains('shake') || _0x3f3ecc.classList.contains('redcounter'));
+                }
+                ,
+                'pawn': (_0x132ce8, _0x15fd42) => {
+                    const _0x452385 = [];
+                    return _0x132ce8 > 0 && _0x15fd42 > 0 && _0x452385.push(grid.children[(_0x132ce8 - 1) * GRIDLENGTH + _0x15fd42 - 1]),
+                    _0x132ce8 > 0 && _0x15fd42 < GRIDLENGTH - 1 && _0x452385.push(grid.children[(_0x132ce8 - 1) * GRIDLENGTH + _0x15fd42 + 1]),
+                    _0x452385.filter(_0x5c960b => _0x5c960b && cellIsNotEmpty(_0x5c960b));
+                }
+            };
+            function getSingleCounterLeft(yPos, xPos) {
+                const _0x1a1cdb = grid.children[yPos * GRIDLENGTH + xPos - 1];
+                if (_0x1a1cdb)
+                    return _0x1a1cdb;
+                return null;
+            }
+            function getSingleCounterRight(yPos, xPos) {
+                const _0x22151e = grid.children[yPos * GRIDLENGTH + xPos + 1];
+                if (_0x22151e)
+                    return _0x22151e;
+                return null;
+            }
+            function getSingleCounterAbove(yPos, xPos) {
+                const _0x479caf = grid.children[(yPos - 1) * GRIDLENGTH + xPos];
+                if (_0x479caf)
+                    return _0x479caf;
+                return null;
+            }
+            function getSingleCounterBelow(yPos, xPos) {
+                const _0x3e9af4 = grid.children[(yPos + 1) * GRIDLENGTH + xPos];
+                if (_0x3e9af4)
+                    return _0x3e9af4;
+                return null;
+            }
+            function countInRow(yPos, xPos) {
+                return Array.from(grid.children).slice(yPos * GRIDLENGTH, (yPos + 1) * GRIDLENGTH).filter(_0xcdbec9 => cellIsNotEmpty(_0xcdbec9));
+            }
+            function countInColumn(yPos, xPos) {
+                return Array.from(grid.children).filter( (_0x58a9e7, _0x97a0ff) => _0x97a0ff % GRIDLENGTH === xPos && cellIsNotEmpty(_0x58a9e7));
+            }
+            function countConnectedArea(yPos, xPos) {
+                const _0x2af53c = new Set()
+                  , _0x3f8f3b = [[yPos, xPos]];
+                let _0x25cceb = [];
+                while (_0x3f8f3b.length > 0) {
+                    const [_0x25f09b,_0x42effc] = _0x3f8f3b.pop()
+                      , _0x41432d = _0x25f09b * GRIDLENGTH + _0x42effc;
+                    if (_0x25f09b < 0 || _0x25f09b >= GRIDLENGTH || _0x42effc < 0 || _0x42effc >= GRIDLENGTH || _0x2af53c.has(_0x41432d) || !cellIsNotEmpty(grid.children[_0x41432d]))
+                        continue;
+                    _0x2af53c.add(_0x41432d),
+                    _0x25cceb.push(grid.children[_0x41432d]);
+                    for (let _0x5247d9 = -1; _0x5247d9 <= 1; _0x5247d9 += 2) {
+                        _0x3f8f3b.push([_0x25f09b + _0x5247d9, _0x42effc]);
+                    }
+                    for (let _0x4a282e = -1; _0x4a282e <= 1; _0x4a282e += 2) {
+                        _0x3f8f3b.push([_0x25f09b, _0x42effc + _0x4a282e]);
+                    }
+                }
+                return _0x25cceb.filter(_0x40e545 => !_0x40e545.classList.contains('null'));
+            }
+            function countInDiagonals(yPos, xPos) {
+                const _0x43e42e = [];
+                let _0x4107f4 = yPos - 1
+                  , _0x37d52a = xPos - 1;
+                while (_0x4107f4 >= 0 && _0x37d52a >= 0) {
+                    cellIsNotEmpty(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]) && _0x43e42e.push(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]),
+                    _0x4107f4--,
+                    _0x37d52a--;
+                }
+                _0x4107f4 = yPos + 1,
+                _0x37d52a = xPos + 1;
+                while (_0x4107f4 < GRIDLENGTH && _0x37d52a < GRIDLENGTH) {
+                    cellIsNotEmpty(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]) && _0x43e42e.push(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]),
+                    _0x4107f4++,
+                    _0x37d52a++;
+                }
+                _0x4107f4 = yPos - 1,
+                _0x37d52a = xPos + 1;
+                while (_0x4107f4 >= 0 && _0x37d52a < GRIDLENGTH) {
+                    cellIsNotEmpty(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]) && _0x43e42e.push(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]),
+                    _0x4107f4--,
+                    _0x37d52a++;
+                }
+                _0x4107f4 = yPos + 1,
+                _0x37d52a = xPos - 1;
+                while (_0x4107f4 < GRIDLENGTH && _0x37d52a >= 0) {
+                    cellIsNotEmpty(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]) && _0x43e42e.push(grid.children[_0x4107f4 * GRIDLENGTH + _0x37d52a]),
+                    _0x4107f4++,
+                    _0x37d52a--;
+                }
+                return _0x43e42e;
+            }
+            function queenCount(yPos, xPos) {
+                const _0x261638 = countInRow(yPos, xPos).filter(_0x8f59da => _0x8f59da !== grid.children[yPos * GRIDLENGTH + xPos])
+                  , _0x2ee03 = countInColumn(yPos, xPos).filter(_0x46578d => _0x46578d !== grid.children[yPos * GRIDLENGTH + xPos])
+                  , _0x4dae0c = countInDiagonals(yPos, xPos).filter(_0xa3ef2a => _0xa3ef2a !== grid.children[yPos * GRIDLENGTH + xPos]);
+                return [..._0x261638, ..._0x2ee03, ..._0x4dae0c];
+            }
+            function countKnightAwayCounters(yPos, xPos) {
+                const _0x4e3c93 = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
+                  , _0x320de6 = [];
+                for (const [_0x16913a,_0x39a02b] of _0x4e3c93) {
+                    const _0x3c9002 = yPos + _0x16913a
+                      , _0x6cdd33 = xPos + _0x39a02b;
+                    _0x3c9002 >= 0 && _0x3c9002 < GRIDLENGTH && _0x6cdd33 >= 0 && _0x6cdd33 < GRIDLENGTH && _0x320de6.push(grid.children[_0x3c9002 * GRIDLENGTH + _0x6cdd33]);
+                }
+                return _0x320de6.filter(_0x30019e => _0x30019e && cellIsNotEmpty(_0x30019e));
+            }
+            function getSumCells() {
+                let _0x2f6f65 = [...grid.children].filter( (_0x178422, _0x25b444) => _0x25b444 >= GRIDLENGTH).filter(_0x5e32fa => !_0x5e32fa.className.includes('meta')).filter(_0x2a49a3 => !_0x2a49a3.style.transform.includes('rotate') || _0x2a49a3.style.transform.includes('rotate(0'));
+                return Array.from(_0x2f6f65);
+            }
+            function getSum() {
+                let _0x4b6dfc = getSumCells().reduce( (_0x3e29a6, _0xd9ba59) => _0x3e29a6 + (_0xd9ba59.dataset.moves == 'Infinity' ? Infinity : 0) + (parseFloat(_0xd9ba59.textContent) || 0), 0);
+                return _0x4b6dfc;
+            }
+            function getSumVersion1() {
+                let _0xa7bf03 = [...grid.children].filter(_0x3d3916 => !_0x3d3916.className.includes('meta'));
+                return Array.from(_0xa7bf03).reduce( (_0x1c6976, _0x54a4e3) => _0x1c6976 + (parseInt(_0x54a4e3.textContent) || 0), 0);
+            }
+            function getTrueSum() {
+                return Array.from(grid.children).reduce( (_0xd1c54d, _0x1b7f80) => _0xd1c54d + (parseInt(_0x1b7f80.textContent) || 0), 0);
+            }
+            createGrid(),
+            startLevel(1);
+            var curLevel = 1;
+            function startLevel(level) {
+                $('#promo').style.display = 'none',
+                deleteGhost(),
+                validnchange = true;
+                level !== curLevel && encounterCounter++;
+                if (speedrunMode == 0) {level > furthestLevel && (furthestLevel = level,
+                localStorage.setItem('furthestL', furthestLevel.toString()))};
+                !$('#dropdowny' + level) && put_dropdown_index(level);
+                const _0x35cbe3 = gridConfigurations[level];
+                curLevel = level,
+                $('#leveldesc').innerHTML = descriptions[level]?.['description'] ?? '',
+                levelSelector.value = level,
+                $('#prevencu').style = curLevel <= 1 ? 'visibility: hidden' : 'visibility: initial',
+                $('#nextencu').style = curLevel >= gridConfigurations.length - 1 || curLevel == furthestLevel ? 'opacity: 0.3' : 'opacity: 1';
+                let _0x3ce4ba = 5;
+                $('#grid').style.gap = '10px';
+                if (descriptions[level]?.['gridsize']) {
+                    _0x3ce4ba = descriptions[level]?.['gridsize'],
+                    initializeGrid(_0x35cbe3, descriptions[level]?.['gridsize']);
+                    if (curLevel == 29 || curLevel == 48)
+                        $('.info').style['margin-top'] = '5px',
+                        $('.tooltip').style.transform = 'translateY(30px)',
+                        curLevel == 48 && ($('#grid').style.gap = '0px');
+                    else
+                        _0x3ce4ba == 8 && ($('.info').style['margin-top'] = '5px',
+                        $('.tooltip').style.transform = 'translateY(10px)');
+                } else
+                    initializeGrid(_0x35cbe3, 5),
+                    $('.info').style['margin-top'] = '',
+                    $('.tooltip').style.transform = '';
+                $('.info').style.width = _0x3ce4ba * 90 + 'px',
+                $('.leveldesc').style.width = _0x3ce4ba * 90 + 'px',
+                $('.tooltip').style.width = _0x3ce4ba * 90 + 'px',
+                validnchange = false;
+            }
+            function clickPreviousLevel() {
+                if (winningSoNoActions)
+                    return;
+                previousLevel();
+            }
+            function clickNextLevel() {
+                if ($('#nextencu').style?.['opacity'] == '0.3')
+                    return;
+                if (winningSoNoActions)
+                    return;
+                nextLevel();
+            }
+            function clickReset() {
+                if (winningSoNoActions)
+                    return;
+                resetGrid();
+            }
+            function resetGrid() {
+                winningSoNoActions = false,
+                startLevel(curLevel),
+                play_sound('restart.mp3', 0.2);
+            }
+            function previousLevel() {
+                winningSoNoActions = false,
+                curLevel > 1 && startLevel(curLevel - 1),
+                play_sound('nexlev.mp3', 0.1);
+            }
+            function nextLevel() {
+                winningSoNoActions = false,
+                curLevel < Object.keys(gridConfigurations).length ? startLevel(curLevel + 1) : alert('Congratulations! You have completed all levels.'),
+                play_sound('nexlev.mp3', 0.1);
+            }
+            function reduceMovesByOne() {
+                $('.metamovesleft') && ($('.metamovesleft').dataset.moves = parseInt($('.metamovesleft').dataset.moves) - 1);
+            }
+            function checkIfYouAreAllowedToMove() {
+                if ($('.evilmovecounter'))
+                    return $('.evilmovecounter').classList.remove('shake'),
+                    $('.evilmovecounter').offsetWidth = $('.evilmovecounter').offsetWidth + 0,
+                    $('.evilmovecounter').classList.add('shake'),
+                    play_sound('shake.mp3', 0.5),
+                    false;
+                if ($('.metamovesleft')) {
+                    if (parseInt($('.metamovesleft').dataset.moves) == 0)
+                        return $('.metamovesleft').classList.remove('shake'),
+                        $('.metamovesleft').offsetWidth = $('.metamovesleft').offsetWidth + 0,
+                        $('.metamovesleft').classList.add('shake'),
+                        play_sound('shake.mp3', 0.5),
+                        $('#restart').classList.remove('badshake'),
+                        $('#restart').offsetWidth = $('.metamovetarget').offsetWidth + 0,
+                        $('#restart').classList.add('badshake'),
+                        updateAllCells(),
+                        setTimeout(function() {
+                            $('.metamovesleft').classList.remove('shake'),
+                            updateAllCells();
+                        }, 500),
+                        false;
+                }
+                return true;
+            }
+            function createEmptyCell() {
+                const _0xe9ad65 = document.createElement('div');
+                return _0xe9ad65.className = 'cell empty',
+                _0xe9ad65;
+            }
+            document.addEventListener('keydown', _0xd0af98 => {
+                const _0x11cf57 = _0xd0af98.key.toLowerCase();
+                let _0x2c4e6e = false;
+                (_0x11cf57 == 'arrowup' || _0x11cf57 == 'arrowdown' || _0x11cf57 == 'arrowleft' || _0x11cf57 == 'arrowright') && _0xd0af98.preventDefault();
+                if ($('#coveritup').style.display != 'none')
+                    return;
+                if (winningSoNoActions)
+                    return;
+                if ($('.ghost') && !$('.mcmc'))
+                    return;
+                if (_0x11cf57 == 'r' && !$('.ghost')) {
+                    resetGrid();
+                    return;
+                }
+                if (!checkIfYouAreAllowedToMove())
+                    return;
+                keyboardHit = true;
+                const _0x104fc2 = {
+                    'w': [-1, 0],
+                    'a': [0, -1],
+                    's': [1, 0],
+                    'd': [0, 1],
+                    'arrowup': [-1, 0],
+                    'arrowleft': [0, -1],
+                    'arrowdown': [1, 0],
+                    'arrowright': [0, 1]
+                };
+                if (_0x104fc2[_0x11cf57]) {
+                    const [_0x4f1e0b,_0x9faa21] = _0x104fc2[_0x11cf57]
+                      , _0x12ede6 = Array.from(grid.children).filter(_0x3c1c8e => _0x3c1c8e.dataset.player === 'true');
+                    let _0x5ac3d9 = _0x12ede6
+                      , _0x3d1205 = 0;
+                    while (_0x5ac3d9.length > 0 && _0x3d1205 < GRIDLENGTH + 1) {
+                        _0x3d1205++;
+                        for (let i = _0x5ac3d9.length - 1; i >= 0; i--) {
+                            const _0x1e6798 = _0x5ac3d9[i]
+                              , _0x2c7621 = Array.from(grid.children).indexOf(_0x1e6798)
+                              , _0x5ce301 = Math.floor(_0x2c7621 / GRIDLENGTH)
+                              , _0x24736a = _0x2c7621 % GRIDLENGTH
+                              , [_0x469e49,_0x15e9d0] = [_0x5ce301, _0x24736a]
+                              , [_0x1bcb46,_0x200c1f] = [parseInt(_0x469e49) + _0x4f1e0b, parseInt(_0x15e9d0) + _0x9faa21];
+                            if (_0x1bcb46 >= 0 && _0x1bcb46 < GRIDLENGTH && _0x200c1f >= 0 && _0x200c1f < GRIDLENGTH) {
+                                let _0x1f35e8 = grid.children[_0x1bcb46 * GRIDLENGTH + _0x200c1f];
+                                if (_0x1f35e8.classList.contains('empty'))
+                                    _0x2c4e6e = true,
+                                    _0x1e6798.dataset.type == 'move' && (_0x1e6798.dataset.moves = parseInt(_0x1e6798.dataset.moves) + 1),
+                                    _0x1f35e8.replaceWith(_0x1e6798.cloneNode(true)),
+                                    _0x1e6798.replaceWith(createEmptyCell()),
+                                    globalMoves++,
+                                    _0x5ac3d9.splice(i, 1);
+                                else
+                                    !_0x1f35e8.dataset.player && _0x5ac3d9.splice(i, 1);
+                            }
+                        }
+                        ;
+                    }
+                }
+                _0x2c4e6e && (play_sound('potentialclick.mp3'),
+                globalTurns++,
+                reduceMovesByOne(),
+                endOfTurnPassiveMoves(),
+                updateAllCells());
+            }
+            );
+            function destroyRandomCounter(_0x5b5e0e) {
+                let _0x17c2a6 = Array.from(grid.children).filter(_0x37593d => cellIsNotEmpty(_0x37593d) && !_0x37593d.classList.contains('doesntwork') && !_0x37593d.classList.contains('metacursum') && !_0x37593d.classList.contains('metamovetarget') && !_0x37593d.classList.contains('cacounter'));
+                _0x17c2a6 = _0x17c2a6[Math.floor(Math.random() * _0x17c2a6.length)];
+                if (!_0x17c2a6)
+                    return;
+                _0x17c2a6.classList.contains('cacounter2') && (_0x5b5e0e.replaceWith(createEmptyCell()),
+                $('.geo') && $('.geo').dataset.moves++),
+                _0x17c2a6.replaceWith(createEmptyCell()),
+                play_sound('bomm.mp3', 0.45),
+                $('.geo') && $('.geo').dataset.moves++;
+            }
+            function rotate90Degrees(elem, deg) {
+                let _0x5bc6ba = elem.style.transform || 'rotate(0deg)';
+                const _0x3eda7b = /rotate\((-?\d+.?\d*)deg\)/;
+                let _0x2866e3 = 0;
+                const _0x2fc0ff = _0x3eda7b.exec(_0x5bc6ba);
+                _0x2fc0ff && (_0x2866e3 = parseFloat(_0x2fc0ff[1]));
+                let _0x37096e = _0x2866e3 + deg;
+                elem.style.transform = 'rotate(' + _0x37096e + 'deg)';
+            }
+            function rotateNumbers(moves) {
+                const _0x281707 = moves.split('');
+                if (_0x281707.every(_0x4522bc => _0x4522bc === '6' || _0x4522bc === '0' || _0x4522bc === '9') && _0x281707[_0x281707.length - 1] != 0) {
+                    const _0x58b36c = _0x281707.reverse();
+                    for (let i = 0; i < _0x58b36c.length; i++) {
+                        if (_0x58b36c[i] === '6')
+                            _0x58b36c[i] = '9';
+                        else
+                            _0x58b36c[i] === '9' && (_0x58b36c[i] = '6');
+                    }
+                    const _0x21bea9 = _0x58b36c.join('');
+                    return _0x21bea9;
+                } else
+                    return false;
+            }
+            function checkCells(div) {
+                if (div.style.transform) {
+                    let ang = 0;
+                    const _0x464169 = /rotate\((-?\d+.?\d*)deg\)/
+                      , _0x45345e = _0x464169.exec(div.style.transform);
+                    _0x45345e && (ang = parseFloat(_0x45345e[1])),
+                    Math.abs(ang) % 360 === 90 && div.dataset.moves == '8' && (div.dataset.moves = 'Infinity',
+                    ang = 0),
+                    Math.abs(ang) % 360 === 180 && rotateNumbers(div.dataset.moves) && (div.dataset.moves = rotateNumbers(div.dataset.moves),
+                    ang = 0),
+                    div.style.transform = 'rotate(' + ang + 'deg)';
+                }
+            }
+            function endOfTurnPassiveMoves() {
+                if (lastTargetCell && lastTargetCell.classList.contains('metaturncountercw')) {
+                    let elem = getSingleCounterAbove(getCellRow(lastTargetCell), getCellColumn(lastTargetCell));
+                    elem && !elem.className.includes('meta') && cellIsNotEmpty(elem) && rotate90Degrees(elem, 90);
+                }
+                if (lastTargetCell && lastTargetCell.classList.contains('metaturncounterccw')) {
+                    let elem = getSingleCounterAbove(getCellRow(lastTargetCell), getCellColumn(lastTargetCell));
+                    elem && !elem.className.includes('meta') && cellIsNotEmpty(elem) && rotate90Degrees(elem, -90);
+                }
+                lastTargetCell = null;
+                const _0x243e34 = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+                  , _0x408bb6 = ['left', 'right', 'up', 'down'];
+                for (let i = 0; i < _0x243e34.length; i++) {
+                    const [_0x538dc9,_0x520ee3] = _0x243e34[i]
+                      , _0x549ba6 = _0x408bb6[i]
+                      , _0x423200 = Array.from(grid.children).filter(elem => elem.classList.contains('metapassive' + _0x549ba6) && elem.dataset.moves != 0);
+                    let _0x39f2b9 = _0x423200
+                      , _0x41fd80 = 0;
+                    while (_0x39f2b9.length > 0 && _0x41fd80 < GRIDLENGTH + 1) {
+                        _0x41fd80++;
+                        for (let i = _0x39f2b9.length - 1; i >= 0; i--) {
+                            const _0x25f893 = _0x39f2b9[i]
+                              , _0x503f74 = Array.from(grid.children).indexOf(_0x25f893)
+                              , _0xc5e4ff = Math.floor(_0x503f74 / GRIDLENGTH)
+                              , _0x4e6728 = _0x503f74 % GRIDLENGTH
+                              , [_0x446d9c,_0x534ffe] = [_0xc5e4ff, _0x4e6728]
+                              , [_0x434cf6,_0x1c3e36] = [parseInt(_0x446d9c) + _0x538dc9, parseInt(_0x534ffe) + _0x520ee3];
+                            if (_0x434cf6 >= 0 && _0x434cf6 < GRIDLENGTH && _0x1c3e36 >= 0 && _0x1c3e36 < GRIDLENGTH) {
+                                let _0x4d40bc = grid.children[_0x434cf6 * GRIDLENGTH + _0x1c3e36];
+                                if (_0x4d40bc.classList.contains('empty')) {
+                                    if ($('.metacounters' + _0x549ba6) && $('.metacounters' + _0x549ba6).dataset.moves > 0) {
+                                        $('.metacounters' + _0x549ba6).dataset.moves -= 1,
+                                        $('.metacounters' + _0x549ba6).classList.remove('shake'),
+                                        $('.metacounters' + _0x549ba6).offsetWidth = $('.metacounters' + _0x549ba6).offsetWidth + 0,
+                                        play_sound('shake.mp3', 0.5),
+                                        _0x39f2b9 = [],
+                                        $('.metacounters' + _0x549ba6).classList.add('shake');
+                                        continue;
+                                    } else
+                                        $('.metacounts' + _0x549ba6) && $$('.metacounts' + _0x549ba6).forEach(_0x42204f => {
+                                            _0x42204f.dataset.moves = parseInt(_0x42204f.dataset.moves) + 1;
+                                        }
+                                        );
+                                    couldMove = true,
+                                    _0x25f893.dataset.moves = parseInt(_0x25f893.dataset.moves) - 1,
+                                    _0x4d40bc.replaceWith(_0x25f893.cloneNode(true)),
+                                    _0x25f893.replaceWith(createEmptyCell()),
+                                    globalMoves++,
+                                    _0x39f2b9.splice(i, 1);
+                                } else
+                                    !_0x4d40bc.dataset.player && _0x39f2b9.splice(i, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            function countNsInTextNodes(elem) {
+                let nCount = 0;
+                if (elem.tagName == 'TITLE' || ((elem.id == 'promo' || elem.id == 'coveritup') && elem.style.display == 'none'))
+                    return 0;
+                elem.nodeType === Node.TEXT_NODE && elem.style?.['opacity'] != 0 && (nCount += elem.textContent.toLowerCase().split('n').length - 1);
+                for (let childElem of elem.childNodes) {
+                    (childElem.nodeType !== Node.ELEMENT_NODE || childElem.tagName !== 'SCRIPT' && childElem.tagName !== 'STYLE') && (nCount += countNsInTextNodes(childElem));
+                }
+                return nCount;
+            }
+            let prevInnerWidth = window.innerWidth, prevInnerHeight = window.innerHeight, prevNcounter;
+            setInterval( () => {
+                document.querySelector('.besadabouttheworldcounter') && (document.querySelector('.besadabouttheworldcounter').dataset.moves = parseInt(document.querySelector('.besadabouttheworldcounter').dataset.moves) + Math.floor(Math.random() * 4),
+                updateAllCells());
+            }
+            , 100),
+            setInterval( () => {
+                !winningSoNoActions && document.querySelector('.bloodstainedcursum') && updateAllCells();
+            }
+            , 40);
+        </script>
+    </body>
+</html>

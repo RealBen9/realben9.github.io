@@ -1,0 +1,114 @@
+<title>DoorPicker</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"><link rel="stylesheet" type="text/css" href="doorpicker.css"></head>
+<script src="../../../index.js"></script>
+<div id="snow">
+<h1>DoorPicker</h1>
+<h2>Input Display</h2>
+<p id="inputs">[]</p>
+<h2>Randomised Realm</h2>
+<img id="whiteKey" src="img/whiteKey.png" style="left:0px;top:224px">
+<img id="orangeKey" src="img/orangeKey.png" style="left:0px;top:256px">
+<img id="purpleKey" src="img/purpleKey.png" style="left:0px;top:288px">
+<img id="pinkKey" src="img/pinkKey.png" style="left:0px;top:320px">
+<img id="cyanKey" src="img/cyanKey.png" style="left:0px;top:352px">
+<img id="greenKey" src="img/greenKey.png" style="left:0px;top:384px">
+<img id="blueKey" src="img/blueKey.png" style="left:0px;top:416px">
+<img id="masterKey" src="img/masterKey.png" style="left:0px;top:448px">
+<p id="whiteKeys">x 0</p>
+<p id="orangeKeys">x 0</p>
+<p id="purpleKeys">x 0</p>
+<p id="pinkKeys">x 0</p>
+<p id="cyanKeys">x 0</p>
+<p id="greenKeys">x 0</p>
+<p id="blueKeys">x 0</p>
+<p id="masterKeys">x 0</p>
+<p id="desc">This level is randomly generated & may not be solvable. Good luck!</p>
+<div id="next" style="display:none">
+    <h2 id="next">Congratulations!</h2>
+</div>
+<img id="plr1" src="img/plr1.png" data-startX="56" data-startY="32">
+<img class="col floor2" src="img/blank.png" style="left:0px;bottom:0px;width:800px;height:32px">
+<img class="col wall2" src="img/blank.png" style="left:0px;bottom:0px;width:32px;height:416px">
+<img class="col wall2" src="img/blank.png" style="left:768px;bottom:0px;width:32px;height:416px">
+<img class="col floor2" src="img/blank.png" style="left:0px;bottom:416px;width:800px;height:32px">
+<img class="col goal" src="img/blank.png" style="left:720px;bottom:48px;width:32px;height:32px">
+</div>
+<script src="doorpicker.js"></script>
+<script>
+function generateRandomLevel() {
+    const objects = [
+        'floor1', 'wall1', 'square1', 'floor2', 'wall2',
+        'whiteDoor', 'orangeDoor', 'purpleDoor', 'pinkDoor', 'cyanDoor', 'greenDoor', 'blueDoor',
+        'whiteKey', 'orangeKey', 'purpleKey', 'pinkKey', 'cyanKey', 'greenKey', 'blueKey', 'masterKey'
+    ]
+    const levelData = []
+    const maxObjects = 9
+    const maxKeys = 5
+
+    objects.forEach(obj => {
+        if (obj.includes('Key')) {
+            count = Math.floor(Math.random() * maxKeys) + 1
+        } else {
+            count = Math.floor(Math.random() * maxObjects) + 1
+        }
+        for (let i = 0; i < count; i++) {
+            const left = (Math.floor(Math.random() * 40) + 2) * 16
+            const bottom = (Math.floor(Math.random() * 19) + 2) * 16
+            const width = (Math.floor(Math.random() * 3) + 1) * 32
+            const height = (Math.floor(Math.random() * 3) + 1) * 32
+            levelData.push({ type: obj, left, bottom, width, height })
+        }
+    })
+
+    return levelData
+}
+
+function renderLevel(levelData) {
+    const container = document.getElementById('snow')
+    levelData.forEach(item => {
+        count = Math.floor(Math.random() * 3) + 1
+        if (item.type.includes('Key') && count > 1) {
+            elemType = 'div'
+        } else {
+            elemType = 'img'
+        }
+        const element = document.createElement(elemType)
+        if (elemType == 'img') {
+            element.src = 'img/blank.png'
+        }
+        element.className = `col ${item.type}`
+        element.style.left = `${item.left}px`
+        element.style.bottom = `${item.bottom}px`
+        if (item.type == 'masterKey') {
+            count = 1
+        }
+        element.dataset.count = count
+        if (item.type.includes('Door')) {
+            element.style.width = '32px'
+            if (count == 1) {
+                element.style.height = '32px'
+            }
+            else {
+                element.style.height = '64px'
+            }
+        }
+        else if (item.type.includes('Key')) {
+            element.style.width = '32px'
+            element.style.height = '32px'
+        }
+        else {
+            element.style.width = `${item.width}px`
+            element.style.height = `${item.height}px`
+        }
+        if (item.type.includes('Key') && count > 1) {
+            element.innerHTML = `<img src="img/blank.png"><p>${count}</p>`
+        }
+        container.appendChild(element)
+    })
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const levelData = generateRandomLevel()
+    renderLevel(levelData)
+})
+</script>

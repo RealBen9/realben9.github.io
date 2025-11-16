@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+		<title>Scrabbletris</title>
+		<style>
+			body {
+				position: relative;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+                margin: 0px;
+			}
+			#myCanvas {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+        <canvas id="myCanvas" width="1600" height="900"></canvas>
+		<script language="javascript" type="text/javascript">
+		    var fourminus = [
+                [[0,0]],
+                [[0,0],[0,1]],
+                [[0,0],[1,0],[0,1]],
+                [[0,0],[1,0],[-1,0]],
+                [[0,0],[0,1],[1,0],[1,1]],
+                [[0,0],[1,0],[2,0],[-1,0]],
+                [[0,0],[1,0],[-1,0],[0,1]],
+                [[0,0],[1,0],[-1,0],[1,1]],
+                [[0,0],[1,0],[-1,0],[1,-1]],
+                [[0,0],[1,0],[0,1],[-1,1]],
+                [[0,0],[-1,0],[0,1],[1,1]]
+            ];
+		    var fiveminus = [
+                [[0,0]],
+                [[0,0],[0,1]],
+                [[0,0],[1,0],[0,1]],
+                [[0,0],[1,0],[-1,0]],
+                [[0,0],[0,1],[1,0],[1,1]],
+                [[0,0],[1,0],[2,0],[-1,0]],
+                [[0,0],[1,0],[-1,0],[0,1]],
+                [[0,0],[1,0],[-1,0],[1,1]],
+                [[0,0],[1,0],[-1,0],[1,-1]],
+                [[0,0],[1,0],[0,1],[-1,1]],
+                [[0,0],[-1,0],[0,1],[1,1]],
+                [[0,0],[0,1],[1,0],[1,1],[2,0]],
+                [[0,0],[0,1],[1,0],[1,1],[2,1]],
+                [[0,0],[1,0],[2,0],[-1,0],[-2,0]],
+                [[0,0],[1,0],[2,0],[-1,0],[0,1]],
+                [[0,0],[1,0],[2,0],[-1,0],[1,1]],
+                [[0,0],[1,0],[2,0],[-1,0],[2,1]],
+                [[0,0],[1,0],[2,0],[-1,0],[-1,1]],
+                [[0,0],[1,0],[-1,0],[1,-1],[-1,-1]],
+                [[0,-1],[1,1],[2,1],[0,1],[0,0]],
+                [[0,0],[1,0],[-1,0],[0,1],[0,-1]],
+                [[0,1],[0,0],[1,0],[-1,0],[1,-1]],
+                [[0,0],[1,0],[-1,0],[0,1],[0,2]],
+                [[0,1],[0,0],[1,0],[-1,0],[-1,-1]],
+                [[0,0],[1,0],[0,1],[0,2],[-1,2]],
+                [[0,0],[1,0],[0,1],[-1,1],[2,0]],
+                [[0,0],[-1,0],[0,1],[0,2],[1,2]],
+                [[0,0],[-1,0],[0,1],[1,1],[-2,0]]
+            ];
+            var tetrominoes = fourminus
+            var ra = 0
+            var rb = 0
+            var titletext = ""
+            var query = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+            for (let i = 0; i < query.length; i++) {
+                if (query[i].toLowerCase().slice(0,7) == "pieces=") {
+                    piecetypes = query[i].toLowerCase().slice(7)
+                    if (piecetypes == "fiveminus") {
+                        tetrominoes = fiveminus
+                        titletext = "(5-)"
+                    }
+                    if (piecetypes == "five") {
+                        tetrominoes = fiveminus
+                        ra = 11
+                        rb = 11
+                        titletext = "(5)"
+                    }
+                    if (piecetypes == "four") {
+                        tetrominoes = fourminus
+                        ra = 4
+                        rb = 4
+                        titletext = "(4)"
+                    }
+                    if (piecetypes == "threeminus") {
+                        tetrominoes = fourminus
+                        ra = 7
+                        titletext = "(3-)"
+                    }
+                    if (piecetypes == "three") {
+                        tetrominoes = fourminus
+                        ra = 9
+                        rb = 2
+                        titletext = "(3)"
+                    }
+                    if (piecetypes == "twominus") {
+                        tetrominoes = fourminus
+                        ra = 9
+                        titletext = "(2-)"
+                    }
+                    if (piecetypes == "two") {
+                        tetrominoes = fourminus
+                        ra = 10
+                        rb = 1
+                        titletext = "(2)"
+                    }
+                    if (piecetypes == "one") {
+                        tetrominoes = fourminus
+                        ra = 10
+                        titletext = "(1)"
+                    }
+                }
+            }
+            
+            var audio_pack_len = 5;
+            var audio_filenames = ["break0","break1","break2","side","down0","down1","down2","down3","land","rotate","send","menu","hold","gameover"];
+            let audio = new Map();
+            for(var i = 0; i < audio_filenames.length; i++){
+                var stri = audio_filenames[i];
+                var filepath = stri+'.wav';
+                var newAudio = new Audio(filepath);
+                var na_pack = [0,newAudio];
+                na_pack[1].load();
+                audio.set(stri, na_pack);
+            }
+            var ECHO_DELAY = 50;
+            var ECHO_TIME = 1000;
+            function getRandomLetter(){
+                var choice = Math.random();
+                for(var i = 0; i < ALPHA_N; i++){
+                    if(freqs[i] > choice){
+                        return i+1;
+                    }
+                }
+            }
+            function playAudio(stri){
+                var pack = audio.get(stri);
+                pack[pack[0]+1].play();
+                pack[0] = (pack[0]+1)%audio_pack_len;
+                while(pack.length < pack[0]+2){
+                    pack.push(pack[1].cloneNode(true));
+                    pack[pack.length-1].load();
+                }
+            }
+            class Button{
+                constructor(index,x,y,w,h,text){
+                    this.index = index;
+                    this.x = x;
+                    this.y = y;
+                    this.w = w;
+                    this.h = h;
+                    this.col = "#FFCC00";
+                    this.text = text;
+                }
+                drawButton(){
+                    ctx.fillStyle = this.col;
+                    if(this.index < 4){
+                        var op = Math.floor(this.index/2);
+                        var val = (this.index%2 == 1);
+                        if(options[op] != val){
+                            ctx.fillStyle = grayedColor;
+                        }
+                    }else if(this.index < 8){
+                        var g = Math.floor(this.index/2)-2;
+                        var dire = (this.index%2 == 1);
+                        if((dire == 0 && heights[g] <= BOARD_MIN_H) ||
+                        (dire == 1 && heights[g] >= BOARD_MAX_H)){
+                            ctx.fillStyle = grayedColor;
+                        }
+                    }else if(this.index == 8){
+                        if(dicty == null){
+                            ctx.fillStyle = grayedColor;
+                        }
+                    }
+                    ctx.fillRect(this.x,this.y,this.w,this.h);
+                    var txt = this.text;
+                    if(this.text === "Pause"){
+                        centerText(ctx,"(ESC)",this.x+this.w/2,this.y+77,"#000000",32);
+                        if(paused){
+                            txt = "Resume";
+                        }
+                    }
+                    centerText(ctx,txt,this.x+this.w/2,this.y+45,"#000000",32);
+                }
+                testClick(mX,mY){
+                    return (mX >= this.x && mX < this.x+this.w && mY >= this.y && mY < this.y+this.h);
+                }
+            }
+		    class Piece{
+		        constructor(getBomb){
+		            this.pieceType = r(tetrominoes.length-ra)+rb;
+		            if(getBomb){
+		                this.pieceType = 0;
+		            }
+		            var len = tetrominoes[this.pieceType].length;
+		            this.info = new Array(len);
+		            this.x = -1;
+		            this.y = -1;
+		            for(var t = 0; t < len; t++){
+		                var x = tetrominoes[this.pieceType][t][0];
+		                var y = tetrominoes[this.pieceType][t][1];
+		                var letter = getRandomLetter();
+		                if(getBomb){
+		                    letter = BOMB_N;
+		                }
+		                this.info[t] = [x,y,letter];
+		            }
+		            this.preRotateInfo = JSON.parse(JSON.stringify(this.info));
+		        }   
+		        placeOnBoard(){
+		            this.x = 5;
+		            var minY = 0;
+		            for(var t = 0; t < this.info.length; t++){
+                      var thisY = this.info[t][1];
+                      if(thisY < minY){
+                          minY = thisY;
+                      }
+		            }
+		            this.y = -minY;
+		        }
+		    }
+		    class Game{
+		      constructor(index,grid_W,grid_H) {
+		        this.index = index;
+		        this.alive = true;
+                this.board = newArray(grid_W,grid_H,0);
+                this.queue = new Array(QUEUE_LENGTH);
+                this.drop = null;
+                this.queueDropTime = -1;
+                this.disappearDropTime = -1;
+                this.vibrationTime = -1;
+                this.score = 0;
+                this.recentWords = [];
+                this.downPress = false;
+                this.hold = null;
+                this.alreadyHeld = false;
+                this.clearArrays();
+                this.winner = true;
+                this.lands = 0;
+                this.echo = ["",0,true];
+                this.finalSpeed = 0;
+                this.startTime = Date.now();
+                this.endTime = null;
+                for(var q = 0; q < QUEUE_LENGTH; q++){
+                    this.queue[q] = new Piece();
+                }
+                this.pullFromQueue();
+              }
+              shiftTimers(dur){
+                this.queueDropTime += dur;
+                this.disappearDropTime += dur;
+                this.vibrationTime += dur;
+                this.startTime += dur;
+                if(this.endTime != null){
+                    this.endTime += dur;
+                }
+              }
+              pullFromQueue(getBomb){
+                this.drop = this.queue.shift();
+                this.drop.placeOnBoard();
+                this.queue[QUEUE_LENGTH-1] = new Piece(getBomb);
+                this.queueDropTime = Date.now();
+              }
+              dropPiece(){
+                if(this.hittingGround()){
+                    var isBomb = (this.drop.info[0][2] == BOMB_N);
+                    this.imprintPiece();
+                    this.disp = newArrayShape(this.board,0);
+                    this.recentWords = [];
+                    if(isBomb){
+                        this.explode();
+                        this.makePiecesFall();
+                        this.pullFromQueue(false);
+                    }else{
+                        var wordsNow = this.scanBoard(true);
+                        var shouldGetBomb = this.shouldGetBombFrom(wordsNow);
+                        this.pullFromQueue(shouldGetBomb);
+                    }
+                    this.alreadyHeld = false;
+                    this.checkForAlive();
+                    return false;
+                }
+                this.drop.y += 1;
+                var v = 0;
+                if(games.length == 2){
+                    v = this.index+(this.lands%2)*2;
+                }else{
+                    v = this.drop.y%4;
+                }
+                playAudio("down"+v);
+                return true;
+              }
+              checkForAlive(){
+                for(var x = 0; x < this.board.length; x++){
+                    if(this.board[x][0] >= 1){
+                        this.finalSpeed = this.getSpeed();
+                        this.endTime = Date.now();
+                        this.alive = false;
+                        playAudio("gameover");
+                        if(games.length == 2){
+                            var other = games[1-this.index];
+                            if(other.alive){
+                                this.winner = false;
+                            }
+                        }
+                    }
+                }
+              }
+              clearArrays(){
+                this.settled = true;
+                this.toRemove = newArrayShape(this.board,false);
+                this.justVanished = newArrayShape(this.board,0);
+                this.disp = newArrayShape(this.board,0);
+              }
+              scanBoard(asLand){
+                this.clearArrays();
+                var wordsNow = this.checkForWords();
+                this.makePiecesFall();
+                this.checkForOpponentWords(wordsNow);
+                if(wordsNow.length >= 1){ // active
+                    playAudio("break"+Math.floor(Math.random()*3));
+                    var longest = this.getLongestWord(wordsNow,0);
+                    this.echo = [longest[0],Date.now(),false];
+                    this.recentWords = wordsNow;
+                }else if(asLand){
+                    playAudio("land");
+                    this.lands += 1;
+                }
+                return wordsNow;
+              }
+              shouldGetBombFrom(wordsNow){
+                  if(options[1] == 1){
+                      return false;
+                  }else{
+                      for(var w = 0; w < wordsNow.length; w++){
+                          if(wordsNow[w][0].length >= 4){
+                              return true;
+                          }
+                      }
+                      return false;
+                  }
+              }
+              getLongestWord(wordsNow, minLength){
+                  var recordHolder = null;
+                  for(var w = 0; w < wordsNow.length; w++){
+                      var rw = wordsNow[w];
+                      if(rw[0].length >= minLength && (recordHolder == null || rw[0].length >= recordHolder[0].length)){
+                          recordHolder = rw;
+                      }
+                  }
+                  return recordHolder;
+              }
+              checkForOpponentWords(wordsNow){
+                  if(games.length >= 2){
+                      var sendLength = 5;
+                      var longest = this.getLongestWord(wordsNow,sendLength);
+                      if(longest != null){
+                          this.sendToOpponent(longest);
+                      }
+                  }
+              }
+              sendToOpponent(rw){
+                  var stri = rw[0];
+                  var oGame = games[1-this.index];
+                  var choiceX = rw[1];
+                  if(rw[2] == 1){ // it's vertical.
+                    choiceX -= Math.floor(stri.length/2);
+                    if(stri.length%2 == 0){ // it's an even-length word, so you can be on the left or right sides
+                        if(Math.random() > 0.5){
+                            choiceX += 1;
+                        }
+                    }
+                    choiceX = Math.min(Math.max(choiceX,0),oGame.board.length-stri.length);
+                  }
+                  var bottomY = oGame.board[0].length-1;
+                  for(var x = choiceX; x < choiceX+stri.length; x++){
+                      for(var y = 0; y < bottomY; y++){
+                          oGame.board[x][y] = oGame.board[x][y+1];
+                      }
+                      oGame.board[x][bottomY] = stri.charCodeAt(x-choiceX)-64+ALPHA_N;
+                  }
+                  oGame.vibrationTime = Date.now();
+                  oGame.settled = false;
+                  oGame.disappearDropTime = Date.now();
+                  playAudio("send");
+              }
+              explode(){
+                  this.clearArrays();
+                  var x = this.drop.x;
+                  var y = this.drop.y;
+                  var x_start = Math.max(x-1,0);
+                  var x_end = Math.min(x+1,this.board.length-1);
+                  var y_start = Math.max(y-1,0);
+                  var y_end = Math.min(y+1,this.board[0].length-1);
+                  for(var ex = x_start; ex <= x_end; ex++){
+                      for(var ey = y_start; ey <= y_end; ey++){
+                        this.toRemove[ex][ey] = true;
+                        this.justVanished[ex][ey] = -this.board[ex][ey];
+                        if(this.board[ex][ey] >= 1){
+                            this.score += 1;
+                        }
+                      }
+                  }
+                  playAudio("break"+Math.floor(Math.random()*3));
+                  this.recentWords = [["!!!",x,0]];
+              }
+              imprintPiece(){
+                  for(var t = 0; t < this.drop.info.length; t++){
+                      var at_me_x = this.drop.x+this.drop.info[t][0];
+                      var at_me_y = this.drop.y+this.drop.info[t][1];
+                      var tile = this.drop.info[t][2];
+                      if(this.isInBounds(at_me_x,at_me_y)){
+                        this.board[at_me_x][at_me_y] = tile;
+                      }
+                  }
+              }
+              isInBounds(x,y){
+                  return (x >= 0 && x < this.board.length && y >= 0 && y < this.board[0].length);
+              }
+              isFilled(x,y){
+                  if(!this.isInBounds(x,y)){
+                      return true;
+                  }else if(this.board[x][y] >= 1){
+                      return true;
+                  }
+                  return false;
+              }
+              hittingGround(){
+	            for(var t = 0; t < this.drop.info.length; t++){
+	                var newX = this.drop.x+this.drop.info[t][0];
+	                var newY = this.drop.y+this.drop.info[t][1]+1;
+	                if(this.isFilled(newX,newY)){
+	                    return true;
+	                }
+	            }
+	            return false;
+	          }
+	          moveSide(sign){
+	            for(var t = 0; t < this.drop.info.length; t++){
+                  var beside_x = this.drop.x+this.drop.info[t][0]+sign;
+                  var beside_y = this.drop.y+this.drop.info[t][1];
+                  if(this.isFilled(beside_x,beside_y)){
+	                return true;
+	              }
+                }
+                playAudio("side");
+	            this.drop.x += sign;
+	          }
+	          instaDrop(){
+	              while(this.dropPiece()){
+	              }
+	          }
+	          rotate(sign){
+	              var copy = JSON.parse(JSON.stringify(this.drop.info));
+	              var minX = 9999;
+	              var minY = 9999;
+	              for(var t = 0; t < copy.length; t++){
+	                  var ph = copy[t][0];
+	                  copy[t][0] = -sign*copy[t][1];
+	                  copy[t][1] = sign*ph;
+	                  minX = Math.min(minX,copy[t][0]);
+	                  minY = Math.min(minY,copy[t][1]);
+	              }
+	              if(this.drop.pieceType == SQUARE_N || this.drop.pieceType == L_N){
+	                  for(var t = 0; t < copy.length; t++){
+	                      copy[t][0] -= minX;
+	                      copy[t][1] -= minY;
+	                  }
+	              }
+	              var x_shift = this.getFittingXshift(copy);
+	              if(x_shift != null){
+	                this.drop.x += x_shift;
+	                playAudio("rotate");
+	                this.drop.info = copy;
+	              }
+	          }
+	          
+	          getFittingXshift(copy){
+	              var x_shift_options = [0,1,-1];
+	              if(this.drop.pieceType == LINE_N){
+	                  x_shift_options = [0,1,-1,2,-2];
+	              }
+	              var x_shift_choice = null;
+	              for(var s = 0; s < x_shift_options.length; s++){
+	                  var dx = x_shift_options[s];
+	                  var valid = true;
+    	              for(var t = 0; t < copy.length; t++){
+    	                  var newX = this.drop.x+copy[t][0]+dx;
+    	                  var newY = this.drop.y+copy[t][1];
+    	                  if(this.isFilled(newX,newY)){
+    	                      valid = false;
+    	                  }
+    	              }
+    	              if(valid){
+    	                  return dx;
+    	              }
+	              }
+	              return null;
+	          }
+	          
+	          checkForWord(x,y,LEN,dim,wordsNow){
+	              var word = "";
+                  var valid = true;
+                  var margin = options[1] ? 1 : 0;
+                  var containsFresh = false;
+                  for(var le = 0; le < LEN; le++){
+                      var dx = (1-dim)*le;
+	                  var dy = (dim)*le;
+                      if(!this.isInBounds(x+dx,y+dy)){
+                          return;
+                      }
+                      var tile = this.board[x+dx][y+dy];
+                      
+                      if(tile == 0){
+                          valid = false;
+                          continue;
+                      }
+                      word += numToLet(tile);
+                      if(tile <= ALPHA_N){
+                          containsFresh = true;
+                      }
+                  }
+                  if(valid && dicty[word.length].has(word) && containsFresh){
+                      for(var perp = -margin; perp <= margin; perp++){
+                          for(var le = -margin; le < LEN+margin; le++){
+                              var dx = (1-dim)*le+(dim)*perp;
+    	                      var dy = (dim)*le+(1-dim)*perp;
+    	                      if(this.isInBounds(x+dx,y+dy)){
+    	                          if(this.board[x+dx][y+dy] >= 1){
+                                      var sign = (perp == 0 && le >= 0 && le < LEN) ? 1 : -1;
+                                      if(sign == 1 || this.justVanished[x+dx][y+dy] == 0){
+                                        this.justVanished[x+dx][y+dy] = sign*this.board[x+dx][y+dy];
+                                      }
+                                      if(!this.toRemove[x+dx][y+dy]){
+            	                          this.score += 1;
+        	                          }
+    	                          }
+    	                          this.toRemove[x+dx][y+dy] = true;
+    	                      }
+                          }
+                      }
+                      wordsNow.push([word,x,dim]);
+                  }
+	          }
+	          checkForWords(){
+	              var wordsNow = [];
+	              var SHORTEST = options[1] ? 4 : 3;
+	              for(var len = SHORTEST; len <= MAX_WORD_LENGTH; len++){
+                      for(var x = 0; x <= this.board.length; x++){
+                          for(var y = 0; y < this.board[0].length; y++){
+                              for(var dim = 0; dim < 2; dim++){
+                                this.checkForWord(x,y,len,dim,wordsNow);
+                              }
+                          }
+    	              }
+	              }
+	              return wordsNow;
+	          }
+	          makePiecesFall(){
+	              for(var x = 0; x < this.board.length; x++){
+                      for(var y = 0; y < this.board[0].length; y++){
+                          if(this.toRemove[x][y]){
+                              this.settled = false;
+                              for(var fy = y; fy >= 1; fy--){
+                                  this.board[x][fy] = this.board[x][fy-1];
+                                  this.disp[x][fy] = this.disp[x][fy-1];
+                                  this.disp[x][fy] -= 1;
+                              }
+                              this.board[x][0] = 0;
+                              this.disappearDropTime = Date.now();
+                              this.vibrationTime = Date.now();
+                          }
+                      }
+	              }
+	          }
+	          pressDown(){
+	              if(!this.downPress){
+	                  this.downPress = true;
+	                  var now = Date.now();
+    	              if(this.queueDropTime < now-this.getTimeToDrop()){
+    	                  this.queueDropTime = now-this.getTimeToDrop();
+    	              }
+	              }
+	          }
+	          iterate(){
+	            if(this.alive){
+    	            var now = Date.now();
+                    while(now >= this.queueDropTime+this.getTimeToDrop()){
+                        this.queueDropTime += this.getTimeToDrop();
+                        this.dropPiece();
+                    }
+                    if(!this.settled && now >= this.disappearDropTime+this.getTimeToSpirit()){
+                        this.settled = (this.scanBoard(false).length == 0);
+                    }
+                    if(!this.echo[2] && Date.now() >= this.echo[1]+ECHO_DELAY){
+                        speak(this.echo[0],1.0);
+                        this.echo[2] = true;
+                    }
+	            }
+	          }
+	          getShake(){
+	              var timePassed = getNow()-this.vibrationTime;
+			      var shake = 12*Math.pow(0.005,timePassed/1000);
+			      if(shake < 0.1){
+			          return 0;
+			      }
+			      var choice = (frand(timePassed,0))*2-1;
+	              return choice*shake;
+	          }
+	          getTimeToDrop(){
+	              var val = 1000/this.getSpeed();
+	              if(this.downPress){
+	                  val /= 8;
+	              }
+	              return val;
+	          }
+	          listRecentWords(){
+	              var result = "";
+	              for(var w = 0; w < this.recentWords.length; w++){
+                      var rw = this.recentWords[w][0];
+                      if(w >= 1){
+                          result += ", ";
+                      }
+                      result += rw;
+	              }
+	              return result;
+	          }
+	          holdPiece(){
+	              if(!this.alreadyHeld){
+    	              if(this.hold == null){
+    	                  this.hold = this.drop;
+    	                  this.hold.info = this.hold.preRotateInfo;
+    	                  this.pullFromQueue();
+    	              }else{
+    	                  var ph = this.drop;
+    	                  this.drop = this.hold;
+    	                  this.hold = ph;
+    	                  this.hold.info = this.hold.preRotateInfo;
+    	                  this.drop.placeOnBoard();
+    	              }
+    	              this.alreadyHeld = true;
+    	              playAudio("hold");
+    	              this.queueDropTime = Date.now();
+	              }
+	          }
+	          getSpeed(){
+	            if(!this.alive){
+	                return this.finalSpeed;
+	            }
+	            if(games.length == 1){
+		            return 1+this.score/100;
+	            }else{
+	                var other = games[1-this.index];
+	                if(!other.alive){
+	                    return 1+this.score/100;
+	                }
+	                return 1+other.score/100;
+	            }
+		      }
+		      getTimeToSpirit(){
+                return 2000/this.getSpeed();
+              }
+              getExtremeDPY(sign){
+                  var record = -sign*9999;
+                  for(var t = 0; t < this.drop.info.length; t++){
+                      var at_me_y = this.drop.y+this.drop.info[t][1];
+                      if(sign*at_me_y > sign*record){
+                          record = at_me_y;
+                      }
+                  }
+                  return record;
+              }
+		    }
+		    function newArrayShape(example, value){
+		        var W = example.length;
+		        var H = example[0].length;
+		        var arr = new Array(W);
+                for(var x = 0; x < W; x++){
+                    arr[x] = new Array(H);
+                    for(var y = 0; y < H; y++){
+                        arr[x][y] = value;
+                    }
+                }
+                return arr;
+		    }
+		    function newArray(W,H,value){
+		        var arr = new Array(W);
+                for(var x = 0; x < W; x++){
+                    arr[x] = new Array(H);
+                    for(var y = 0; y < H; y++){
+                        arr[x][y] = value;
+                    }
+                }
+                return arr;
+		    }
+		    function hue_to_RGB(hue,green_suppress){
+		        var hp = (hue*6)%1.0;
+		        if(hue < 1/6){
+		            return [255,hp*255*green_suppress,0];
+		        }else if(hue < 2/6){
+		            return [255-hp*255,255*green_suppress,0];
+		        }else if(hue < 3/6){
+		            return [0,255*green_suppress,hp*255];
+		        }else if(hue < 4/6){
+		            return [0,(255-hp*255)*green_suppress,255];
+		        }else if(hue < 5/6){
+		            return [hp*255,0,255];
+		        }else{
+		            return [255,0,255-hp*255];
+		        }
+		    }
+		    loadFreqs();
+		    loadWords();
+			var c=document.getElementById("myCanvas");
+            myCanvas.width = window.innerWidth
+            myCanvas.height = window.innerHeight
+			c.onmousedown = onClick;
+            var ctx = c.getContext("2d");
+            var cW = myCanvas.width;
+            var cH = myCanvas.height;
+            var BOARD_W = 10;
+            var BOARD_MIN_H = 2;
+            var BOARD_MAX_H = 20;
+            var ALPHA_N = 26;
+            var TILE_S = 40;
+            var QUEUE_LENGTH = 5;
+            var BOMB_N = ALPHA_N*2+1;
+            var MAX_WORD_LENGTH = 10;
+            var dicty = null;
+            
+            var bgColor = "#000000";
+            var borderColor = "#808080";
+            var dropColor = "#FFFFFF";
+            var spiritColor = "#00FFFF";
+            var textColor = "#000000";
+            var statTextColor = "#FFFFFF";
+            var grayedColor = "#808080";
+            var explosionColor = "#FFFF00";
+            var holdColors = ["#00FF00","#008000"];
+            var games = null;
+            var freqs = null;
+            var wordList = null;
+            var menu = true;
+            var SQUARE_N = 4;
+            var L_N = 2;
+            var LINE_N = 5;
+            var heights = [BOARD_MAX_H,BOARD_MAX_H];
+            var paused = false;
+            var pauseTime = -1;
+            
+            var options = [false,true];
+            var buttons = [new Button(0,30,200,400,70,"1 player"),
+            new Button(1,460,200,400,70,"2 players"),
+            new Button(2,30,670,400,70,"Boring-3 Mode"),
+            new Button(3,460,670,400,70,"Explosive-4 Mode"),
+            new Button(4,30,300,70,70,"<"),
+            new Button(5,360,300,70,70,">"),
+            new Button(6,460,300,70,70,"<"),
+            new Button(7,790,300,70,70,">"),
+            new Button(8,30,770,830,70,"Go")];
+            var SYNTH_COUNT = 10;
+            var synth = window.speechSynthesis;
+            
+            var controlsImages = [new Image, new Image];
+            for(var c = 0; c < 2; c++){
+                controlsImages[c].src = 'controls'+c+'.png';
+            }
+            
+            //speak("Welcome to Scrabbletris! Play it immediately or else.",1.0);
+            
+            var gameButtons = [new Button(9,cW/2-140,cH-112,130,102,"Pause"),
+                new Button(10,cW-140,cH-80,130,70,"Menu")];
+            
+            async function loadFreqs() {
+              const response = await fetch("freq.tsv");
+              const freqText = await response.text();
+              freqs = createFreqTable(freqText);
+            }
+            async function loadWords() {
+              const response = await fetch("dictionary.txt");
+              const dictText = await response.text();
+              dicty = createDicty(dictText);
+            }
+            function getEnglishVoices(){
+                var result = [];
+                var list = synth.getVoices();
+                for(var v = 0; v < list.length; v++){
+                    var name = list[v].name
+                    if(name.includes("English") || name.includes("Welsh") || name.includes("Irish")){
+                        result.push(list[v]);
+                    }
+                }
+                return result;
+            }
+            function speak(stri, vol){
+                var voices = getEnglishVoices();
+                var utterance = new SpeechSynthesisUtterance(stri);
+                utterance.voice = voices[r(voices.length)];
+                utterance.volume = vol;
+                synth.speak(utterance);
+            }
+            
+
+            
+            function createFreqTable(freq_file){
+                var freq_lines = freq_file.split("\n");
+                var freq = new Array(ALPHA_N);
+                var total = freq_lines[0].split("\t")[1];
+                var summer = 0;
+                for(var a = 0; a < ALPHA_N; a++){
+                    var val = Number(freq_lines[1+a].split("\t")[1]);
+                    summer += val;
+                    freq[a] = summer/total;
+                }
+                return freq;
+            }
+            function createDicty(dict_text){
+                var result = new Array(MAX_WORD_LENGTH+1);
+                for(var len = 0; len < MAX_WORD_LENGTH+1; len++){
+                    result[len] = new Set();
+                }
+                var lines = dict_text.split("\n");
+                for(var i = 0; i < lines.length; i++){
+                    var len = lines[i].length;
+                    if(len <= MAX_WORD_LENGTH){
+                        result[len].add(lines[i]);
+                    }
+                }
+                return result;
+            }
+            
+            self.setInterval(function(){run()},1000/60);
+			function run(){
+			    if(menu){
+			        drawMenu();
+			    }else{
+			        runGame();
+                    drawScreen();
+			    }
+            }
+            function multiLinePrint(ctx, stris, x, y, col, size){
+                ctx.fillStyle = col;
+                ctx.font = size+"px Helvetica";
+                for(var s = 0; s < stris.length; s++){
+                    ctx.fillText(stris[s],x,y+s*size);
+                }
+            }
+            function drawMenu(){
+                ctx.fillStyle = bgColor;
+				ctx.fillRect(0,0,cW,cH);
+				ctx.fillStyle = statTextColor;
+				ctx.font = "96px Helvetica";
+                ctx.fillText("SCRABBLETRIS "+titletext,30,110);
+                drawButtons();
+                var stri = [["In Boring-3 Mode: 3+ letter words will clear","4+ letter words will gift you an explosive (!!!)","5+ letter words will be sent to the opponent."],
+                ["In Explosive-4 Mode:","4+ letter words will clear and explode","5+ letter words will be sent to the opponent."]];
+                multiLinePrint(ctx,stri[options[1]?1:0],880,677,statTextColor,24);
+
+                for(var g = 0; g < options[0]+1; g++){
+                    ctx.drawImage(controlsImages[g], 55+430*g, 380, 350, 250);
+                }
+                
+                stri = ["When you send your opponent a 5+ letter word,","they will receive it in gray tiles.","A word will only \"register\"","if at least one tile in the word is not gray."];
+                multiLinePrint(ctx,stri,880,787,statTextColor,24);
+            }
+            function drawButtons(){
+                for(var b = 0; b < buttons.length; b++){
+                    if(!(b >= 6 && b < 8) || options[0] == 1){
+                        var bu = buttons[b];
+                        bu.drawButton();
+                    }
+                }
+                for(var g = 0; g < options[0]+1; g++){
+                    var stri = "Board height: "+heights[g];
+                    centerText(ctx,stri,230+g*430,345,"#FFFFFF",32);
+                }
+            }
+            function runGame(){
+                if(games != null && !paused){
+                    for(var g = 0; g < games.length; g++){
+                        games[g].iterate();
+                    }
+                }
+            }
+            function drawScreen(){
+                ctx.fillStyle = bgColor;
+				ctx.fillRect(0,0,cW,cH);
+				if(games != null){
+			    	for(var g = 0; g < games.length; g++){
+    				    drawPlayer(games[g],200+800*g,14);
+    				}
+				}
+				for(var b = 0; b < gameButtons.length; b++){
+                    var bu = gameButtons[b];
+                    bu.drawButton();
+                }
+                if(paused){
+                    centerText(ctx,"GAME PAUSED",cW/2,cH/2,"#FFFFFF",96);
+                }
+			}
+			function drawPlayer(game,x,y){
+			    var shakeX = game.getShake();
+			    var shakeY = game.getShake();
+			    drawGrid(game,x+shakeX,y+shakeY,TILE_S);
+			    drawQueue(game.queue,x+480,y+TILE_S*0.5,TILE_S,grayedColor);
+			    drawHold(game,x-90,y);
+			    drawStats(game,x,y+TILE_S*game.board[0].length);
+			    drawGameOver(game,x,y);
+			}
+			function drawHold(game,x,y){
+			    if(game.hold != null){
+			        var col = holdColors[game.alreadyHeld ? 1 : 0];
+			        drawQueue([game.hold],x-TILE_S*0.5,y+TILE_S*1.5,TILE_S,col);
+			        centerText(ctx,"HOLD",x,y+TILE_S*0.5,col,32);
+			    }
+			}
+			function drawGameOver(game,x,y){
+			    if(!game.alive){
+    			    ctx.fillStyle = statTextColor;
+                    ctx.font = "96px Helvetica";
+                    ctx.fillText("GAME",x+40,y+200);
+                    ctx.fillText("OVER",x+40,y+300);
+                    if(games.length == 2){
+                        var subtext = (game.winner ? "WIN!" : "LOSE.");
+                        ctx.fillText("YOU",x+40,y+500);
+                        ctx.fillText(subtext,x+40,y+600);
+                    }
+			    }
+			}
+			function drawStats(game,x,y){
+			    ctx.fillStyle = statTextColor;
+                ctx.font = "32px Helvetica";
+                ctx.fillText(game.listRecentWords(),x,y+72);
+                var stri = (options[1] == 1) ? "Score: " : "Bore: ";
+                ctx.fillText(titletext+" "+stri+game.score,x,y+40);
+                var sp = game.getSpeed().toFixed(2);
+                var spp = (game.getSpeed()*8).toFixed(2);
+                ctx.fillText(sp+" dps",x+240,y+40);
+                ctx.fillText(spp+" dwn",x+240,y+80);
+                
+                var now = paused ? pauseTime : Date.now();
+                var gameTime = (game.alive ? now : game.endTime) - game.startTime;
+                ctx.fillText(timify(gameTime),x-145,y+40);
+			}
+			function timify(val){
+		        var mins = ""+Math.floor(val/60000);
+		        var ten_sec = ""+Math.floor(val/10000)%6;
+		        var sec = ""+Math.floor(val/1000)%10;
+		        var sec_tenth = ""+Math.floor(val/100)%10;
+		        return mins+":"+ten_sec+sec+"."+sec_tenth;
+			}
+			function drawQueue(queue, grid_X, grid_Y, S, queueColor){
+			    for(var q = 0; q < queue.length; q++){
+			        var py = grid_Y+q*S*3;
+                    var piece = queue[q];
+                    var extremes = [999,-999,999,-990];
+                    for(var t = 0; t < piece.info.length; t++){
+    			        var tx = piece.info[t][0];
+    			        var ty = piece.info[t][1];
+    			        extremes[0] = Math.min(extremes[0],tx);
+    			        extremes[1] = Math.max(extremes[1],tx);
+    			        extremes[2] = Math.min(extremes[2],ty);
+    			        extremes[3] = Math.max(extremes[3],ty);
+    			    }
+    			    var midX = (extremes[0]+extremes[1])/2;
+    			    var midY = (extremes[2]+extremes[3])/2;
+    			    var mar = 0.2;
+    			    var rx = grid_X+(extremes[0]-midX-mar)*S;
+    			    var ry = py+(extremes[2]-midY-mar)*S;
+    			    var rw = (extremes[1]-extremes[0]+1+mar*2)*S;
+    			    var rh = (extremes[3]-extremes[2]+1+mar*2)*S;
+    			    var rr = mar*S;
+    			    ctx.fillStyle = queueColor;
+    			    ctx.fillRect(rx,ry,rw,rh,rr);
+    			    
+    			    for(var t = 0; t < piece.info.length; t++){
+    			        var ax = piece.info[t][0]-midX;
+    			        var ay = piece.info[t][1]-midY;
+    			        var tl = piece.info[t][2];
+    			        drawTile(grid_X+ax*S,py+ay*S,0,tl,S,1,0);
+    			    }
+                }
+			}
+			function getNow(){
+			    if(paused){
+			        return pauseTime;
+			    }else{
+			        return Date.now();
+			    }
+			}
+			function drawGrid(game, grid_X, grid_Y, S){
+			    var board = game.board;
+			    var drop = game.drop;
+			    var timePassed = getNow()-game.disappearDropTime;
+			    var fac = Math.min(Math.max(timePassed/game.getTimeToSpirit(),0),1);
+			    var decay = 0.5+0.5*Math.cos(fac*Math.PI);
+			    
+			    for(var x = 0; x < board.length; x++){
+			        for(var y = 0; y < board[x].length; y++){
+			            var tile = board[x][y];
+			            var ax = grid_X+S*x;
+			            var ay = grid_Y+S*y;
+			            drawTile(ax,ay,game.disp[x][y]*S*decay,tile,S,1,0);
+			        }
+			    }
+			    if(decay >= 0.00001){
+    			    for(var x = 0; x < board.length; x++){
+    			        for(var y = 0; y < board[x].length; y++){
+    			            var spirit = game.justVanished[x][y];
+    			            var ax = grid_X+S*x;
+        			        var ay = grid_Y+S*y;
+    			            if(spirit >= 1){
+    			                drawTile(ax,ay,0,spirit,S,decay,2);
+    			            }else if(spirit <= -1){
+    			                drawExplosion(ax,ay,S,decay,timePassed);
+    			            }
+    			        }
+    			    }
+			    }
+			    if(game.alive){
+			        var fastTimePassed = getNow()-game.queueDropTime;
+			        var fastDecay = Math.pow(0.03,fastTimePassed/100);
+        			for(var t = 0; t < drop.info.length; t++){
+    			        var di = drop.info[t];
+    			        var x = drop.x+di[0];
+    			        var y = drop.y+di[1];
+    			        var tile = di[2];
+    			        var ax = grid_X+S*x;
+    			        var ay = grid_Y+S*y;
+    			        drawTile(ax,ay,-fastDecay*S,tile,S,1,1);
+    			    }
+    			    var timeSince = Date.now()-game.echo[1];
+    			    if(timeSince <= ECHO_TIME){
+    			        var BW = game.board.length;
+    			        var BH = game.board[0].length;
+    			        var size = 0.5-0.5*Math.cos(timeSince/ECHO_TIME*2*Math.PI);
+    			        var highest_dpy = game.getExtremeDPY(1)-fastDecay;
+    			        var lowest_dpy = game.getExtremeDPY(-1)-fastDecay;
+    			        var mid_dpy = (highest_dpy+lowest_dpy)/2;
+    			        
+    			        var textY = BH*0.3333;
+    			        if(textY >= lowest_dpy-2 && textY <= highest_dpy+2){
+    			            if(textY > mid_dpy){
+    			                textY = highest_dpy+2;
+    			            }else{
+    			                textY = lowest_dpy-2;
+    			            }
+    			        }
+    			        centerText(ctx,game.echo[0],grid_X+S*BW*0.5,grid_Y+S*textY+size*65,"#FFCC00",size*130);
+                    }
+			    }
+			}
+			function getTileColor(tile){
+			    if(tile == BOMB_N){
+			        return rgbToHex([128,128,128]);
+			    }else if(tile >= ALPHA_N){
+			        return grayedColor;
+			    }else{
+			        return rgbToHex(hue_to_RGB((tile-1)/26,0.65));
+			    }
+			}
+			function componentToHex(c) {
+              var hex = c.toString(16);
+              return hex.length == 1 ? "0" + hex : hex;
+            }
+			function rgbToHex(arr) {
+			    var result = "#";
+			    for(var i = 0; i < 3; i++){
+			        result += componentToHex(Math.floor(arr[i]));
+			    }
+                return result;
+            }
+            function frand(a, b){
+                var sine = Math.sin(a*100+b*37);
+                var choice = (((sine+1)*100)%1.0);
+                return choice;
+            }
+            function drawExplosion(ax,ay,S,size,tp){
+                var R = S*0.5;
+                var centerX = ax+R;
+                var centerY = ay+R;
+                ctx.fillStyle = explosionColor;
+                ctx.beginPath();
+                ctx.moveTo(centerX,centerY);
+                for(var p = 0; p < 20; p++){
+                    var far_fac = frand(tp,p*4)*0.3+0.7;
+                    var far_dist = R*size*far_fac;
+                    var far_angle = frand(tp,p*4+1)*Math.PI*2;
+                    ctx.lineTo(centerX+Math.cos(far_angle)*far_dist,
+                    centerY+Math.sin(far_angle)*far_dist);
+                    
+                    var close_fac = frand(tp,p*4+2)*0.3;
+                    var close_dist = R*size*close_fac;
+                    var close_angle = frand(tp,p*4+3)*Math.PI*2;
+                    ctx.lineTo(centerX+Math.cos(close_angle)*close_dist,
+                    centerY+Math.sin(close_angle)*close_dist);
+                }
+                ctx.fill();
+            }
+            function centerText(ctx,stri,x,y,col,size){
+                ctx.fillStyle = col;
+                ctx.font = size+"px Helvetica";
+                var textWidth = ctx.measureText(stri).width;
+                var textHeight = ctx.measureText(stri).height;
+                var x_coor = x-textWidth/2-0.5;
+                ctx.fillText(stri,x_coor,y);
+            }
+			function drawTile(ax, ay, ady, tile, S, size, type){
+			    var M = 1;
+			    var M2 = 2;
+			    if(size == 1 && type != 1){
+    			    ctx.fillStyle = borderColor;
+                    ctx.fillRect(ax,ay,S,S);
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(ax+M,ay+M,S-M*2,S-M*2);
+			    }
+                if(tile >= 1){
+                    var colors = [getTileColor(tile), dropColor, spiritColor];
+                    var texts = ["#FFFFFF","#000000","#000000"];
+                    ctx.fillStyle = colors[type];
+                    var aax = ax+S*0.5+(M2-S*0.5)*size;
+                    var aay = ay+S+(M2-S)*size+ady;
+                    if(options[1]){
+                        aay = ay+S*0.5+(M2-S*0.5)*size+ady;
+                    }
+                    var aas = (S-M2*2)*size
+                    ctx.fillRect(aax,aay,aas,aas);
+                    ctx.fillStyle = texts[type];
+                    var letter = numToLet(tile);
+                    var fs = Math.round(32*size);
+                    ctx.font = fs+"px Helvetica";
+                    var atx = ax+S*0.5;
+                    var aty = ay+S-(S*0.2)*size+ady;
+                    if(options[1]){
+                        aty = ay+S*0.5+(S*0.3)*size+ady;
+                    }
+                    centerText(ctx,letter,atx,aty,texts[type],fs);
+                }
+			    
+			}
+			function numToLet(n){
+			    if(n == BOMB_N){
+			        return "!!!";
+			    }
+			    var n2 = n;
+			    if(n2 > ALPHA_N){
+			        n2 -= ALPHA_N;
+			    }
+			    return String.fromCharCode(64+n2);
+			}
+			function r(n){
+			    return Math.floor(Math.random()*n);
+			}
+			function startGames(){
+			    if(dicty == null){
+			        return;
+			    }
+			    menu = false;
+			    paused = false;
+			    var game_count = options[0] ? 2 : 1;
+			    games = new Array(0);
+			    for(var g = 0; g < game_count; g++){
+			        games.push(new Game(g, BOARD_W, heights[g]));
+			    }
+			}
+			function handleMenuClick(b){
+			    if(b == 8){
+                    startGames();
+                }else if(b >= 4){
+                    var g = Math.floor((b-4)/2);
+                    var dire = b%2;
+                    if(g <= options[0]){
+                        var sign = dire*2-1;
+                        heights[g] = Math.min(Math.max(heights[g]+sign,BOARD_MIN_H),BOARD_MAX_H);
+                    }
+                }else{
+                    var op = Math.floor(b/2);
+                    var res = (b%2 == 1);
+                    options[op] = res;
+                }
+                playAudio("menu");
+			}
+			function pauseGame(){
+			    paused = !paused;   
+                if(paused){
+                    pauseTime = Date.now();
+                }else{
+                    var pauseDur = Date.now()-pauseTime;
+                    for(var g = 0; g < games.length; g++){
+                        games[g].shiftTimers(pauseDur);
+                    }
+                }
+			}
+			function onClick(e){
+			    var mX = e.offsetX;
+				var mY = e.offsetY;
+				if(menu){
+    				for(var b = 0; b < buttons.length; b++){
+                        var bu = buttons[b];
+                        if(bu.testClick(mX,mY)){
+                            handleMenuClick(b);
+                        }
+                    }
+				}else{
+				    for(var b = 0; b < gameButtons.length; b++){
+                        var bu = gameButtons[b];
+                        if(bu.testClick(mX,mY)){
+                            if(b == 0){
+                                pauseGame();
+                            }if(b == 1){
+                                menu = true;
+                            }
+                            playAudio("menu");
+                        }
+                    }
+				}
+			}
+			document.onkeydown = function (e) {
+			    if(!menu){
+                    var k = e.keyCode;
+                    if(k >= 97){
+                        k -= 32;
+                    }
+                    var keys = ["ADWESQ","JLIOKU"];
+                    if(k == 27){
+                        pauseGame();
+                    }
+                    for(var g = 0; g < keys.length; g++){
+                        var game = (games.length == 2 ? games[g] : games[0]);
+                        for(var ki = 0; ki < keys[g].length; ki++){
+                           if(!paused && k == keys[g].charCodeAt(ki) && game.alive){
+                               if(ki == 0 || ki == 1){
+                                   game.moveSide(-1+2*ki);
+                               }else if(ki == 2 || ki == 3){
+                                   game.rotate(-1+(ki-2)*2);
+                               }else if(ki == 4){
+                                   game.pressDown();
+                               }else if(ki == 5){
+                                   game.holdPiece();
+                               }
+                           } 
+                        }
+                    }
+			    }
+            };
+            document.onkeyup = function (e) {
+                if(!menu){
+                    for(var g = 0; g < games.length; g++){
+                        games[g].downPress = false;
+                    }
+                }
+            }
+			
+		</script>
+		<noscript>
+			<h3>Scrabbletris</h3>
+		</noscript>
+	</body>
+</html>

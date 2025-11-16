@@ -1,0 +1,63 @@
+<title>Alt Puzzles - 26</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="k.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Kakuro</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1" style="aspect-ratio:0.99"><tbody>
+    <tr><td style="border:none"></td><td style="border:none"></td><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>10</td></tr></tbody></table></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>3</td></tr></tbody></table></td></tr>
+    <tr><td style="border:none"></td><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>3</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>3</td></tr></tbody></table></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>11</td></tr></tbody></table></td></tr>
+    <tr><td style="border:none"></td><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>11</td></tr><tr><td>11</td></tr></tbody></table></td><td></td><td></td><td></td><td></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>4</td></tr></tbody></table></td></tr>
+    <tr><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>4</td></tr><tr><td>3</td></tr></tbody></table></td><td></td><td></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>6</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td><td></td></tr>
+    <tr><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>4</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td style="color:#0000">0</td></tr><tr><td>4</td></tr></tbody></table></td><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>3</td></tr><tr><td>24</td></tr></tbody></table></td><td></td><td></td></tr>
+    <tr><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>8</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td><td></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>14</td></tr><tr><td>9</td></tr></tbody></table></td><td></td><td></td></tr>
+    <tr><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>14</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td style="border:none"></td><td style="border:none"></td><td style="border:none"></td><td id="kakuro"><table cellspacing="0" align="center"><tbody><tr><td></td><td>15</td></tr><tr><td style="color:#0000">0</td></tr></tbody></table></td><td></td><td></td></tr>
+</tbody></table>
+<!--<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>-->
+<h2>Rules</h2>
+<p>In this number crossword, fill the <s>white</s> squares so that the sum total of each across or down run of squares matches the number at the start of that run. A number cannot repeat within a run, and you must use numbers from 1-9 only.</p>
+<h1 id="puzzle">Daily #26 (K#3)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    /*levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "1") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'*/
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

@@ -1,0 +1,29 @@
+<title>15 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="obfuscator">
+<p style="position:absolute;top:5.8em;left:2.3em">█████</p>
+</div>
+<div id="snow">
+<p>Ok, hopefully a fair difficulty bump this time, but thats after this level.</p>
+<p>Anyways, to fluctuate the difficulty for this group of 5 again, I'll just tell you what to type here.</p>
+<p id="randText">It's ?????. Oh wait, you can't see that.</p>
+<p>Here's a hint : Try something a bit lazier.</p>
+<input id="levelCheck"></input>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">15</h1>
+</div>
+<script>
+const randText = Math.floor(Math.random() * 60466177).toString(36)
+document.getElementById("randText").innerHTML = "It's " + ("00000" + randText).slice(-5) + " . Oh wait, you can't see that."
+function nextlevel() {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value
+    if (levelTest == randText) {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('obfuscator.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

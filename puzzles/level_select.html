@@ -1,0 +1,27 @@
+<title>4 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>Personally, I don't think I could have made that one much simpler.</p>
+<p>This one, I probably could have. Good luck.</p>
+<p>What number isn't :</p>
+<p>• Prime</p>
+<p>• Lower than fifty</p>
+<p>• More than three digits</p>
+<p>• A funny number</p>
+<input id="levelCheck"></input>
+<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>
+<h1 id="puzzle">4</h1>
+</div>
+<script>
+function nextlevel() {
+    const levelFeedbacker = document.getElementById("levelFeedback")
+    let levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "69" || levelTest == "420") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        window.location.replace('numerics.html')
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'
+}
+</script>

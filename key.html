@@ -1,0 +1,56 @@
+<title>K E Y S ?</title>
+<head><link rel="icon" type="image/x-icon" href="img/favicon.ico"><link rel="stylesheet" type="text/css" href="style.css"></head>
+<script src="index.js"></script>
+<div id="snow">
+<h1>Keys</h1>
+<h2>How to get them</h2>
+<p>Firstly, to get here you did 1 of 3 things.</p>
+<p>A : You found part of a key. | B : You viewed the repository. | C : You manually typed this URL in.</p>
+<p>If you did A, you know what they look like. Otherwise, this is how you get them :</p>
+<p>At the <b>bottom-right corner</b> of the screen, there <b>may</b> be <b>part of</b> (there are <b>8</b> parts) a key. (you may need to <b>explore</b> the website first.)</p>
+<p>Instead of the word EXAMPLE, they will have a number, followed by <b>3 bytes</b>.</p>
+<p>After you have found part of a key, you can either <b>remember it</b> (although there are <b>several parts</b> of a key), or <b>write it down</b>.</p>
+<h2>What they do</h2>
+<p>Firstly, let's <b>assume</b> we have <b>all 8 parts</b>.</p>
+<p>[EXAMPLE]</p>
+<example id="example0"></example>
+<p>Next, there are <b>3 steps</b>.</p>
+<p>Step 1 : Go to <a href='https://realben9.github.io'>the main page</a>.</p>
+<p>Step 2 : Add <b>?key=</b> to the <b>URL</b>.</p>
+<p>Step 3 : Add all 8 parts <b>in order</b> to the <b>new</b> URL.</p>
+<example id="example1"></example>
+<p>If you have <b>found all of them</b>, (and typed everything out <b>correctly</b>,) this should lead to a <b>secret</b> page.</p>
+<example id="example2"></example>
+</div><script>
+	var element;
+	element = document.getElementById("example0");
+	if (element) {
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key1 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key2 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key3 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key4 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key5 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key6 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key7 = ("000000" + bg_colour).slice(-6);
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key8 = ("000000" + bg_colour).slice(-6);
+		element.outerHTML = "<p>1 - " + key1 + " | 2 - " + key2 + " </p><p> 3 - " + key3 + " | 4 - " + key4 + " </p><p> 5 - " + key5 + " | 6 - " + key6 + " </p><p> 7 - " + key7 + " | 8 - " + key8 + "</p>";
+	}
+	element = document.getElementById("example1");
+	if (element) {
+		element.outerHTML = "<p>EXAMPLE : https://realben9.github.io?key=" + key1 + key2 + key3 + key4 + key5 + key6 + key7 + key8 + "</p>";
+	}
+	element = document.getElementById("example2");
+	if (element) {
+		var bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+		key9 = ("000000" + bg_colour).slice(-6);
+		element.outerHTML = '<p style="text-align:right">EXAMPLE - ' + key9 + '</p>';
+	}
+</script>

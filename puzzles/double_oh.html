@@ -1,0 +1,98 @@
+<title>7 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>I apologize if that one took you a while. I probably shouldn't be upping the difficulty this much every 5 levels.</p>
+<p>What if I make it up to you with a slot machine? It is level 7 after all.</p>
+<p>Roll 777 to win. Don't worry, you can roll each slot individually so you're not here all day.</p>
+<h1 id="slots">777</h1>
+<button onclick="roll1()">Slot 1</button><button onclick="roll2()">Slot 2</button><button onclick="roll3()">Slot 3</button>
+<h1 id="puzzle">7</h1>
+</div>
+<script>
+var slot1 = Math.floor(Math.random() * 10)
+var slot2 = Math.floor(Math.random() * 10)
+var slot3 = Math.floor(Math.random() * 10)
+while (slot1 == 7) {slot1 = Math.floor(Math.random() * 10)}
+while (slot2 == 7) {slot2 = Math.floor(Math.random() * 10)}
+while (slot3 == 7) {slot3 = Math.floor(Math.random() * 10)}
+function updateDisp() {
+    levelDisp = document.getElementById("slots")
+    levelDisp.innerHTML = slot1
+    levelDisp.innerHTML = levelDisp.innerHTML + slot2
+    levelDisp.innerHTML = levelDisp.innerHTML + slot3
+}
+function roll1() {
+    setTimeout(function(){
+        slot1 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },100)
+    setTimeout(function(){
+        slot1 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },200)
+    setTimeout(function(){
+        slot1 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },300)
+    setTimeout(function(){
+        slot1 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },400)
+    setTimeout(function(){
+        slot1 = Math.floor(Math.random() * 10)
+        updateDisp()
+        nextlevel()
+    },500)
+}
+function roll2() {
+    setTimeout(function(){
+        slot2 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },100)
+    setTimeout(function(){
+        slot2 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },200)
+    setTimeout(function(){
+        slot2 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },300)
+    setTimeout(function(){
+        slot2 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },400)
+    setTimeout(function(){
+        slot2 = Math.floor(Math.random() * 10)
+        updateDisp()
+        nextlevel()
+    },500)
+}
+function roll3() {
+    setTimeout(function(){
+        slot3 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },100)
+    setTimeout(function(){
+        slot3 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },200)
+    setTimeout(function(){
+        slot3 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },300)
+    setTimeout(function(){
+        slot3 = Math.floor(Math.random() * 10)
+        updateDisp()
+    },400)
+    setTimeout(function(){
+        slot3 = Math.floor(Math.random() * 10)
+        updateDisp()
+        nextlevel()
+    },500)
+}
+function nextlevel() {
+    if (slot1 == 7 && slot2 == 7 && slot3 == 7) {window.location.replace('slots.html')}
+}
+updateDisp()
+</script>

@@ -1,0 +1,67 @@
+{
+  "properties": {
+    "parent": "arcade",
+    "langOverride": "mode-options",
+    "game": "special",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "Special",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 99,
+      "min": 0,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "special",
+      "settingType": "game"
+    },
+    {
+      "label": "Classic Mode",
+      "description": "If true, uses ARS. Otherwise uses SRS.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "ruleOption",
+      "gameName": "special",
+      "settingType": "game"
+    },
+    {
+      "label": "20G",
+      "description": "Enforces 20G throughout the whole mode. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "infG",
+      "gameName": "special",
+      "settingType": "game"
+    },
+    {
+      "label": "Big",
+      "description": "Allows play on a 5x10 matrix. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "big",
+      "gameName": "special",
+      "settingType": "game"
+    },
+    {
+      "label": "TLS",
+      "description": "Instead of ending at level 100, the piece preview remains until the end of the game. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "tls",
+      "gameName": "special",
+      "settingType": "game"
+    }
+  ]
+}

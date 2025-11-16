@@ -1,0 +1,41 @@
+p#desc { position:relative;z-index:1; }
+img, .col { position:absolute;/*left:var(--X);bottom:var(--Y);width:var(--W);height:var(--H);*/background-image:var(--I); }
+.back1a { background-image:url(img/back1a.png);z-index:0;opacity:0.75; }
+.back1b { background-image:url(img/back1b.png);z-index:0;opacity:0.25; }
+.floor1 { background-image:url(img/floor1.png); }
+.floor2 { background-image:url(img/floor2.png); }
+.wall1 { background-image:url(img/wall1.png); }
+.wall2 { background-image:url(img/wall2.png); }
+.square1 { background-image:url(img/square1.png); }
+.whiteDoor[data-count="0"], .orangeDoor[data-count="0"], .purpleDoor[data-count="0"], .pinkDoor[data-count="0"], .cyanDoor[data-count="0"], .greenDoor[data-count="0"], .blueDoor[data-count="0"], .redDoor[data-count="0"], .masterDoor[data-count="0"] { background-image:url(img/genericDoor0.png); }
+.whiteDoor[data-count="1"], .orangeDoor[data-count="1"], .purpleDoor[data-count="1"], .pinkDoor[data-count="1"], .cyanDoor[data-count="1"], .greenDoor[data-count="1"], .blueDoor[data-count="1"], .redDoor[data-count="1"], .masterDoor[data-count="1"] { background-image:url(img/genericDoor1.png); }
+.whiteDoor[data-count="2"], .orangeDoor[data-count="2"], .purpleDoor[data-count="2"], .pinkDoor[data-count="2"], .cyanDoor[data-count="2"], .greenDoor[data-count="2"], .blueDoor[data-count="2"], .redDoor[data-count="2"], .masterDoor[data-count="2"] { background-image:url(img/genericDoor2.png); }
+.whiteDoor[data-count="3"], .orangeDoor[data-count="3"], .purpleDoor[data-count="3"], .pinkDoor[data-count="3"], .cyanDoor[data-count="3"], .greenDoor[data-count="3"], .blueDoor[data-count="3"], .redDoor[data-count="3"], .masterDoor[data-count="3"] { background-image:url(img/genericDoor3.png); }
+.whiteDoor[data-count="4"], .orangeDoor[data-count="4"], .purpleDoor[data-count="4"], .pinkDoor[data-count="4"], .cyanDoor[data-count="4"], .greenDoor[data-count="4"], .blueDoor[data-count="4"], .redDoor[data-count="4"], .masterDoor[data-count="4"] { background-image:url(img/genericDoor4.png); }
+.whiteDoor[data-count="6"], .orangeDoor[data-count="6"], .purpleDoor[data-count="6"], .pinkDoor[data-count="6"], .cyanDoor[data-count="6"], .greenDoor[data-count="6"], .blueDoor[data-count="6"], .redDoor[data-count="6"], .masterDoor[data-count="6"] { background-image:url(img/genericDoor6.png); }
+.whiteDoor[data-count="8"], .orangeDoor[data-count="8"], .purpleDoor[data-count="8"], .pinkDoor[data-count="8"], .cyanDoor[data-count="8"], .greenDoor[data-count="8"], .blueDoor[data-count="8"], .redDoor[data-count="8"], .masterDoor[data-count="8"] { background-image:url(img/genericDoor8.png); }
+.whiteDoor[data-count="12"], .orangeDoor[data-count="12"], .purpleDoor[data-count="12"], .pinkDoor[data-count="12"], .cyanDoor[data-count="12"], .greenDoor[data-count="12"], .blueDoor[data-count="12"], .redDoor[data-count="12"], .masterDoor[data-count="12"] { background-image:url(img/genericDoor12.png); }
+.whiteDoor[data-count="24"], .orangeDoor[data-count="24"], .purpleDoor[data-count="24"], .pinkDoor[data-count="24"], .cyanDoor[data-count="24"], .greenDoor[data-count="24"], .blueDoor[data-count="24"], .redDoor[data-count="24"], .masterDoor[data-count="24"] { background-image:url(img/genericDoor24.png); }
+img.whiteKey, div.col.whiteKey > img { background-image:url(img/whiteKey.png); }
+img.orangeKey, div.col.orangeKey > img { background-image:url(img/orangeKey.png); }
+img.purpleKey, div.col.purpleKey > img { background-image:url(img/purpleKey.png); }
+img.pinkKey, div.col.pinkKey > img { background-image:url(img/pinkKey.png); }
+img.cyanKey, div.col.cyanKey > img { background-image:url(img/cyanKey.png); }
+img.greenKey, div.col.greenKey > img { background-image:url(img/greenKey.png); }
+img.blueKey, div.col.blueKey > img { background-image:url(img/blueKey.png); }
+img.redKey, div.col.redKey > img { background-image:url(img/redKey.png); }
+img.masterKey, div.col.masterKey > img { background-image:url(img/masterKey.png); }
+div.col > img { width:inherit;height:inherit; }
+#whiteKeys, #orangeKeys, #purpleKeys, #pinkKeys, #cyanKeys, #greenKeys, #blueKeys, #redKeys, #masterKeys { position:relative;left:40px;width:256px; }
+.masterMode { background-color:#b80; }
+.goal { background-image:url(img/goal.png); }
+#next { position:relative;z-index:1; }
+.whiteDoor { background-color:#fff; }
+.orangeDoor { background-color:#f70; }
+.purpleDoor { background-color:#a5a; }
+.pinkDoor { background-color:#fac; }
+.cyanDoor { background-color:#0ae; }
+.greenDoor { background-color:#2a4; }
+.blueDoor { background-color:#44c; }
+.redDoor { background-color:#812; }
+.masterDoor { background-color:#b80; }

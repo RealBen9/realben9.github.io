@@ -1,0 +1,161 @@
+{
+  "properties": {
+    "parent": null
+  },
+  "data": [
+    {
+      "string": "gameStylesOverline",
+      "type": "overline"
+    },
+    {
+      "string": "guidelineLabel",
+      "stringDesc": "guidelineDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "guideline"
+    },
+    {
+      "string": "tetraxLabel",
+      "stringDesc": "tetraxDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "tetrax"
+    },
+    {
+      "string": "retroLabel",
+      "stringDesc": "retroDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "retro"
+    },
+    {
+      "string": "arcadeLabel",
+      "stringDesc": "arcadeDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "arcade"
+    },
+    {
+      "fixedText": true,
+      "label": "Zen",
+      "description": "Relax, there are no restrictions!",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/zen"
+    },
+    {
+      "fixedText": true,
+      "label": "Custom",
+      "description": "Custom modes only available on this archive.",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "custom"
+    },
+    {
+      "string": "settingsOverline",
+      "type": "overline"
+    },
+    {
+      "string": "controlsLabel",
+      "stringDesc": "controlsDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "controls"
+    },
+    {
+      "string": "tuningLabel",
+      "stringDesc": "tuningDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "tuning"
+    },
+    {
+      "string": "audioLabel",
+      "stringDesc": "audioDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "audio"
+    },
+    {
+      "string": "videoLabel",
+      "stringDesc": "videoDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "video"
+    },
+    {
+      "fixedText": true,
+      "label": "Data Management",
+      "type": "overline"
+    },
+    {
+      "label": "文/A",
+      "fixedText": true,
+      "description": "Languages",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "languages"
+    },
+    {
+      "fixedText": true,
+      "label": "Settings",
+      "description": "Import and export your settings here",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "settings"
+    },
+    {
+      "fixedText": true,
+      "label": "Highscores",
+      "description": "Look at your highscores for each mode here",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "highscores"
+    },
+    {
+      "fixedText": true,
+      "label": "Replays",
+      "description": "Manage replays of games you played here",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "replays"
+    },
+    {
+      "string": "miscOverline",
+      "label": "Misc",
+      "type": "overline"
+    },
+    {
+      "fixedText": true,
+      "label": "Leaderboard",
+      "description": "Unoffical Leaderboard (Manually Updated!)",
+      "width": "half",
+      "action": "link",
+      "url": "../tllb.html"
+    },
+    {
+      "fixedText": true,
+      "label": "Changelog",
+      "description": "See the changelog for this game",
+      "width": "half",
+      "action": "link",
+      "url": "changelog.html"
+    },
+    {
+      "string": "soundtrackLabel",
+      "stringDesc": "soundtrackDescription",
+      "width": "half",
+      "action": "link",
+      "url": "https://web.archive.org/web/20240926114617/https://www.youtube.com/playlist?list=OLAK5uy_ka56F4BS_XXfxY3YZGN5mfBGSoSIrPvj0",
+      "oldUrl": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
+    },
+    {
+      "fixedText": true,
+      "label": "Ultimate",
+      "description": "Go to the GitHub Repository of Tetra Legends Ultimate, the fork I used as a base.",
+      "width": "half",
+      "action": "link",
+      "url": "https://github.com/Talon125/talon125.github.io"
+    }
+  ]
+}

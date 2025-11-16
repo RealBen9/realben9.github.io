@@ -1,0 +1,13 @@
+<title>502 Bad Gateway</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"></head>
+<h1 style="text-align:center">502 Bad Gateway</h1>
+<hr></hr>
+<p id="type" style="text-align:center">nginx</p>
+<script>
+	const element = document.getElementById("type")
+	if (element) {
+		const type = Math.floor(Math.random() * 10)
+		const error = ['nginx','cloudflare','cloudflare-nginx','nginx/0.7.67','nginx/1.2.6','nginx/1.7.10','nginx/1.10.3 (Ubuntu)','nginx/1.13.3','Microsoft-Azure-Application-Gateway/v2','Apple'][type]
+		element.innerText = error
+	}
+</script>

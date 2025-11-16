@@ -1,0 +1,127 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menuguideline"
+  },
+  "data": [
+    {
+      "string": "guidelineLabel",
+      "langOverride": "menu_root",
+      "type": "header"
+    },
+    {
+      "string": "marathonLabel",
+      "stringDesc": "marathonDescription",
+      "default": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/marathon"
+    },
+    {
+      "string": "sprintLabel",
+      "stringDesc": "sprintDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/sprint"
+    },
+    {
+      "string": "ultraLabel",
+      "stringDesc": "ultraDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/ultra"
+    },
+    {
+      "fixedText": true,
+      "label": "Dynamic",
+      "description": "Perform well to increase the speed of the game. Can you beat my former WR of 14057?",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/dynamic"
+    },
+    {
+      "string": "masterLabel",
+      "stringDesc": "masterDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/master"
+    },
+    {
+      "label": "Pull",
+      "description": "Fight devastating gravity and shrinking lock delay",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/pull"
+    },
+    {
+      "fixedText": true,
+      "label": "Mystery",
+      "description": "A marathon with random effects every 14 pieces",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/mystery"
+    },
+    {
+      "string": "survivalLabel",
+      "stringDesc": "survivalDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/survival"
+    },
+    {
+      "fixedText": true,
+      "label": "Rise",
+      "description": "Clear the unstoppable asynchronous rising garbage",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/rise"
+    },
+    {
+      "label": "Pandaemonium",
+      "description": "An incredibly fast-paced mode with shape-shifting",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/pandaemonium"
+    },
+    {
+      "label": "Strategy",
+      "description": "So slow yet so fast; Can you plan and execute fast enough?",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/strategy"
+    },
+    {
+      "label": "Beat Mode",
+      "description": "PPS is forced to the beat of the music! Good luck!",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/beat"
+    },
+    {
+      "label": "Killer",
+      "description": "This is not intended to be winnable, but how far can you go?",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/killer"
+    },
+    {
+      "label": "Duality",
+      "description": "How well can you play 2 boards at once?",
+      "fixedText": true,
+      "width": "half",
+      "action": "submenu",
+      "submenu": "mode/duality"
+    },
+    {
+      "string": "comboLabel",
+      "stringDesc": "comboDescription",
+      "action": "submenu",
+      "submenu": "mode/combo"
+    }
+  ]
+}

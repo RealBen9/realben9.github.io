@@ -1,0 +1,3 @@
+img, .col { position:absolute;/*left:var(--X);bottom:var(--Y);width:var(--W);height:var(--H);*/background-image:var(--I); }
+.floor { background-image:url(img/floor.png); }
+.wall { background-image:url(img/wall.png); }

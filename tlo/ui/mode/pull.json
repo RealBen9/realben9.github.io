@@ -1,0 +1,51 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "parentSecret": true,
+    "langOverride": "mode-options",
+    "game": "pull",
+    "pgmusic": "pg-master"
+  },
+  "data": [
+    {
+      "label": "Pull",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 53,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "pull",
+      "settingType": "game"
+    },
+    {
+      "string": "lockdownModeLabel",
+      "stringDesc": "lockdownModeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "infinityLdOption",
+          "value": "infinity"
+        },
+        {
+          "string": "extendedLdOption",
+          "value": "extended"
+        },
+        {
+          "string": "classicLdOption",
+          "value": "classic"
+        }
+      ],
+      "setting": "lockdownMode",
+      "gameName": "pull",
+      "settingType": "game"
+    }
+  ]
+}

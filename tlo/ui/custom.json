@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menuguideline"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Custom",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "IC4W",
+      "description": "Infinite Center 4-Wide. This mode is unstable.",
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/ic4w"
+    }
+  ]
+}

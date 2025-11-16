@@ -1,0 +1,33 @@
+{
+  "settings": {
+    "width": 10,
+    "height": 20,
+    "hiddenHeight": 20,
+    "pieces": "standard",
+    "unfavored": null,
+    "randomizer": "bag",
+    "rotationSystem": "srs",
+    "skin": "srsx",
+    "soundbank": "nes",
+    "music": "../retro/retro",
+    "scoreTable": "retro",
+    "background": "handheld.png"
+  },
+  "piece": {
+    "areLimit": 33.3333333333,
+    "areLineLimit": 0,
+    "areLimitLineModifier": 0,
+    "lockdownType": null,
+    "spinDetectionType": "3corner"
+  },
+  "stack": {
+    "useMinoSkin": true
+  },
+  "next": {
+    "nextLimit": 1
+  },
+  "hold": {
+    "isDisabled": true
+  },
+  "stats": ["score", "level", "line", "piece", "b2b"]
+}

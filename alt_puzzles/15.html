@@ -1,0 +1,65 @@
+<title>Alt Puzzles - 15</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="s.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Sudoku <font style="color:#0f08;text-shadow:0px 0px 10px #090">[48]</font></h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1"><tbody>
+    <tr><td id="box1"></td><td id="box1"></td><td id="box1">3</td><td id="box2">2</td><td id="box2"></td><td id="box2"></td><td id="box3"></td><td id="box3">7</td><td id="box3"></td></tr>
+    <tr><td id="box1"></td><td id="box1"></td><td id="box1"></td><td id="box2">8</td><td id="box2"></td><td id="box2">5</td><td id="box3"></td><td id="box3"></td><td id="box3">6</td></tr>
+    <tr><td id="box1">5</td><td id="box1">9</td><td id="box1"></td><td id="box2"></td><td id="box2"></td><td id="box2"></td><td id="box3">1</td><td id="box3"></td><td id="box3"></td></tr>
+    <tr><td id="box4"></td><td id="box4"></td><td id="box4">1</td><td id="box5"></td><td id="box5">4</td><td id="box5"></td><td id="box6"></td><td id="box6">5</td><td id="box6"></td></tr>
+    <tr><td id="box4">6</td><td id="box4"></td><td id="box4"></td><td id="box5">1</td><td id="box5"></td><td id="box5">2</td><td id="box6"></td><td id="box6"></td><td id="box6">3</td></tr>
+    <tr><td id="box4"></td><td id="box4">2</td><td id="box4"></td><td id="box5"></td><td id="box5">6</td><td id="box5"></td><td id="box6">9</td><td id="box6"></td><td id="box6"></td></tr>
+    <tr><td id="box7"></td><td id="box7"></td><td id="box7">5</td><td id="box8"></td><td id="box8"></td><td id="box8"></td><td id="box9"></td><td id="box9">3</td><td id="box9">1</td></tr>
+    <tr><td id="box7">8</td><td id="box7"></td><td id="box7"></td><td id="box8">7</td><td id="box8"></td><td id="box8">3</td><td id="box9"></td><td id="box9"></td><td id="box9"></td></tr>
+    <tr><td id="box7"></td><td id="box7">3</td><td id="box7"></td><td id="box8"></td><td id="box8"></td><td id="box8">1</td><td id="box9">8</td><td id="box9"></td><td id="box9"></td></tr>
+</tbody></table>
+<!--<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>-->
+<p><a href="https://www.sudokuwiki.org/sudoku.htm?bd=003200070000805006590000100001040050600102003020060900005000031800703000030001800">Solve!</a></p>
+<h2>Rules</h2>
+<p>Place the numbers 1-9 once in each row, column and 3x3 <s>bold-lined</s> box.</p>
+<h1 id="puzzle">Daily #15 (S#2)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    /*levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "1") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'*/
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

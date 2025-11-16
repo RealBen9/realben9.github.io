@@ -1,0 +1,15 @@
+<title>Rip</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"></head>
+<body style="font-family:'Arial',sans-serif;color:rgb(255, 255, 255);background-color:#0078d7">
+<h1 style="font-size:300">:(</h1>
+<h1 style="font-size:50">Your PC ran into a problem and needs to restart. We're<br>just collecting some error info, and then we'll restart for<br>you.</h1>
+<h1 id="bsod" style="font-size:50">??% complete</h1>
+<img src="bsod.png">
+</body><script>
+	var element
+	element = document.getElementById("bsod")
+	if (element) {
+		var bsod = Math.floor(Math.random() * 100)
+		element.outerHTML = '<h1 id="bsod" style="font-size:50">' + bsod + '% complete</h1>'
+	}
+</script>

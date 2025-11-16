@@ -1,0 +1,67 @@
+{
+  "properties": {
+    "parent": "arcade",
+    "langOverride": "mode-options",
+    "game": "normal",
+    "pgmusic": "pg-handheld"
+  },
+  "data": [
+    {
+      "label": "Normal",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 99,
+      "min": 0,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "normal",
+      "settingType": "game"
+    },
+    {
+      "label": "Classic Mode",
+      "description": "If true, uses ARS. Otherwise uses SRS.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "ruleOption",
+      "gameName": "normal",
+      "settingType": "game"
+    },
+    {
+      "label": "20G",
+      "description": "Enforces 20G throughout the whole mode. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "infG",
+      "gameName": "normal",
+      "settingType": "game"
+    },
+    {
+      "label": "Big",
+      "description": "Allows play on a 5x10 matrix. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "big",
+      "gameName": "normal",
+      "settingType": "game"
+    },
+    {
+      "label": "TLS",
+      "description": "Instead of ending at level 100, the piece preview remains until the end of the game. Disables leaderboard rankings.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "tls",
+      "gameName": "normal",
+      "settingType": "game"
+    }
+  ]
+}

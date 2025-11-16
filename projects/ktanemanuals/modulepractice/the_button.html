@@ -1,0 +1,128 @@
+<title>KTaNE Module Practice - The Button</title>
+<head><link rel="icon" type="image/x-icon" href="../../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../../style.css"><link rel="stylesheet" type="text/css" href="edgework.css"></head>
+<script src="../../../index.js"></script><script src="edgework.js"></script>
+<div id="snow">
+<p id="strikes" style="color:#f00;font-size:32px;font-family:'Seven_Segment'">__</p>
+<p id="bombClock" onload="currentBombTime()" style="color:#0ff;font-size:32px;font-family:'Seven_Segment'"></p>
+<h1>The Button</h1>
+<h2>Edgework</h2>
+<div class="edgework" id="info0"></div>
+<div id="thebutton" style="text-transform:uppercase;width:96px;height:96px;-webkit-border-radius:48px;-moz-border-radius:48px;border-radius:48px;text-align:center">&nbsp;<p id="buttontext" style="position:relative;top:-0.5em;font-size:32px;font-family:'Ostrich'"></p></div>
+<p id="btngrid"><button onclick="buttonpress()">Press</button><button onclick="buttonhold()">Hold</button><div id="light" style="width:128px;height:16px"></div></p>
+<p id="cbnote">Add "?cb=true" to the URL for colourblind mode.</p>
+</div>
+<script>
+cbinfo = document.getElementById("cbnote")
+query = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+cb = false
+for (let i = 0; i < query.length; i++) {
+	if (query[i].toLowerCase() == "cb=true") {
+        console.log("[00.00] Colourblind Mode Enabled")
+        cbinfo.outerHTML = ""
+        cb = true
+    }
+}
+thebutton = document.getElementById("thebutton")
+buttontextdisp = document.getElementById("buttontext")
+buttoncolour = Math.floor(Math.random() * 4)
+if (buttoncolour == 0) thebutton.style.backgroundColor = "white"
+else if (buttoncolour == 1) thebutton.style.backgroundColor = "red"
+else if (buttoncolour == 2) {
+    thebutton.style.backgroundColor = "blue"
+    thebutton.style.color = "white"
+    buttontextdisp.style.color = "white"
+}
+else thebutton.style.backgroundColor = "yellow"
+if (cb == true) thebutton.innerHTML = thebutton.style.backgroundColor.slice(0,1) + thebutton.innerHTML.slice(6)
+buttontextdisp = document.getElementById("buttontext")
+buttontext = Math.floor(Math.random() * 4)
+if (buttontext == 0) buttontextdisp.innerHTML = "Detonate"
+else if (buttontext == 1) buttontextdisp.innerHTML = "Hold"
+else if (buttontext == 2) buttontextdisp.innerHTML = "Abort"
+else buttontextdisp.innerHTML = "Press"
+function waitforbatts() {
+    if (typeof batteries !== "undefined") {
+        if (buttoncolour == 1 && buttontext == 1) {
+            console.log("[" + time + "] Rule 1 : Tap")
+            tap = true
+        }
+        else if (batteries >= 2 && buttontext == 0) {
+            console.log("[" + time + "] Rule 2 : Tap")
+            tap = true
+        }
+        else if (buttoncolour == 2 && buttontext == 2) {
+            console.log("[" + time + "] Rule 3 : Hold")
+            tap = false
+        }
+        else if (((ind0 == "CAR" && lit0 == 1) || (ind1 == "CAR" && lit1 == 1)) && buttoncolour == 0) {
+            console.log("[" + time + "] Rule 4 : Hold")
+            tap = false
+        }
+        else if (batteries >= 3 && ((ind0 == "FRK" && lit0 == 1) || (ind1 == "FRK" && lit1 == 1))) {
+            console.log("[" + time + "] Rule 5 : Tap")
+            tap = true
+        }
+        else {
+            console.log("[" + time + "] Rule 6 : Hold")
+            tap = false
+        }
+        buttongrid = document.getElementById("btngrid")
+    }
+    else setTimeout(waitforbatts, 1)
+}
+waitforbatts()
+function buttonpress() {
+    console.log("[" + time + "] Tapping!")
+    if (tap == true) {
+        buttongrid.innerHTML = ""
+        solve()
+    }
+    else strike()
+}
+function buttonhold() {
+    console.log("[" + time + "] Holding!")
+    lightcolour = Math.floor(Math.random() * 4)
+    if (lightcolour == 0) {
+        console.log("[" + time + "] Chosen Light Colour : Blue (4)")
+        lightdisp = "#00f"
+    }
+    else if (lightcolour == 1) {
+        console.log("[" + time + "] Chosen Light Colour : White (1)")
+        lightdisp = "#fff"
+    }
+    else if (lightcolour == 2) {
+        console.log("[" + time + "] Chosen Light Colour : Yellow (5)")
+        lightdisp = "#ff0"
+    }
+    else {
+        console.log("[" + time + "] Chosen Light Colour : Red (1)")
+        lightdisp = "#f00"
+    }
+    buttongrid.innerHTML = '<button onclick="buttonrelease()">Release</button><div id="light" style="width:128px;height:16px;background-color:' + lightdisp + '"></div>'
+}
+function buttonrelease() {
+    console.log("[" + time + "] Releasing!")
+    if (tap == false) {
+        if (lightcolour == 0 && time.search("4") != -1) {
+            buttongrid.innerHTML = ""
+            solve()
+        }
+        else if (lightcolour == 2 && time.search("5") != -1) {
+            buttongrid.innerHTML = ""
+            solve()
+        }
+        else if (time.search("1") != -1) {
+            buttongrid.innerHTML = ""
+            solve()
+        }
+        else {
+        buttongrid.innerHTML = '<button onclick="buttonpress()">Press</button><button onclick="buttonhold()">Hold</button>'
+        strike()
+        }
+    }
+    else {
+        buttongrid.innerHTML = '<button onclick="buttonpress()">Press</button><button onclick="buttonhold()">Hold</button>'
+        strike()
+    }
+}
+</script>

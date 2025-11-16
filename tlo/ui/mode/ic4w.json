@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "parent": "custom",
+    "langOverride": "mode-options",
+    "game": "ic4w",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "IC4W",
+      "fixedText": true,
+      "type": "header"
+    }
+  ]
+}

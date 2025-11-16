@@ -1,0 +1,64 @@
+<title>Alt Puzzles - 36</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="kj.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Kings Journey</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table border="1"><tbody>
+    <tr><td></td><td>17</td><td></td><td></td><td></td><td>38</td><td></td><td></td><td></td></tr>
+    <tr><td>15</td><td></td><td></td><td>36</td><td></td><td></td><td>45</td><td></td><td></td></tr>
+    <tr><td></td><td>20</td><td></td><td>48</td><td></td><td>69</td><td></td><td>76</td><td>43</td></tr>
+    <tr><td>13</td><td></td><td>32</td><td></td><td></td><td>70</td><td>80</td><td>78</td><td></td></tr>
+    <tr><td>12</td><td></td><td>31</td><td></td><td></td><td></td><td style="background-color:#8888">81</td><td></td><td></td></tr>
+    <tr><td></td><td>23</td><td></td><td>52</td><td>65</td><td></td><td>72</td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>62</td><td></td></tr>
+    <tr><td>8</td><td></td><td>25</td><td></td><td>28</td><td></td><td></td><td></td><td>58</td></tr>
+    <tr><td></td><td></td><td></td><td>4</td><td></td><td></td><td style="background-color:#8888">1</td><td>56</td><td></td></tr>
+</tbody></table>
+<!--<button onclick="nextlevel()">Submit!</button>
+<p id="levelFeedback"></p>-->
+<h2>Rules</h2>
+<p>A chess king visits every square on the grid exactly once, starting at 1 and ending at 81. Deduce the whole path of the king - some of which is already given - and thus complete the grid. The king moves one square in any direction at a time (including diagonally).</p>
+<h1 id="puzzle">Daily #36 (KJ#3)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    levelFeedbacker = document.getElementById("levelFeedback")
+    /*levelTest = document.getElementById("levelCheck").value
+    if (levelTest == "1") {
+        levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#070">Correct!</p>'
+        solved = true
+    }
+    else levelFeedbacker.outerHTML = '<p id="levelFeedback" style="color:#700">Incorrect!</p>'*/
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

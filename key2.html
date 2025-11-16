@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>G o o d _ L u c k !</title>
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="projects/ktanemanuals/css/font.css">
+    <link rel="stylesheet" type="text/css" href="projects/ktanemanuals/css/timwi-norm.css">
+	<link rel="stylesheet" type="text/css" href="projects/ktanemanuals/css/off-norm.css">
+    <link rel="stylesheet" type="text/css" href="projects/ktanemanuals/css/timwi-main.css">
+	<link rel="stylesheet" type="text/css" href="projects/ktanemanuals/css/off-main.css">
+    <script src="projects/ktanemanuals/js/ktane-utils.js"></script><script src="projects/ktanemanuals/js/jquery.3.1.1.min.js"></script>
+    <style>@font-face { url:('fonts/SpecialElite-webfont.woff') format('woff') }</style></head>
+	<body class="multipage">
+		<div class="section">
+		<div class="page page-bg-01">
+			<div class="page-header">
+		<span class="page-header-doc-title">[realben9.github.io/key2.html]</span>
+		<span class="page-header-section-title">Binary Keys</span>
+	</div>
+	<div class="page-footer absolute-footer">Page 1 of 1</div>
+	<div class="page-content"><h2>On the Subject of Binary Keys</h2>
+		<p class="flavour-text">Hey! I thought this was [realben9.github.io], not <a href="https://keeptalkinggame.com">KTaNE</a>!</p>
+		<ul><li>Along with 8 normal keys, there are some stranger looking keys.</li><li>These are <strong>binary</strong> keys.</li><li>Instead of 3 bytes in <strong>hexadecimal</strong>, these keys are 3 bytes in <strong>binary</strong>.</li><li>You must <strong>convert</strong> these into hexadecimal to leave you with a normal key.</li><li>Binary keys can also be <strong>reversed</strong>, as shown by their <font style="background: linear-gradient(to right,#ff8983 17.85%,#7f0e7f 53.28%,#007a65 100%)">gradient</font>.</li><li>In this case, you must reverse the <strong>binary</strong> before converting to hexadecimal.</li><li>There are some examples below.</li></ul>
+		<p style="text-align:right">[EXAMPLE]</p>
+		<example id="example0"></example>
+		<example id="example1"></example>
+		<example id="example2"></example>
+		<ul><example id="example3"></example><li>Binary keys <b>will not show up</b> on the website <b>unless you use Key 1</b>. (i.e the 8 parts from before.)</li><li>When you believe you have found and converted all <strong>8</strong> parts, you must use them in the same way you did before. (Making sure to still use <strong>"?key"</strong> and <i>not</i> "?key2" or similar.)</li></ul>
+	</div>
+	<div class="page-footer relative-footer">Page 1 of 1</div>
+</div>
+<div id="notification" style="display:none"></div><div id="optionsMenu">
+	<h2>Options (Alt-O)</h2>
+	<div class="option-group">
+		<h3>Highlighter</h3>
+		<div><input type="checkbox" id="highlighter-enabled">&nbsp;<label for="highlighter-enabled" accesskey="h">Enabled</label> (Alt-H)</div>
+		<div>Color: <select id="highlighter-color"><option value="0">Gray</option><option value="1" selected="selected">Blue</option><option value="2">Red</option><option value="3">Green</option><option value="4">Yellow</option><option value="5">Magenta</option><option value="6">Orange</option><option value="7">Cyan</option><option value="8">White</option><option value="9">Black</option></select> (Alt-<span id="highlighter-color-index">1</span>)</div>
+		<div>Highlights: <button id="clear-highlights" accesskey="c">Clear</button> (Alt-C)</div>
+	</div>
+	<div class="option-group">
+		<h3>Page layout</h3>
+		<div><input type="radio" name="page-layout" class="page-layout" id="page-layout-vertical">&nbsp;<label for="page-layout-vertical" accesskey="v"><kbd>V</kbd>ertical</label></div>
+		<div><input type="radio" name="page-layout" class="page-layout" id="page-layout-side-by-side">&nbsp;<label for="page-layout-side-by-side" accesskey="s"><kbd>S</kbd>ide by side</label></div>
+	</div>
+	<div class="option-group">
+		<h3>Dark Mode</h3>
+		<div><input type="checkbox" id="dark-mode-enabled">&nbsp;<label for="dark-mode-enabled">Enabled</label> (Alt-W)</div>
+	</div>
+</div></body><script>
+var element;
+element = document.getElementById("example0");
+if (element) {
+	var bg_colour = Math.floor(Math.random() * 16777215);
+	key1 = ("000000" + bg_colour.toString(16)).slice(-6);
+	key2 = ("000000000000000000000000" + bg_colour.toString(2)).slice(-24);
+	element.outerHTML = '<p style="text-align:right">A Normal Key - ' + key1 + '</p>';
+}
+element = document.getElementById("example1");
+if (element) {
+	element.outerHTML = '<p style="text-align:right">A Binary Key - ' + key2 + '</p>';
+}
+element = document.getElementById("example2");
+if (element) {
+	element.outerHTML = '<p style="text-align:right"><font style="background: linear-gradient(to right,#ff8983 17.85%,#7f0e7f 53.28%,#007a65 100%)">A Reversed Binary Key - ' + key2.split("").reverse().join("") + '</font></p>';
+}
+element = document.getElementById("example3");
+if (element) {
+	element.outerHTML = '<li>All of these keys should give the same result of "' + key1 + '".</li>';
+}
+</script></html>

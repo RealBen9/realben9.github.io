@@ -1,0 +1,120 @@
+{
+  "properties": {
+    "parent": "tuning",
+    "langOverride": "menu_daspresets"
+  },
+  "data": [
+    {
+      "string": "defaultLabel",
+      "stringDesc": "defaultDescription",
+      "default": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 170,
+      "rate": 30
+    },
+    {
+      "label": "Default 2 [150 DAS | 17 ARR]",
+      "description": "The default chosen for Tetra Legends Ultimate",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 150,
+      "rate": 17
+    },
+    {
+      "string": "guidelineLabel",
+      "stringDesc": "guidelineDescription",
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 200,
+      "rate": 33
+    },
+    {
+      "label": "Jstris [133 DAS | 10 ARR]",
+      "description": "Matches the autoshift settings of Jstris. Requires good control.",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 133,
+      "rate": 10
+    },
+    {
+      "string": "pptLabel",
+      "stringDesc": "pptDescription",
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 165,
+      "rate": 33
+    },
+    {
+      "string": "tetraOnlineLabel",
+      "stringDesc": "tetraOnlineDescription",
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 135,
+      "rate": 31
+    },
+    {
+      "label": "Spirit Drop [160 DAS | 40 ARR]",
+      "description": "Matches the autoshift settings of Spirit Drop.",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 160,
+      "rate": 40
+    },
+    {
+      "string": "quickLabel",
+      "stringDesc": "quickDescription",
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 150,
+      "rate": 15
+    },
+    {
+      "string": "proLabel",
+      "stringDesc": "proDescription",
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 100,
+      "rate": 0
+    },
+    {
+      "label": "Teleport [0 DAS | 0 ARR]",
+      "description": "Weeee",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 0,
+      "rate": 0
+    },
+    {
+      "label": "GB [383 DAS | 150 ARR]",
+      "description": "Matches the autoshift settings of Handheld. Is quite slow.",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 383,
+      "rate": 150
+    },
+    {
+      "label": "NES [266 DAS | 100 ARR]",
+      "description": "Matches the autoshift settings of Retro. Is quite slow.",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 266,
+      "rate": 100
+    },
+    {
+      "label": "NES+ [150 DAS | 50 ARR]",
+      "description": "A faster variant of the autoshift settings of Retro, intended for use on 1G.",
+      "fixedText": true,
+      "action": "daspreset",
+      "isShort": true,
+      "delay": 150,
+      "rate": 50
+    }
+  ]
+}

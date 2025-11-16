@@ -1,0 +1,94 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "langOverride": "mode-options",
+    "game": "duality",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "Duality",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 20,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "duality",
+      "settingType": "game"
+    },
+    {
+      "string": "lineGoalLabel",
+      "stringDesc": "lineGoalDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "linesUnit",
+          "replace": [
+            "150"
+          ],
+          "value": 150
+        },
+        {
+          "string": "linesUnit",
+          "replace": [
+            "200"
+          ],
+          "value": 200
+        },
+        {
+          "string": "endlessOption",
+          "value": -1
+        }
+      ],
+      "setting": "lineGoal",
+      "gameName": "duality",
+      "settingType": "game"
+    },
+    {
+      "string": "levelCapLabel",
+      "stringDesc": "levelCapDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "offOption",
+          "value": -1
+        },
+        {
+          "label": "15",
+          "fixedText": true,
+          "value": 15
+        },
+        {
+          "label": "20",
+          "fixedText": true,
+          "value": 20
+        }
+      ],
+      "setting": "levelCap",
+      "gameName": "duality",
+      "settingType": "game"
+    },
+    {
+      "label": "Board Count",
+      "description": "How many boards should be active?",
+      "fixedText": true,
+      "type": "slider",
+      "action": "slider",
+      "max": 4,
+      "min": 2,
+      "discrete": 1,
+      "setting": "boards",
+      "gameName": "duality",
+      "settingType": "game"
+    }
+  ]
+}

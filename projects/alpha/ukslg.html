@@ -1,0 +1,287 @@
+<title>U K _ S L G</title>
+<head><link rel="icon" type="image/x-icon" href="../../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../../style.css"></head>
+<script src="../../index.js"></script>
+<div id="snow" class="nofancy">
+<h1>Ultrakill Sandbox Level Generator <i>(for use with... ultrakill?)</i></h1>
+Boxes : <input id="boxCount" value="1" type="number" min="1" style="width:164px"></input><br>
+Kinematic? <button id="btnKineYes" style="background-color:#0f0" onclick="setKineGen(1)">Yes</button><button id="btnKineNo" style="background-color:#fff" onclick="setKineGen(0)">No</button><button id="btnKineRand" style="background-color:#fff" onclick="setKineGen(2)">Random</button><br>
+Box Types : <button id="btnPlastic" style="background-color:#f00" onclick="boxToggle('plastic')">Plastic</button><button id="btnMetal" style="background-color:#f00" onclick="boxToggle('metal')">Metal</button><button id="btnWood" style="background-color:#f00" onclick="boxToggle('wood')">Wood</button><button id="btnGrass" style="background-color:#f00" onclick="boxToggle('grass')">Grass</button><button id="btnGlass" style="background-color:#f00" onclick="boxToggle('glass')">Glass</button><button id="btnWater" style="background-color:#f00" onclick="boxToggle('water')">Water</button><button id="btnHotSand" style="background-color:#f00" onclick="boxToggle('hot-sand')">Hot Sand</button><button id="btnLava" style="background-color:#f00" onclick="boxToggle('lava')">Lava</button><button id="btnAcid" style="background-color:#f00" onclick="boxToggle('acid')">Acid</button><button id="btnArmor" style="background-color:#0f0" onclick="boxToggle('armor')">Armor</button><br>
+Wood Weak? <button id="btnwoodWeakGenYes" style="background-color:#0f0" onclick="setwoodWeakGen(1)">Yes</button><button id="btnwoodWeakGenNo" style="background-color:#fff" onclick="setwoodWeakGen(0)">No</button><button id="btnwoodWeakGenRand" style="background-color:#fff" onclick="setwoodWeakGen(2)">Random</button><br>
+Wood Unbreakable? <button id="btnwoodUnbreakableGenYes" style="background-color:#0f0" onclick="setwoodUnbreakableGen(1)">Yes</button><button id="btnwoodUnbreakableGenNo" style="background-color:#fff" onclick="setwoodUnbreakableGen(0)">No</button><button id="btnwoodUnbreakableGenRand" style="background-color:#fff" onclick="setwoodUnbreakableGen(2)">Random</button><br>
+Glass Weak? <button id="btnglassWeakGenYes" style="background-color:#0f0" onclick="setglassWeakGen(1)">Yes</button><button id="btnglassWeakGenNo" style="background-color:#fff" onclick="setglassWeakGen(0)">No</button><button id="btnglassWeakGenRand" style="background-color:#fff" onclick="setglassWeakGen(2)">Random</button><br>
+Glass Unbreakable? <button id="btnglassUnbreakableGenYes" style="background-color:#0f0" onclick="setglassUnbreakableGen(1)">Yes</button><button id="btnglassUnbreakableGenNo" style="background-color:#fff" onclick="setglassUnbreakableGen(0)">No</button><button id="btnglassUnbreakableGenRand" style="background-color:#fff" onclick="setglassUnbreakableGen(2)">Random</button><br>
+Generate : <button onclick="boxGen()">Non-Linear!</button><button onclick="boxGen(true)">Linear!</button>
+<h2>Save this as a PITR file :</h2>
+<p id="genData" style="font-size:6px"></p>
+</div>
+<script>
+kineGen = 1
+genPlastic = false
+genMetal = false
+genWood = false
+genGrass = false
+genGlass = false
+genWater = false
+genHotSand = false
+genLava = false
+genAcid = false
+genArmor = true
+woodWeakGen = 0
+woodUnbreakableGen = 0
+glassWeakGen = 0
+glassUnbreakableGen = 0
+function setKineGen(mode) {
+    kineGen = mode
+    const buttonY = document.getElementById("btnKineYes")
+    const buttonN = document.getElementById("btnKineNo")
+    const buttonR = document.getElementById("btnKineRand")
+    switch (mode) {
+        case 0:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#0f0"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 1:
+            buttonY.style.backgroundColor = "#0f0"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 2:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#0f0"
+            break
+    }
+}
+function boxToggle(type) {
+    switch (type) {
+        case 'plastic':
+            genPlastic = !genPlastic
+            button = document.getElementById("btnPlastic")
+            button.style.backgroundColor = genPlastic == true ? "#0f0" : "#f00"
+            break
+        case 'metal':
+            genMetal = !genMetal
+            button = document.getElementById("btnMetal")
+            button.style.backgroundColor = genMetal == true ? "#0f0" : "#f00"
+            break
+        case 'wood':
+            genWood = !genWood
+            button = document.getElementById("btnWood")
+            button.style.backgroundColor = genWood == true ? "#0f0" : "#f00"
+            break
+        case 'grass':
+            genGrass = !genGrass
+            button = document.getElementById("btnGrass")
+            button.style.backgroundColor = genGrass == true ? "#0f0" : "#f00"
+            break
+        case 'glass':
+            genGlass = !genGlass
+            button = document.getElementById("btnGlass")
+            button.style.backgroundColor = genGlass == true ? "#0f0" : "#f00"
+            break
+        case 'water':
+            genWater = !genWater
+            button = document.getElementById("btnWater")
+            button.style.backgroundColor = genWater == true ? "#0f0" : "#f00"
+            break
+        case 'hot-sand':
+            genHotSand = !genHotSand
+            button = document.getElementById("btnHotSand")
+            button.style.backgroundColor = genHotSand == true ? "#0f0" : "#f00"
+            break
+        case 'lava':
+            genLava = !genLava
+            button = document.getElementById("btnLava")
+            button.style.backgroundColor = genLava == true ? "#0f0" : "#f00"
+            break
+        case 'acid':
+            genAcid = !genAcid
+            button = document.getElementById("btnAcid")
+            button.style.backgroundColor = genAcid == true ? "#0f0" : "#f00"
+            break
+        case 'armor':
+            genArmor = !genArmor
+            button = document.getElementById("btnArmor")
+            button.style.backgroundColor = genArmor == true ? "#0f0" : "#f00"
+            break
+    }
+}
+function setwoodWeakGen(mode) {
+    woodWeakGen = mode
+    const buttonY = document.getElementById("btnwoodWeakGenYes")
+    const buttonN = document.getElementById("btnwoodWeakGenNo")
+    const buttonR = document.getElementById("btnwoodWeakGenRand")
+    switch (mode) {
+        case 0:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#0f0"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 1:
+            buttonY.style.backgroundColor = "#0f0"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 2:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#0f0"
+            break
+    }
+}
+function setwoodUnbreakableGen(mode) {
+    woodUnbreakableGen = mode
+    const buttonY = document.getElementById("btnwoodUnbreakableGenYes")
+    const buttonN = document.getElementById("btnwoodUnbreakableGenNo")
+    const buttonR = document.getElementById("btnwoodUnbreakableGenRand")
+    switch (mode) {
+        case 0:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#0f0"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 1:
+            buttonY.style.backgroundColor = "#0f0"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 2:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#0f0"
+            break
+    }
+}
+function setglassWeakGen(mode) {
+    glassWeakGen = mode
+    const buttonY = document.getElementById("btnglassWeakGenYes")
+    const buttonN = document.getElementById("btnglassWeakGenNo")
+    const buttonR = document.getElementById("btnglassWeakGenRand")
+    switch (mode) {
+        case 0:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#0f0"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 1:
+            buttonY.style.backgroundColor = "#0f0"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 2:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#0f0"
+            break
+    }
+}
+function setglassUnbreakableGen(mode) {
+    glassUnbreakableGen = mode
+    const buttonY = document.getElementById("btnglassUnbreakableGenYes")
+    const buttonN = document.getElementById("btnglassUnbreakableGenNo")
+    const buttonR = document.getElementById("btnglassUnbreakableGenRand")
+    switch (mode) {
+        case 0:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#0f0"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 1:
+            buttonY.style.backgroundColor = "#0f0"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#fff"
+            break
+        case 2:
+            buttonY.style.backgroundColor = "#fff"
+            buttonN.style.backgroundColor = "#fff"
+            buttonR.style.backgroundColor = "#0f0"
+            break
+    }
+}
+function boxGen(linear = false) {
+    let boxCountVar = document.getElementById("boxCount").value
+    boxTypes = []
+    if (genPlastic == true) {boxTypes.push("plastic")}
+    if (genMetal == true) {boxTypes.push("metal")}
+    if (genWood == true) {boxTypes.push("wood")}
+    if (genGrass == true) {boxTypes.push("grass")}
+    if (genGlass == true) {boxTypes.push("glass")}
+    if (genWater == true) {boxTypes.push("water")}
+    if (genHotSand == true) {boxTypes.push("hot-sand")}
+    if (genLava == true) {boxTypes.push("lava")}
+    if (genAcid == true) {boxTypes.push("acid")}
+    if (genArmor == true) {boxTypes.push("armor")}
+    const dataOutput = document.getElementById("genData")
+    generatedData = ''
+    lastX = [0,0,0,0,0]
+    lastY = [100,100,100,100,100]
+    lastZ = [0,0,0,0,0]
+    for (let i = 0; i < boxCountVar; i++) {
+        boxType = boxTypes[Math.floor(Math.random() * boxTypes.length)]
+        sizeX = (Math.floor(Math.random() * 90) + 1) / 10
+        sizeY = (Math.floor(Math.random() * 90) + 1) / 10
+        sizeZ = (Math.floor(Math.random() * 90) + 1) / 10
+        extData = ''
+        if (woodWeakGen == 1) {woodWeak = 'true'}
+        else if (woodWeakGen == 0) {woodWeak = 'false'}
+        else {woodWeak = Math.floor(Math.random() * 2) == 0 ? 'false' : 'true'}
+        if (woodUnbreakableGen == 1) {woodUnbreakable = 'true'}
+        else if (woodUnbreakableGen == 0) {woodUnbreakable = 'false'}
+        else {woodUnbreakable = Math.floor(Math.random() * 2) == 0 ? 'false' : 'true'}
+        if (glassWeakGen == 1) {glassWeak = 'true'}
+        else if (glassWeakGen == 0) {glassWeak = 'false'}
+        else {glassWeak = Math.floor(Math.random() * 2) == 0 ? 'false' : 'true'}
+        if (glassUnbreakableGen == 1) {glassUnbreakable = 'true'}
+        else if (glassUnbreakableGen == 0) {glassUnbreakable = 'false'}
+        else {glassUnbreakable = Math.floor(Math.random() * 2) == 0 ? 'false' : 'true'}
+        if (boxType == "plastic") {blockType = 0}
+        else if (boxType == "wood") {blockType = 1;extData = ',{"Key":"breakable","Options":[{"Key":"weak","BoolValue":' + woodWeak + '},{"Key":"unbreakable","BoolValue":' + woodUnbreakable + '}]}'}
+        else if (boxType == "metal" || boxType == "armor") {blockType = 2}
+        else if (boxType == "water") {blockType = 3}
+        else if (boxType == "grass") {blockType = 4}
+        else if (boxType == "glass") {blockType = 5;extData = ',{"Key":"breakable","Options":[{"Key":"weak","BoolValue":' + glassWeak + '},{"Key":"unbreakable","BoolValue":' + glassUnbreakable + '}]}'}
+        else if (boxType == "hot-sand") {blockType = 6;extData = ',{"Key":"hurt_zone","Options":[{"Key":"damage","FloatValue":10},{"Key":"hurt_cooldown","FloatValue":1}]}'}
+        else if (boxType == "lava") {blockType = 7;extData = ',{"Key":"hurt_zone","Options":[{"Key":"damage","FloatValue":50},{"Key":"hurt_cooldown","FloatValue":1}]}'}
+        else if (boxType == "acid") {blockType = 8;extData = ',{"Key":"hurt_zone","Options":[{"Key":"damage","FloatValue":20},{"Key":"hurt_cooldown","FloatValue":1}]}'}
+        if (kineGen == 1) {kinematic = 'true'}
+        else if (kineGen == 0) {kinematic = 'false'}
+        else {kinematic = Math.floor(Math.random() * 2) == 0 ? 'false' : 'true'}
+        if (linear == false) {
+            posX = Math.floor(Math.random() * 601) - 300
+            posY = Math.floor(Math.random() * 601)
+            posZ = Math.floor(Math.random() * 601) - 300
+        }
+        else {
+            selectedIndex = Math.floor(Math.random() * 5)
+            selectedX = lastX[selectedIndex]
+            lastX[0] = lastX[1]
+            lastX[1] = lastX[2]
+            lastX[2] = lastX[3]
+            lastX[3] = lastX[4]
+            lastX[4] = selectedX + (Math.floor(Math.random() * 61) - 30)
+            posX = lastX[4]
+            selectedY = lastY[selectedIndex]
+            lastY[0] = lastY[1]
+            lastY[1] = lastY[2]
+            lastY[2] = lastY[3]
+            lastY[3] = lastY[4]
+            lastY[4] = selectedY + (Math.floor(Math.random() * 61) - 15)
+            posY = lastY[4]
+            selectedZ = lastZ[selectedIndex]
+            lastZ[0] = lastZ[1]
+            lastZ[1] = lastZ[2]
+            lastZ[2] = lastZ[3]
+            lastZ[3] = lastZ[4]
+            lastZ[4] = selectedZ + (Math.floor(Math.random() * 61) - 30)
+            posZ = lastZ[4]
+        }
+        scaleX = Math.floor(Math.random() * 3) + 1
+        scaleY = Math.floor(Math.random() * 3) + 1
+        scaleZ = Math.floor(Math.random() * 3) + 1
+        generatedData = generatedData + '{"BlockSize":{"x":' + sizeX + ',"y":' + sizeY + ',"z":' + sizeZ + '},"BlockType":' + blockType + ',"Kinematic":' + kinematic + ',"ObjectIdentifier":"ultrakill.brush-' + boxType + '","Position":{"x":' + posX + ',"y":' + posY + ',"z":' + posZ + '},"Rotation":{"x":0,"y":0,"z":0,"w":1},"Scale":{"x":' + scaleX + ',"y":' + scaleY + ',"z":' + scaleZ + '},"Data":[{"Key":"block","Options":[]}' + extData + ']},'
+    }
+    generatedData = generatedData.slice(0,-1)
+    dataOutput.innerHTML = '{"MapName":"7b3cb6a0a342eb54dafe5552d4820eeb","MapIdentifier":null,"SaveVersion":2,"GameVersion":"3.5","Blocks":[' + generatedData + '],"Props":[],"Enemies":[]}'
+}
+</script>

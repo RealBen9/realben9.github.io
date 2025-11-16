@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "langOverride": "mode-options",
+    "game": "dynamic",
+    "pgmusic": "pg-sprint"
+  },
+  "data": [
+    {
+      "label": "Dynamic",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 12500,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "dynamic",
+      "settingType": "game"
+    }
+  ]
+}

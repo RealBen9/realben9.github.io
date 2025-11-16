@@ -1,0 +1,69 @@
+<title>Alt Puzzles - 12</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"><link rel="stylesheet" type="text/css" href="br.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<h1>Bridges</h1>
+<p id="timer" onload="timer()" style="color:#888;font-size:32px"></p>
+<table id="grid" border="1" style="position:relative;left:13px;border-collapse:collapse;border-color:#8888"><tbody>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table>
+<table id="numbers" border="1" style="position:relative;top:-229.5px;border-width:0px;border-spacing:4px;empty-cells:hide"><tbody>
+    <tr><td></td><td>1</td><td></td><td></td><td>2</td><td></td><td>4</td><td></td><td>3</td><td></td></tr>
+    <tr><td>1</td><td></td><td>4</td><td></td><td></td><td>2</td><td></td><td></td><td></td><td>1</td></tr>
+    <tr style="height:20px"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td>1</td><td></td><td></td><td>1</td><td></td><td>3</td><td></td></tr>
+    <tr><td>3</td><td></td><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+    <tr><td></td><td></td><td></td><td>3</td><td></td><td>5</td><td></td><td></td><td>4</td><td></td></tr>
+    <tr><td>1</td><td></td><td>3</td><td></td><td>1</td><td></td><td></td><td></td><td></td><td>2</td></tr>
+    <tr><td></td><td></td><td></td><td>2</td><td></td><td>3</td><td></td><td>1</td><td></td><td></td></tr>
+    <tr><td></td><td></td><td>1</td><td></td><td>2</td><td></td><td>3</td><td></td><td>3</td><td></td></tr>
+    <tr><td>1</td><td></td><td></td><td>4</td><td></td><td>3</td><td></td><td>2</td><td></td><td>2</td></tr>
+</tbody></table>
+<button onclick="nextlevel()" style="position:relative;top:-229.5px">Stop Timer!</button>
+<h2 style="position:relative;top:-229.5px">Rules</h2>
+<p style="position:relative;top:-229.5px">Draw bridges between each circled island so that the number of bridges leaving each island are the same as the number written inside the circle. There cannot be more than two bridges between any pair of islands. It must be possible to walk from one island to any other island via the bridges in the finished puzzle, therefore no area of the puzzle can be isolated from any others. Bridges must be horizontal or vertical only, and cannot cross each other. </p>
+<h1 id="puzzle">Daily #12 (Br#2)</h1>
+</div>
+<script>
+mm = 0
+ss = 0
+ms = 0
+solved = false
+function nextlevel() {
+    solved = true
+}
+function timer() {
+    if (solved == false) {
+        ms = ms + 17
+        if (ms >= 1000) {
+            ss++
+            ms = ms - 1000
+            if (ss >= 60) {
+                mm++
+                ss = ss - 60
+            }
+        }
+        ssdisp = (mm > 0 && ss < 10) ? "0" + ss : ss
+        msdisp0 = (ms < 100) ? (ms < 10) ? "00" + ms : "0" + ms : ms
+        if (mm >= 1) time = mm + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+        var t = setTimeout(function(){timer()},17)
+    }
+    else {
+        document.getElementById("timer").style.color = "#080"
+        if (mm >= 1) time = mmdisp + ":" + ssdisp + "." + msdisp0
+        else time = ssdisp + "." + msdisp0
+        document.getElementById("timer").innerText = time
+    }
+}
+timer()
+</script>

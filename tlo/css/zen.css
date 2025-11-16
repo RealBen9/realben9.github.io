@@ -1,0 +1,105 @@
+#zen_panel.hidden {
+    display: none
+}
+
+#zen_panel.noop {
+    pointer-events: none
+}
+
+#zen_panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    width: 16em;
+    transition: .2s transform,.2s opacity;
+    color: #fff;
+    background-color: #000A
+}
+
+#zen_panel:not(:hover) {
+    transform: translateX(15em);
+    opacity: .75;
+    transition: 1s transform,1s opacity
+}
+
+#zen_panel::before {
+    content: 'ZEN';
+    position: absolute;
+    display: inline-block;
+    padding: .3em .5em;
+    padding-bottom: .1em;
+    top: 0;
+    background-color: #000A;
+    right: 100%;
+    font-size: 2em;
+    clip-path: polygon(0% 0%,0% calc(100% - 0.5em),0.5em 100%,100% 100%,100% 0)
+}
+
+#zen_panel_content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em;
+    overflow-y: auto
+}
+
+#zen_panel_content h1 {
+    margin: 0;
+    font-size: 2em
+}
+
+#zen_panel_content h1:not(:first-of-type) {
+    margin-top: 1em
+}
+
+.panel_button {
+    display: contents;
+    font-size: calc(var(--cell-size)/2);
+    font-family: var(--main-font)
+}
+
+.panel_option {
+    padding: .2em 0;
+    cursor: pointer;
+    color: #fffA
+}
+
+.panel_option::before {
+    content: '';
+    display: inline-block;
+    width: .8em;
+    height: .8em;
+    border: 1px solid #fff;
+    vertical-align: middle;
+    margin-right: .2em;
+    border-radius: .4em
+}
+
+.panel_option.selected {
+    color: #fff
+}
+
+.panel_option.selected::before {
+    background-color: #fff
+}
+
+#zen_panel_content label {
+    padding: .2em 0;
+    margin-top: .5em;
+    display: block
+}
+
+.panel_input {
+    border: 1px solid #fff;
+    background: #000;
+    color: #fff;
+    outline: 0!important;
+    padding: .1em;
+    margin-left: .2em;
+    vertical-align: middle;
+    font-size: 1.2em
+}

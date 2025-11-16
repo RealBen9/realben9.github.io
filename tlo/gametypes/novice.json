@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "width": 5,
+    "height": 10,
+    "hiddenHeight": 10,
+    "pieces": "standard",
+    "unfavored": null,
+    "randomizer": "history6rolls",
+    "rotationSystem": "srs",
+    "skin": "arika",
+    "soundbank": "standard",
+    "music": "../marathon/marathon",
+    "hasDangerBgm": true,
+    "scoreTable": "blank",
+    "background": "marathon.jpg"
+  },
+  "piece": {
+    "areLimit": 432,
+    "areLineLimit": 640,
+    "dasLimit": 272,
+    "arrLimit": 17,
+    "lockDelayLimit": 500,
+    "xSpawnOffset": -3
+  },
+  "next": {
+    "nextLimit": 1
+  },
+  "hold": {
+    "isDisabled": true
+  },
+  "stats": ["score", "level", "fallspeed", "line"]
+}

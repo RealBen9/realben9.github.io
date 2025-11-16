@@ -1,0 +1,2 @@
+table#grid > tbody > tr > td { width:21px; height:24px; border-radius:10px; text-align:center; }
+table#numbers > tbody > tr > td { width:16px; height:19px; border-radius:10px; text-align:center; background-color:lightBlue; }

@@ -1,0 +1,2 @@
+td { width:18px; height:22px; text-align:center; }
+tr:nth-child(even), td:nth-child(even) { border-color:#0000; }

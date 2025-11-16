@@ -1,0 +1,124 @@
+{
+  "properties": {
+    "parent": "root",
+    "langOverride": "mode-options",
+    "game": "zen",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "Zen",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "holdTypeLabel",
+      "stringDesc": "holdTypeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "holdOption",
+          "value": "hold"
+        },
+        {
+          "string": "skipOption",
+          "value": "skip"
+        },
+        {
+          "label": "Disabled",
+          "fixedText": true,
+          "value": "disabled"
+        }
+      ],
+      "setting": "holdType",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "string": "lockdownModeLabel",
+      "stringDesc": "lockdownModeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "label": "Zen",
+          "fixedText": true,
+          "value": "zen"
+        },
+        {
+          "string": "infinityLdOption",
+          "value": "infinity"
+        },
+        {
+          "string": "extendedLdOption",
+          "value": "extended"
+        },
+        {
+          "string": "classicLdOption",
+          "value": "classic"
+        }
+      ],
+      "setting": "lockdownMode",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "string": "matrixWidthLabel",
+      "stringDesc": "matrixWidthDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 10,
+      "min": 4,
+      "discrete": 1,
+      "setting": "matrixWidth",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "label": "Garbage Cap",
+      "description": "Limit how many broken lines (lines of garbage) may enter the Matrix at a time",
+      "fixedText": true,
+      "type": "slider",
+      "action": "slider",
+      "max": 40,
+      "min": 1,
+      "discrete": 1,
+      "setting": "brokenLineLimit",
+      "settingType": "setting"
+    },
+    {
+      "label": "Extra Lives",
+      "description": "Give yourself extra lives to help with skill issues",
+      "fixedText": true,
+      "type": "slider",
+      "action": "slider",
+      "max": 99,
+      "min": 0,
+      "discrete": 1,
+      "setting": "lifeCount",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "label": "Invisible Matrix",
+      "description": "Determines whether or not you can see pieces after placement.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "invisible",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "label": "Custom Board",
+      "description": "When enabled, a prompt will open upon starting, which asks you to import a custom board string. Custom board strings can be made with the board editor. Only tested on a default-sized board.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "customBoard",
+      "gameName": "zen",
+      "settingType": "game"
+    }
+  ]
+}

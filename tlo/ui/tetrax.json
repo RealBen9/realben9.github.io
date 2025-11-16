@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menutetrax"
+  },
+  "data": [
+    {
+      "string": "tetraxLabel",
+      "langOverride": "menu_root",
+      "type": "header"
+    },
+    {
+      "string": "standardLabel",
+      "stringDesc": "standardDescription",
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/standardx"
+    },
+    {
+      "string": "proLabel",
+      "stringDesc": "proDescription",
+      "action": "submenu",
+      "submenu": "mode/prox"
+    },
+    {
+      "fixedText": true,
+      "label": "Death",
+      "description": "Clear 320 lines with gradually reduced next & lock delay",
+      "action": "submenu",
+      "submenu": "mode/death"
+    },
+    {
+      "string": "nightOfNightsXLabel",
+      "stringDesc": "nightOfNightsXDescription",
+      "action": "submenu",
+      "submenu": "mode/nontwo"
+    }
+  ]
+}

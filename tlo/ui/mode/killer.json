@@ -1,0 +1,60 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "langOverride": "mode-options",
+    "game": "killer",
+    "pgmusic": "pg-sprint"
+  },
+  "data": [
+    {
+      "label": "Killer",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 49,
+      "min": 0,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "killer",
+      "settingType": "game"
+    },
+    {
+      "string": "lockdownModeLabel",
+      "stringDesc": "lockdownModeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "infinityLdOption",
+          "value": "infinity"
+        },
+        {
+          "string": "extendedLdOption",
+          "value": "extended"
+        },
+        {
+          "string": "classicLdOption",
+          "value": "classic"
+        }
+      ],
+      "setting": "lockdownMode",
+      "gameName": "killer",
+      "settingType": "game"
+    },
+    {
+      "label": "Hold",
+      "description": "Determines whether or not you can hold a piece.",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "hold",
+      "gameName": "killer",
+      "settingType": "game"
+    }
+  ]
+}

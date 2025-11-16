@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "parent": "tetrax",
+    "langOverride": "mode-options",
+    "game": "death",
+    "pgmusic": "pg-master"
+  },
+  "data": [
+    {
+      "label": "Death",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "string": "startingLevelLabel",
+      "stringDesc": "startingLevelDescription",
+      "type": "slider",
+      "action": "slider",
+      "max": 31,
+      "min": 1,
+      "discrete": 1,
+      "setting": "startingLevel",
+      "gameName": "death",
+      "settingType": "game"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+<title>8 - Puzzle Room</title>
+<head><link rel="icon" type="image/x-icon" href="../img/favicon.ico"><link rel="stylesheet" type="text/css" href="../style.css"></head>
+<script src="../index.js"></script>
+<div id="snow">
+<p>Congrats on being able to infer (or button mash), selectively roll & intuitively solve trick questions.</p>
+<p>Your Prize : Some colourful puzzles. Don't worry, I'll make sure that they're colourblindness compatible.</p>
+<p>For example, press the buttons in the following order : Blue, Green, Yellow, White, Magenta, Red, Orange, blacK</p>
+<button onclick="white()">W</button><button onclick="yellow()">Y</button><button onclick="blue()">B</button><button onclick="magenta()">M</button><button onclick="black()">K</button><button onclick="red()">R</button><button onclick="orange()">O</button><button onclick="green()">G</button>
+<h1 id="puzzle">8</h1>
+</div>
+<script>
+var stage = 0
+function blue() {
+    if (stage == 0) {stage++}
+    else {stage = 0}
+}
+function green() {
+    if (stage == 1) {stage++}
+    else {stage = 0}
+}
+function yellow() {
+    if (stage == 2) {stage++}
+    else {stage = 0}
+}
+function white() {
+    if (stage == 3) {stage++}
+    else {stage = 0}
+}
+function magenta() {
+    if (stage == 4) {stage++}
+    else {stage = 0}
+}
+function red() {
+    if (stage == 5) {stage++}
+    else {stage = 0}
+}
+function orange() {
+    if (stage == 6) {stage++}
+    else {stage = 0}
+}
+function black() {
+    if (stage == 7) {window.location.replace('colours.html')}
+    else {stage = 0}
+}
+</script>

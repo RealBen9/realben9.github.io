@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "width": 10,
+    "height": 20,
+    "hiddenHeight": 20,
+    "pieces": "standard",
+    "unfavored": null,
+    "randomizer": "bag",
+    "rotationSystem": "srs",
+    "skin": "srsx",
+    "soundbank": "standard",
+    "music": ["../marathon/marathon", "../marathon/marathon-2"],
+    "musicLinePoints": [250],
+    "hasDangerBgm": true,
+    "scoreTable": "guideline",
+    "background": "marathon.jpg",
+    "isHardMode": true
+  },
+  "piece": {
+    "areLimit": 100,
+    "areLineLimit": 166.666666667,
+    "areLimitLineModifier": 166.666666667,
+    "spinDetectionType": "3corner"
+  },
+  "next": {
+    "nextLimit": 4
+  },
+  "stats": ["score", "level", "fallspeed", "line", "piece", "b2b"]
+}
